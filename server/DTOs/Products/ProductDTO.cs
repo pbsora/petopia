@@ -1,9 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace server.Model
+namespace server.DTOs.Products
 {
-    public class Product
+    public class ProductDTO
     {
         public int ProductId { get; set; }
 
@@ -16,9 +19,5 @@ namespace server.Model
 
         [MaxLength(250)]
         public string Description { get; set; } = string.Empty;
-
-        [Required]
-        public int CategoryId { get; set; }
-        public Category Category { get; set; } = null!;
     }
 }

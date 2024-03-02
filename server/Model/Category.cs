@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.Model
 {
@@ -7,6 +8,6 @@ namespace server.Model
         [Key]
         public int CategoryId { get; set; }
         public string Name { get; set; } = string.Empty;
-        ICollection<Product> Products { get; set; } = new List<Product>();
+        public ICollection<Product>? Products { get; set; }
     }
 }

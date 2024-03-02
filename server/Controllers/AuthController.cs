@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,6 +57,18 @@ namespace server.Controllers
                     Token = _tokenService.CreateToken(user)
                 }
             );
+        }
+
+        [HttpGet("current")]
+        public ActionResult<string> GetAsync()
+        {
+            var userInfo = new
+            {
+                Username = User.FindFirst(ClaimTypes.GivenName)?.Value,
+                Email = User.FindFirst(ClaimTypes.Email)?.Value
+            };
+
+            return Ok(userInfo);
         }
 
         [HttpPost("register")]

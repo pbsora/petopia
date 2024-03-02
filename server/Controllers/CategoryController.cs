@@ -1,18 +1,23 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using server.DTOs.Categories;
 using server.Model;
 using server.Repositories.CategoryRepo;
 
 namespace server.Controllers
 {
     [ApiController]
-    [Route("api/category")]
+    [Route("api/categories")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryRepository repository)
+        public CategoryController(ICategoryRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -20,7 +25,7 @@ namespace server.Controllers
         {
             var categories = await _repository.GetCategories();
 
-            if (categories == null)
+            if (categories.Count() == 0)
                 return NotFound("No categories found");
 
             return Ok(categories);
@@ -38,12 +43,14 @@ namespace server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] Category category)
+        public async Task<IActionResult> PostAsync([FromBody] NewCategoryDTO category)
         {
             if (category.Name == null)
                 return BadRequest("Category name is required");
 
-            var createdCategory = await _repository.CreateCategory(category);
+            var newCategory = _mapper.Map<Category>(category);
+
+            var createdCategory = await _repository.CreateCategory(newCategory);
 
             return CreatedAtRoute(
                 nameof(GetCategoryByIdAsync),

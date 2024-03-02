@@ -15,7 +15,7 @@ namespace server.Repositories.CategoryRepo
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            var categories = await _context.Categories.ToListAsync();
+            var categories = await _context.Categories.Include(c => c.Products).ToListAsync();
             return categories;
         }
 

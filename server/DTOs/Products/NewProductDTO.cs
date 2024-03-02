@@ -1,12 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace server.Model
+namespace server.DTOs.Products
 {
-    public class Product
+    public class NewProductDTO
     {
-        public int ProductId { get; set; }
-
         [Required]
         [MinLength(3)]
         public string Name { get; set; } = string.Empty;
@@ -19,6 +16,5 @@ namespace server.Model
 
         [Required]
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = null!;
     }
 }

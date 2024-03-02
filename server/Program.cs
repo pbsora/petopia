@@ -5,15 +5,31 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Data;
+using server.DTOs.Categories;
+using server.DTOs.Products;
+using server.DTOs.User;
+using server.ErrorHandler;
 using server.Model;
 using server.Repositories.CategoryRepo;
+using server.Repositories.ProductRepo;
 using server.Services.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder
+    .Services.AddControllers(options =>
+    {
+        options.Filters.Add(typeof(ApiExceptionFilter));
+    })
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft
+            .Json
+            .ReferenceLoopHandling
+            .Ignore;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -29,7 +45,7 @@ builder.Services.AddSwaggerGen(c =>
             Scheme = "Bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description = "Bearer JWT ",
+            Description = "Bearer JWT",
         }
     );
     c.AddSecurityRequirement(
@@ -98,10 +114,13 @@ builder
         };
     });
 
-// builder.Services.AddAutoMapper(typeof(UserDTOMapping));
+builder.Services.AddAutoMapper(typeof(UserDTOMappingProfile));
+builder.Services.AddAutoMapper(typeof(ProductDTOMappingProfile));
+builder.Services.AddAutoMapper(typeof(CategoryDTOMappingProfile));
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

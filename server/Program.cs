@@ -31,6 +31,20 @@ builder
             .Ignore;
     });
 
+builder.Services.AddCors(options =>
+    options.AddPolicy(
+        name: "MyPolicy",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:5174")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    )
+);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -132,6 +146,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("MyPolicy");
 
 app.UseAuthentication();
 

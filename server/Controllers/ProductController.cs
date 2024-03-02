@@ -23,6 +23,7 @@ namespace server.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAsync(
             [FromQuery] ProductsParams productsParams

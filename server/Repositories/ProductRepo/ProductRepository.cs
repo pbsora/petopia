@@ -19,7 +19,9 @@ namespace server.Repositories.ProductRepo
         {
             var products = _context.Products.OrderBy(p => p.Name).AsQueryable();
             if (!string.IsNullOrEmpty(productsParams.Name))
-                products = products.Where(p => p.Name.Contains(productsParams.Name));
+                products = products.Where(p =>
+                    p.Name.ToLower().Contains(productsParams.Name.ToLower())
+                );
 
             if (!string.IsNullOrEmpty(productsParams.PriceCriteria) && productsParams.Price > 0)
             {

@@ -1,5 +1,10 @@
-/* type Props = {} */
-const Home = (/* props: Props */) => {
-  return <div>Home</div>;
+import Navbar from "@/components/Navbar/Navbar";
+
+const Home = () => {
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 export default Home;

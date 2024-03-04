@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using server.DTOs.Categories;
 using server.Model;
 
 namespace server.DTOs.Products
 {
-    public class ProductDTO
+    public class ProductUpdateDTO
     {
         public int ProductId { get; set; }
 
@@ -22,6 +21,6 @@ namespace server.DTOs.Products
         [MaxLength(250)]
         public string Description { get; set; } = string.Empty;
 
-        public CategoryProductDTO Category { get; set; } = null!;
+        public int CategoryId { get; set; }
     }
 }

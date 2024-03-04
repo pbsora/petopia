@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
+using server.DTOs.Categories;
+using server.DTOs.Products;
 using server.Model;
 using server.Pagination.QueryParams;
 using X.PagedList;
@@ -15,14 +17,41 @@ namespace server.Repositories.ProductRepo
             _context = context;
         }
 
-        public async Task<IPagedList<Product>> GetProducts(ProductsParams productsParams)
+        public async Task<IPagedList<ProductDTO>> GetProducts(ProductsParams productsParams)
         {
-            var products = _context.Products.OrderBy(p => p.Name).AsQueryable();
+            var products = _context
+                .Products.OrderBy(p => p.Name)
+                .Select(p => new ProductDTO
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Stock = p.Stock,
+                    Description = p.Description,
+                    Image = p.Image,
+                    Category = new CategoryProductDTO
+                    {
+                        CategoryId = p.Category.CategoryId,
+                        Name = p.Category.Name
+                    }
+                })
+                .AsQueryable();
+
+            //Filter by name
             if (!string.IsNullOrEmpty(productsParams.Name))
                 products = products.Where(p =>
                     p.Name.ToLower().Contains(productsParams.Name.ToLower())
                 );
 
+            //Filter by category
+            if (!string.IsNullOrEmpty(productsParams.Category))
+            {
+                products = products.Where(p =>
+                    p.Category.Name!.ToLower().Contains(productsParams.Category.ToLower())
+                );
+            }
+
+            //Filter by price
             if (!string.IsNullOrEmpty(productsParams.PriceCriteria) && productsParams.Price > 0)
             {
                 if (productsParams.PriceCriteria == "gt")
@@ -39,10 +68,23 @@ namespace server.Repositories.ProductRepo
             return filteredProducts;
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<ProductDTO> GetProductById(int id)
         {
             var product = await _context
-                .Products.Include(p => p.Category)
+                .Products.Select(p => new ProductDTO
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Stock = p.Stock,
+                    Price = p.Price,
+                    Image = p.Image,
+                    Description = p.Description,
+                    Category = new CategoryProductDTO
+                    {
+                        CategoryId = p.Category.CategoryId,
+                        Name = p.Category.Name
+                    }
+                })
                 .FirstOrDefaultAsync(p => p.ProductId == id);
 
             if (product == null)

@@ -9,6 +9,7 @@ namespace server.DTOs.Products
         {
             CreateMap<Product, NewProductDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
+            CreateMap<Product, ProductUpdateDTO>().ReverseMap();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,8 @@ namespace server.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAsync(
+        public async Task<ActionResult<IPagedList<ProductDTO>>> GetAsync(
             [FromQuery] ProductsParams productsParams
         )
         {
@@ -64,7 +64,7 @@ namespace server.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutAsync(int id, [FromBody] ProductDTO productDTO)
+        public IActionResult PutAsync(int id, [FromBody] ProductUpdateDTO productDTO)
         {
             if (id != productDTO.ProductId)
                 return BadRequest("Product ID mismatch");
@@ -72,7 +72,7 @@ namespace server.Controllers
             var product = _mapper.Map<Product>(productDTO);
             var UpdatedProduct = _repository.UpdateProduct(product);
 
-            return Ok(_mapper.Map<ProductDTO>(UpdatedProduct));
+            return Ok(_mapper.Map<ProductUpdateDTO>(UpdatedProduct));
         }
 
         [Authorize]
@@ -84,13 +84,15 @@ namespace server.Controllers
             if (product is null)
                 return NotFound("Product not found");
 
-            _repository.DeleteProduct(product);
+            var productToDelete = _mapper.Map<Product>(product);
 
-            return Ok(product);
+            _repository.DeleteProduct(productToDelete);
+
+            return Ok(productToDelete);
         }
 
-        private ActionResult<IEnumerable<ProductDTO>> GetPaginatedProducts(
-            IPagedList<Product> products
+        private ActionResult<IPagedList<ProductDTO>> GetPaginatedProducts(
+            IPagedList<ProductDTO> products
         )
         {
             var metadata = new
@@ -104,7 +106,7 @@ namespace server.Controllers
             };
 
             Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
-            return Ok(_mapper.Map<IEnumerable<ProductDTO>>(products));
+            return Ok(products);
         }
     }
 }

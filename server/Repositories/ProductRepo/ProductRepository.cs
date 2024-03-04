@@ -52,11 +52,11 @@ namespace server.Repositories.ProductRepo
             }
 
             //Filter by price
-            if (!string.IsNullOrEmpty(productsParams.PriceCriteria) && productsParams.Price > 0)
+            if (!string.IsNullOrEmpty(productsParams.Criteria) && productsParams.Price > 0)
             {
-                if (productsParams.PriceCriteria == "gt")
+                if (productsParams.Criteria == "gt")
                     products = products.Where(p => p.Price > productsParams.Price);
-                else if (productsParams.PriceCriteria == "lt")
+                else if (productsParams.Criteria == "lt")
                     products = products.Where(p => p.Price < productsParams.Price);
             }
 

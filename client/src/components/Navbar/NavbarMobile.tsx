@@ -2,12 +2,17 @@ import { IoMdMenu } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa";
 import { CiHeart, CiSearch } from "react-icons/ci";
 import { IoBagOutline } from "react-icons/io5";
-const NavbarMobile = () => {
+
+type Props = {
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const NavbarMobile = ({ setIsOpen }: Props) => {
   return (
     <>
       <div className="flex justify-between px-4 py-4 text-3xl text-zinc-600">
         <div className="flex items-center gap-3">
-          <IoMdMenu />
+          <IoMdMenu onClick={() => setIsOpen(true)} />
           <FaRegUser />
         </div>
         <div>PETZ</div>

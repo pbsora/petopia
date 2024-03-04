@@ -2,17 +2,31 @@ import { IoMdClose } from "react-icons/io";
 import { FaRegUser, FaCat } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuDog, LuFish, LuBird } from "react-icons/lu";
+import { useEffect } from "react";
 
-const Sidebar = () => {
+type Props = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Sidebar = ({ isOpen, setIsOpen }: Props) => {
+  useEffect(() => {
+    console.log(window.innerWidth);
+  });
+
   return (
-    <div className="absolute top-0 w-3/4 h-screen bg-white border rounded-r-3xl border-zinc-400">
+    <div
+      className={`absolute z-50 top-0 w-3/4 h-screen bg-white border rounded-r-3xl border-zinc-400 ease-in-out duration-300 ${
+        isOpen ? "-translate-x-[0rem]" : "-translate-x-[100rem]"
+      }`}
+    >
       <div className="flex justify-between px-6 py-6 text-2xl ">
         <h2 className="flex items-center gap-2 font-madimi">
           <FaRegUser />
           Hello, Sora
         </h2>
         <div className="flex items-center">
-          <IoMdClose />
+          <IoMdClose onClick={() => setIsOpen(false)} />
         </div>
       </div>
       <div className="max-h-[90%] overflow-y-scroll">

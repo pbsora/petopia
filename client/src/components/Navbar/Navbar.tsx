@@ -6,10 +6,8 @@ import Sidebar from "./Sidebar";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log(isOpen);
-
   return (
-    <nav className="w-full border-b shadow-md border-zinc-200">
+    <nav className="w-screen border-b shadow-md border-zinc-200">
       <div className="hidden md:block">
         <NavbarDesktop />
       </div>

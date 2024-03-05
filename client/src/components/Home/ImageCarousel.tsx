@@ -2,8 +2,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
@@ -13,6 +11,7 @@ const ImageCarousel = () => {
   const [isWide, setIsWide] = useState<boolean>(window.innerWidth > 768);
 
   const handleScreenSize = debounce(() => {
+    ("");
     if (window.innerWidth > 768) {
       setIsWide(true);
     } else {
@@ -28,10 +27,8 @@ const ImageCarousel = () => {
     };
   }, [handleScreenSize]);
 
-  console.log(isWide);
-
   return (
-    <div className="mt-2 cursor-pointer md:mt-6">
+    <div className="w-screen mt-2 cursor-pointer md:mt-6">
       <Carousel
         opts={{
           align: "center",
@@ -39,7 +36,7 @@ const ImageCarousel = () => {
         }}
         plugins={[
           Autoplay({
-            delay: 5000,
+            delay: 500000, //
           }),
         ]}
       >
@@ -68,7 +65,7 @@ const ImageCarousel = () => {
               />
             ) : (
               <img
-                src="https://images.petz.com.br/fotos/Home_SuperApp_656x572_BrinquedosCaes_Refresh.jpg"
+                src="https://images.petz.com.br/fotos/Home_SAPP_MesConsumidor_Genericas.jpg"
                 alt=""
                 className="rounded-xl"
               />
@@ -83,15 +80,13 @@ const ImageCarousel = () => {
               />
             ) : (
               <img
-                src="https://images.petz.com.br/fotos/Home_SuperApp_656x572_BrinquedosCaes_Refresh.jpg"
+                src="https://images.petz.com.br/fotos/Home_SAPP_656x572_MesDoConsumidor_Medicamento15OFF.jpg"
                 alt=""
                 className="rounded-xl"
               />
             )}
           </CarouselItem>
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
       </Carousel>
     </div>
   );

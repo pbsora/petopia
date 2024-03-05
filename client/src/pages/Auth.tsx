@@ -15,13 +15,19 @@ const Auth = (/* props: Props */) => {
   }, []);
 
   const getProducts = async () => {
-    const { data } = await API.get("products");
+    const { data } = await API.get(
+      "products?Category=cats&Price=60&criteria=lt"
+    );
     console.log(data);
   };
 
   return (
     <div>
       <button onClick={getProducts}>Click me</button>
+      <img
+        src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1709572775/ewtkq6xwmasni3ihc8jo.jpg"
+        alt=""
+      />
     </div>
   );
 };

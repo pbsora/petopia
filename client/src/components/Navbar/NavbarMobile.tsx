@@ -18,7 +18,7 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState<string | null>(searchParams.get("name"));
+  const [search, setSearch] = useState<string>(searchParams.get("name") || "");
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

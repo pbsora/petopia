@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="w-screen border-b shadow-md border-zinc-200">
+    <nav className="w-screen border-b shadow-md border-zinc-200 dark:border-zinc-500">
       <div className="hidden md:block">
         <NavbarDesktop />
       </div>

@@ -13,7 +13,7 @@ const DogsDropdown = () => {
         </span>
         Dogs
       </Link>
-      <div className="absolute flex flex-col gap-3 px-3 py-3 text-lg duration-200 origin-top scale-0 -translate-x-8 translate-y-1 bg-white border group-hover:scale-100 rounded-xl">
+      <div className="absolute flex flex-col gap-3 px-3 py-3 text-lg duration-200 origin-top scale-0 -translate-x-8 translate-y-1 border dark:border-zinc-300 bg-background group-hover:scale-100 rounded-xl">
         <section className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100">
           <Link to={"/dogs"} className="">
             Dry & Wet Food

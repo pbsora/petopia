@@ -19,6 +19,7 @@ module.exports = {
     extend: {
       fontFamily: {
         madimi: ["Madimi One", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

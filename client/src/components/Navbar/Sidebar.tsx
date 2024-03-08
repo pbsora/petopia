@@ -1,7 +1,8 @@
 import { IoMdClose } from "react-icons/io";
-import { FaRegUser, FaCat } from "react-icons/fa";
+import { FaRegUser, FaCat, FaSun, FaRegMoon } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuDog, LuFish, LuBird } from "react-icons/lu";
+import { useTheme } from "@/components/theme-provider";
 
 type Props = {
   isOpen: boolean;
@@ -9,10 +10,12 @@ type Props = {
 };
 
 const Sidebar = ({ isOpen, setIsOpen }: Props) => {
+  const { setTheme } = useTheme();
+  const currTheme = localStorage.getItem("ui-theme");
   return (
     <div
-      className={`absolute z-50 top-0 w-3/4 h-screen bg-white border rounded-r-3xl border-zinc-400 ease-in-out duration-200 overflow-hidden ${
-        isOpen ? "-translate-x-[0rem]" : "-translate-x-[20rem]"
+      className={`absolute z-50 top-0 w-3/4 h-screen bg-background border rounded-r-3xl border-zinc-400 ease-in-out duration-200 overflow-hidden ${
+        isOpen ? "-translate-x-[0rem]" : "-translate-x-[50rem]"
       }`}
     >
       <div className="flex justify-between px-6 py-6 text-2xl ">
@@ -24,6 +27,14 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           <IoMdClose onClick={() => setIsOpen(false)} />
         </div>
       </div>
+      <button className="flex items-center gap-3 py-3 pl-3 text-xl">
+        {currTheme === "dark" ? (
+          <FaSun onClick={() => setTheme("light")} />
+        ) : (
+          <FaRegMoon onClick={() => setTheme("dark")} />
+        )}
+        {currTheme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode"}
+      </button>
       <div className="max-h-[90%] overflow-y-scroll">
         <section className="flex flex-col gap-1">
           <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi">

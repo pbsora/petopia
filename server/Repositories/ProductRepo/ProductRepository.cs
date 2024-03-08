@@ -33,7 +33,8 @@ namespace server.Repositories.ProductRepo
                     {
                         CategoryId = p.Category.CategoryId,
                         Name = p.Category.Name
-                    }
+                    },
+                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
                 .AsQueryable();
 
@@ -48,6 +49,14 @@ namespace server.Repositories.ProductRepo
             {
                 products = products.Where(p =>
                     p.Category.Name!.ToLower().Contains(productsParams.Category.ToLower())
+                );
+            }
+
+            //Filter by pet Type
+            if (!string.IsNullOrEmpty(productsParams.Pet))
+            {
+                products = products.Where(p =>
+                    p.Pet.Name!.ToLower().Contains(productsParams.Pet.ToLower())
                 );
             }
 
@@ -83,7 +92,8 @@ namespace server.Repositories.ProductRepo
                     {
                         CategoryId = p.Category.CategoryId,
                         Name = p.Category.Name
-                    }
+                    },
+                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
                 .FirstOrDefaultAsync(p => p.ProductId == id);
 

@@ -23,5 +23,6 @@ namespace server.DTOs.Products
         public string Description { get; set; } = string.Empty;
 
         public CategoryProductDTO Category { get; set; } = null!;
+        public PetType Pet { get; set; } = null!;
     }
 }

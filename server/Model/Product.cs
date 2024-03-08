@@ -20,5 +20,9 @@ namespace server.Model
         [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
+
+        [Required]
+        public int PetId { get; set; }
+        public PetType Pet { get; set; } = null!;
     }
 }

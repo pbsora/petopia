@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240308132044_PetType")]
+    partial class PetType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "16c91a07-666a-4fe7-8ad2-2255aa601b9e",
+                            Id = "7faf4e78-dbc6-4bcc-82a7-c8657e8ceeae",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1945643d-feb0-452e-a95c-bfddfcee9a08",
+                            Id = "42099a87-4769-4c0a-b0af-d6d3c8d1c6a3",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -289,9 +292,6 @@ namespace server.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("PetId")
-                        .HasColumnType("integer");
 
                     b.Property<double>("Price")
                         .HasColumnType("double precision");

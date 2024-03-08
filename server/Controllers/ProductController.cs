@@ -102,7 +102,8 @@ namespace server.Controllers
                 products.PageCount,
                 products.TotalItemCount,
                 products.HasNextPage,
-                products.HasPreviousPage
+                products.HasPreviousPage,
+                products.PageNumber
             };
 
             Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));

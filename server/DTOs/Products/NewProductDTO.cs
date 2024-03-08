@@ -16,5 +16,8 @@ namespace server.DTOs.Products
 
         [Required]
         public int CategoryId { get; set; }
+
+        [Required]
+        public int PetId { get; set; }
     }
 }

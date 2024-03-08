@@ -11,6 +11,7 @@ using server.DTOs.User;
 using server.ErrorHandler;
 using server.Model;
 using server.Repositories.CategoryRepo;
+using server.Repositories.PetTypeRepo;
 using server.Repositories.ProductRepo;
 using server.Services.Token;
 
@@ -40,7 +41,8 @@ builder.Services.AddCors(options =>
                 .WithOrigins("http://localhost:5173")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
-                .AllowCredentials();
+                .AllowCredentials()
+                .WithExposedHeaders("X-pagination");
         }
     )
 );
@@ -135,6 +137,7 @@ builder.Services.AddAutoMapper(typeof(CategoryDTOMappingProfile));
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IPetTypeRepository, PetTypeRepository>();
 
 var app = builder.Build();
 

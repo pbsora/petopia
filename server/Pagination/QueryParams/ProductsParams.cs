@@ -6,5 +6,6 @@ namespace server.Pagination.QueryParams
         public double Price { get; set; }
         public string? Criteria { get; set; } // "gt" or "lt"
         public string? Category { get; set; }
+        public string? Pet { get; set; }
     }
 }

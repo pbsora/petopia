@@ -59,6 +59,7 @@ namespace server.Controllers
             );
         }
 
+        [Authorize]
         [HttpPut("{id:int}")]
         public IActionResult PutAsync(int id, [FromBody] Category category)
         {
@@ -70,6 +71,7 @@ namespace server.Controllers
             return Ok(category);
         }
 
+        [Authorize]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

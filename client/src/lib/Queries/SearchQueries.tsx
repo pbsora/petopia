@@ -1,7 +1,7 @@
 import API from "@/utils/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const useSearchProducts = (name: string) => {
+export const useSearchProducts = (searchParams: string) => {
   return useInfiniteQuery({
     initialPageParam: 1,
     queryKey: ["searchProducts"],
@@ -14,7 +14,7 @@ export const useSearchProducts = (name: string) => {
     },
     queryFn: async ({ pageParam = 1 }) => {
       const { data, headers } = await API.get(
-        `products?Name=${name}&PageNumber=${pageParam}&PageSize=3`
+        `products?${searchParams}&PageNumber=${pageParam}&PageSize=3`
       );
 
       return {

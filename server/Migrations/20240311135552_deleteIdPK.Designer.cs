@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240311135552_deleteIdPK")]
+    partial class deleteIdPK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2a1c9938-2734-4c1d-902b-50665ee7c7bf",
+                            Id = "9b546d27-f456-4291-b22b-2d95e15ddbf8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f92265fe-7293-45ba-805d-e0b00c9da99b",
+                            Id = "f0e69f52-95f9-40cd-a904-e226c0347a6e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -247,58 +250,6 @@ namespace server.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 2,
-                            Name = "bowls"
-                        },
-                        new
-                        {
-                            CategoryId = 1,
-                            Name = "food"
-                        },
-                        new
-                        {
-                            CategoryId = 3,
-                            Name = "toys"
-                        },
-                        new
-                        {
-                            CategoryId = 4,
-                            Name = "beds"
-                        },
-                        new
-                        {
-                            CategoryId = 5,
-                            Name = "litter"
-                        },
-                        new
-                        {
-                            CategoryId = 6,
-                            Name = "feeders"
-                        },
-                        new
-                        {
-                            CategoryId = 7,
-                            Name = "tanks"
-                        },
-                        new
-                        {
-                            CategoryId = 8,
-                            Name = "filters"
-                        },
-                        new
-                        {
-                            CategoryId = 9,
-                            Name = "grooming"
-                        },
-                        new
-                        {
-                            CategoryId = 10,
-                            Name = "accessories"
-                        });
                 });
 
             modelBuilder.Entity("server.Model.PetType", b =>
@@ -316,28 +267,6 @@ namespace server.Migrations
                     b.HasKey("PetTypeId");
 
                     b.ToTable("PetTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            PetTypeId = 1,
-                            Name = "Dog"
-                        },
-                        new
-                        {
-                            PetTypeId = 2,
-                            Name = "Cat"
-                        },
-                        new
-                        {
-                            PetTypeId = 3,
-                            Name = "Fish"
-                        },
-                        new
-                        {
-                            PetTypeId = 4,
-                            Name = "Bird"
-                        });
                 });
 
             modelBuilder.Entity("server.Model.Product", b =>
@@ -360,17 +289,13 @@ namespace server.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("character varying(80)");
+                        .HasColumnType("text");
 
                     b.Property<int>("PetId")
                         .HasColumnType("integer");
 
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
-
-                    b.Property<string>("Slug")
-                        .HasColumnType("text");
 
                     b.Property<int>("Stock")
                         .HasColumnType("integer");

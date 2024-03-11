@@ -8,7 +8,8 @@ namespace server.Repositories.ProductRepo
     public interface IProductRepository
     {
         Task<IPagedList<ProductDTO>> GetProducts(ProductsParams productsParams);
-        Task<ProductDTO> GetProductById(int id);
+        Task<Product> GetProductById(string id);
+        Task<ProductDTO> GetProductBySlug(string slug);
         Task<Product> CreateProduct(Product product);
         Product UpdateProduct(Product product);
         Product DeleteProduct(Product product);

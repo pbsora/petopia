@@ -7,6 +7,7 @@ using server.DTOs.Products;
 using server.Model;
 using server.Pagination.QueryParams;
 using server.Repositories.ProductRepo;
+using Slugify;
 using X.PagedList;
 
 namespace server.Controllers
@@ -36,12 +37,23 @@ namespace server.Controllers
             return GetPaginatedProducts(products);
         }
 
-        [HttpGet("{id}", Name = "GetProductByIdAsync")]
-        public async Task<ActionResult<Product>> GetProductByIdAsync(int id)
+        [HttpGet("{id:int}", Name = "GetProductByIdAsync")]
+        public async Task<ActionResult<Product>> GetProductByIdAsync(string id)
         {
             var product = await _repository.GetProductById(id);
             if (product is null)
                 return NotFound("Product not found");
+            return Ok(product);
+        }
+
+        [HttpGet("{slug}")]
+        public async Task<ActionResult<ProductDTO>> GetProductBySlugAsync(string slug)
+        {
+            var product = await _repository.GetProductBySlug(slug);
+
+            if (product == null)
+                return BadRequest("Product not found");
+
             return Ok(product);
         }
 
@@ -58,7 +70,7 @@ namespace server.Controllers
 
             return CreatedAtRoute(
                 nameof(GetProductByIdAsync),
-                new { id = createdProduct.ProductId },
+                new { id = createdProduct.ProductsId },
                 createdProductDTO
             );
         }
@@ -75,20 +87,17 @@ namespace server.Controllers
             return Ok(_mapper.Map<ProductUpdateDTO>(UpdatedProduct));
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteAsync(string id)
         {
             var product = await _repository.GetProductById(id);
 
             if (product is null)
                 return NotFound("Product not found");
 
-            var productToDelete = _mapper.Map<Product>(product);
+            _repository.DeleteProduct(product);
 
-            _repository.DeleteProduct(productToDelete);
-
-            return Ok(productToDelete);
+            return Ok(product);
         }
 
         private ActionResult<IPagedList<ProductDTO>> GetPaginatedProducts(

@@ -5,10 +5,12 @@ namespace server.Model
 {
     public class Product
     {
-        public int ProductId { get; set; }
+        [Key]
+        public Guid ProductsId { get; set; } = Guid.NewGuid();
 
         [Required]
         [MinLength(3)]
+        [MaxLength(80)]
         public string Name { get; set; } = string.Empty;
         public int Stock { get; set; } = 0;
         public double Price { get; set; } = 0.0;
@@ -16,6 +18,7 @@ namespace server.Model
 
         [MaxLength(250)]
         public string Description { get; set; } = string.Empty;
+        public string? Slug { get; set; }
 
         [Required]
         public int CategoryId { get; set; }
@@ -23,6 +26,7 @@ namespace server.Model
 
         [Required]
         public int PetId { get; set; }
+
         public PetType Pet { get; set; } = null!;
     }
 }

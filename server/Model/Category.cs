@@ -5,17 +5,11 @@ using server.DTOs.Categories;
 
 namespace server.Model
 {
+    [Table("Categories")]
     public class Category
     {
         [Key]
         public int CategoryId { get; set; }
         public string Name { get; set; } = string.Empty;
-
-        public ICollection<Product>? Products { get; set; }
-
-        public static implicit operator Category(CategoryProductDTO v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

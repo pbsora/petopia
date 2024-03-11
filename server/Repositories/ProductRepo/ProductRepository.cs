@@ -4,6 +4,7 @@ using server.DTOs.Categories;
 using server.DTOs.Products;
 using server.Model;
 using server.Pagination.QueryParams;
+using Slugify;
 using X.PagedList;
 
 namespace server.Repositories.ProductRepo
@@ -23,12 +24,13 @@ namespace server.Repositories.ProductRepo
                 .Products.OrderBy(p => p.Name)
                 .Select(p => new ProductDTO
                 {
-                    ProductId = p.ProductId,
+                    ProductsId = p.ProductsId,
                     Name = p.Name,
                     Price = p.Price,
                     Stock = p.Stock,
                     Description = p.Description,
                     Image = p.Image,
+                    Slug = p.Slug,
                     Category = new CategoryProductDTO
                     {
                         CategoryId = p.Category.CategoryId,
@@ -77,17 +79,50 @@ namespace server.Repositories.ProductRepo
             return filteredProducts;
         }
 
-        public async Task<ProductDTO> GetProductById(int id)
+        public async Task<Product> GetProductById(string id)
         {
+            var product = await _context
+                .Products.Select(p => new Product
+                {
+                    ProductsId = p.ProductsId,
+                    Name = p.Name,
+                    Stock = p.Stock,
+                    Price = p.Price,
+                    Image = p.Image,
+                    Slug = p.Slug,
+                    Description = p.Description,
+                    Category = new Category
+                    {
+                        CategoryId = p.Category.CategoryId,
+                        Name = p.Category.Name
+                    },
+                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
+                })
+                .FirstOrDefaultAsync(p => p.ProductsId == Guid.Parse(id));
+
+            if (product == null)
+                throw new Exception("No product found");
+
+            return product;
+        }
+
+        public async Task<ProductDTO> GetProductBySlug(string slug)
+        {
+            if (string.IsNullOrEmpty(slug))
+            {
+                throw new Exception("Slug is required");
+            }
+
             var product = await _context
                 .Products.Select(p => new ProductDTO
                 {
-                    ProductId = p.ProductId,
+                    ProductsId = p.ProductsId,
                     Name = p.Name,
                     Stock = p.Stock,
                     Price = p.Price,
                     Image = p.Image,
                     Description = p.Description,
+                    Slug = p.Slug,
                     Category = new CategoryProductDTO
                     {
                         CategoryId = p.Category.CategoryId,
@@ -95,7 +130,7 @@ namespace server.Repositories.ProductRepo
                     },
                     Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
-                .FirstOrDefaultAsync(p => p.ProductId == id);
+                .FirstOrDefaultAsync(p => p.Slug == slug);
 
             if (product == null)
                 throw new Exception("No product found");
@@ -105,9 +140,30 @@ namespace server.Repositories.ProductRepo
 
         public async Task<Product> CreateProduct(Product product)
         {
-            var createdProduct = await _context.Products.AddAsync(product);
+            var productExists = await _context.Products.AnyAsync(p =>
+                p.Name.ToLower() == product.Name.ToLower()
+            );
+
+            if (productExists)
+                throw new Exception("Product already exists");
+
+            SlugHelper slug = new();
+
+            var productToCreate = new Product
+            {
+                Name = product.Name,
+                Stock = product.Stock,
+                Price = product.Price,
+                Image = product.Image,
+                Description = product.Description,
+                CategoryId = product.CategoryId,
+                PetId = product.PetId,
+                Slug = slug.GenerateSlug(product.Name)
+            };
+
+            await _context.Products.AddAsync(productToCreate);
             await _context.SaveChangesAsync();
-            return createdProduct.Entity;
+            return productToCreate;
         }
 
         public Product UpdateProduct(Product product)

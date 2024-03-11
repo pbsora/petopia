@@ -10,7 +10,8 @@ namespace server.DTOs.Products
 {
     public class ProductDTO
     {
-        public int ProductId { get; set; }
+        [Key]
+        public Guid ProductsId { get; set; } = Guid.NewGuid();
 
         [Required]
         [MinLength(3)]
@@ -21,8 +22,10 @@ namespace server.DTOs.Products
 
         [MaxLength(250)]
         public string Description { get; set; } = string.Empty;
+        public string? Slug { get; set; }
 
         public CategoryProductDTO Category { get; set; } = null!;
+
         public PetType Pet { get; set; } = null!;
     }
 }

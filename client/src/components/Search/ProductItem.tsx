@@ -1,4 +1,8 @@
-/* type Props = {} */
+import { Product } from "@/utils/Types & Interfaces";
+
+type Props = {
+  product: Product;
+};
 const ProductItem = (/* props: Props */) => {
   return (
     <div className="flex flex-col gap-2 px-2 py-4 border cursor-pointer select-none border-zinc-300 rounded-xl font-inter dark:border-zinc-600">

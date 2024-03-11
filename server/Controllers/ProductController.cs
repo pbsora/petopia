@@ -37,7 +37,7 @@ namespace server.Controllers
             return GetPaginatedProducts(products);
         }
 
-        [HttpGet("{id:int}", Name = "GetProductByIdAsync")]
+        [HttpGet("{id}", Name = "GetProductByIdAsync")]
         public async Task<ActionResult<Product>> GetProductByIdAsync(string id)
         {
             var product = await _repository.GetProductById(id);
@@ -46,7 +46,7 @@ namespace server.Controllers
             return Ok(product);
         }
 
-        [HttpGet("{slug}")]
+        [HttpGet("slug/{slug}")]
         public async Task<ActionResult<ProductDTO>> GetProductBySlugAsync(string slug)
         {
             var product = await _repository.GetProductBySlug(slug);

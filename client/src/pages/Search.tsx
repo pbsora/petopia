@@ -13,18 +13,12 @@ const Search = () => {
     } else console.log("No more pages");
   };
 
-  console.log(searchParams.toString());
+  /*   console.log(searchParams.toString());
   console.log(getProductsQuery.data?.pages);
-
-  /* return (
-    <div>
-      {searchParams.get("name")}
-      <button onClick={fetchMore}>Next</button>
-    </div>
-  ); */
+ */
 
   return (
-    <div className="flex flex-col md:flex-row w-[8] md:w-[85vw] xl:w-[75vw] m-auto md:gap-4 md:mt-6 ">
+    <div className="flex flex-col md:grid md:grid-cols-8 w-[8] md:w-[85vw] xl:w-[75vw] m-auto md:gap-4 md:mt-6 ">
       <SearchCategories />
       <SearchBody />
     </div>

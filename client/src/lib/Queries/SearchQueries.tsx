@@ -1,6 +1,6 @@
 import API from "@/utils/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { ProductResponse } from "@/utils/Types & Interfaces";
+import { ProductResponse, Product } from "@/utils/Types & Interfaces";
 
 export const useSearchProducts = (searchParams: string) => {
   return useInfiniteQuery({
@@ -19,7 +19,7 @@ export const useSearchProducts = (searchParams: string) => {
       );
 
       return {
-        ...data,
+        data: data as Product[],
         pagination: JSON.parse(headers["x-pagination"]),
       } as ProductResponse;
     },

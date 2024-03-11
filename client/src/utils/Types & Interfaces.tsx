@@ -15,7 +15,8 @@ export interface Product {
   };
 }
 
-export interface ProductResponse extends Product {
+export interface ProductResponse {
+  data: Product[];
   pagination: {
     PageCount: number;
     PageNumber: number;

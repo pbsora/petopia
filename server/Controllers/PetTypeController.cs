@@ -53,7 +53,6 @@ namespace server.Controllers
             );
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public ActionResult<PetType> PutAsync(int id, PetType petType)
         {

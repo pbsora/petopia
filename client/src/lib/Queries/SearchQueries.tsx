@@ -5,7 +5,7 @@ import { ProductResponse, Product } from "@/utils/Types & Interfaces";
 export const useSearchProducts = (searchParams: string) => {
   return useInfiniteQuery({
     initialPageParam: 1,
-    queryKey: ["searchProducts"],
+    queryKey: ["searchProducts", searchParams],
     getNextPageParam: (lastPage: {
       pagination: { PageCount: number; PageNumber: number };
     }) => {
@@ -15,7 +15,7 @@ export const useSearchProducts = (searchParams: string) => {
     },
     queryFn: async ({ pageParam = 1 }) => {
       const { data, headers } = await API.get(
-        `products?${searchParams}&PageNumber=${pageParam}&PageSize=3`
+        `products?${searchParams}&PageNumber=${pageParam}&PageSize=4`
       );
 
       return {

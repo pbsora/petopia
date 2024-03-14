@@ -76,3 +76,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+#filter-mobile::-webkit-scrollbar {
+  width: 15px;
+}
+
+#filter-mobile::-webkit-scrollbar-thumb {
+  background-color: rgb(194, 64, 64);
+  border-radius: 100vw;
+}
+
+#filter-mobile::-webkit-scrollbar-track {
+  background-color: rgb(247, 221, 221);
+  margin-block: 0.2em;
+  border-radius: 100vw;
+}

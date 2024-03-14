@@ -12,6 +12,7 @@ namespace server.DTOs.Categories
         public CategoryDTOMappingProfile()
         {
             CreateMap<Category, NewCategoryDTO>().ReverseMap();
+            CreateMap<Category, CategoryProductDTO>().ReverseMap();
         }
     }
 }

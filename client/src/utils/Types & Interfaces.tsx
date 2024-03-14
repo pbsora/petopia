@@ -7,11 +7,11 @@ export interface Product {
   description: string;
   slug: string;
   category: {
-    id: string;
+    categoryId: string;
     name: string;
   };
   pet: {
-    id: string;
+    petId: string;
     name: string;
   };
 }

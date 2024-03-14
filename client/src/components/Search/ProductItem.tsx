@@ -8,7 +8,6 @@ const ProductItem = ({ product }: Props) => {
   return (
     <Link
       to={`/product/${product.slug}`}
-      key={product.productsId}
       className="flex flex-col gap-4 px-4 py-8 border cursor-pointer select-none border-zinc-300 rounded-xl font-inter dark:border-zinc-600"
     >
       <img

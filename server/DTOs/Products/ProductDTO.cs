@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using server.DTOs.Categories;
+using server.DTOs.PetTypes;
 using server.Model;
 
 namespace server.DTOs.Products
@@ -26,6 +27,6 @@ namespace server.DTOs.Products
 
         public CategoryProductDTO Category { get; set; } = null!;
 
-        public PetType Pet { get; set; } = null!;
+        public PetTypeDTO Pet { get; set; } = null!;
     }
 }

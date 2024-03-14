@@ -9,7 +9,7 @@ namespace server.DTOs.Products
 {
     public class ProductUpdateDTO
     {
-        public int ProductId { get; set; }
+        public Guid ProductsId { get; set; }
 
         [Required]
         [MinLength(3)]
@@ -20,7 +20,9 @@ namespace server.DTOs.Products
 
         [MaxLength(250)]
         public string Description { get; set; } = string.Empty;
+        public string Slug { get; set; } = string.Empty;
 
         public int CategoryId { get; set; }
+        public int PetId { get; set; }
     }
 }

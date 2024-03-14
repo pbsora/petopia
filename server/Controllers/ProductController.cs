@@ -38,7 +38,7 @@ namespace server.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProductByIdAsync")]
-        public async Task<ActionResult<Product>> GetProductByIdAsync(string id)
+        public async Task<ActionResult<ProductDTO>> GetProductByIdAsync(string id)
         {
             var product = await _repository.GetProductById(id);
             if (product is null)
@@ -76,9 +76,9 @@ namespace server.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutAsync(int id, [FromBody] ProductUpdateDTO productDTO)
+        public IActionResult PutAsync(string id, [FromBody] ProductUpdateDTO productDTO)
         {
-            if (id != productDTO.ProductId)
+            if (id != productDTO.ProductsId.ToString())
                 return BadRequest("Product ID mismatch");
 
             var product = _mapper.Map<Product>(productDTO);
@@ -95,9 +95,11 @@ namespace server.Controllers
             if (product is null)
                 return NotFound("Product not found");
 
-            _repository.DeleteProduct(product);
+            var productToDelete = _mapper.Map<Product>(product);
 
-            return Ok(product);
+            _repository.DeleteProduct(productToDelete);
+
+            return Ok(_mapper.Map<ProductDTO>(productToDelete));
         }
 
         private ActionResult<IPagedList<ProductDTO>> GetPaginatedProducts(

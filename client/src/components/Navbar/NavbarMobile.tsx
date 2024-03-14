@@ -30,10 +30,14 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
   };
   return (
     <>
-      <div className="flex justify-between px-4 py-4 text-3xl text-zinc-600">
-        <div className="flex items-center gap-3">
-          <IoMdMenu onClick={() => setIsOpen(true)} />
-          <FaRegUser />
+      <div className="flex justify-between px-4 py-4 text-3xl text-zinc-600 dark:text-zinc-200">
+        <div className="flex items-center gap-5">
+          <span>
+            <IoMdMenu onClick={() => setIsOpen(true)} />
+          </span>
+          <span className="text-2xl">
+            <FaRegUser />
+          </span>
         </div>
         <Link to={"/"}>PETZ</Link>
         <div className="flex items-center gap-3">

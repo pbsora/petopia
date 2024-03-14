@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Data;
 using server.DTOs.Categories;
+using server.DTOs.PetTypes;
 using server.DTOs.Products;
 using server.DTOs.User;
 using server.ErrorHandler;
@@ -133,6 +134,7 @@ builder
 builder.Services.AddAutoMapper(typeof(UserDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(ProductDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(CategoryDTOMappingProfile));
+builder.Services.AddAutoMapper(typeof(PetDTOMappingProfile));
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

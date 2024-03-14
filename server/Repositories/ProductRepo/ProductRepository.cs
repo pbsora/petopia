@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.DTOs.Categories;
+using server.DTOs.PetTypes;
 using server.DTOs.Products;
 using server.Model;
 using server.Pagination.QueryParams;
@@ -36,7 +37,7 @@ namespace server.Repositories.ProductRepo
                         CategoryId = p.Category.CategoryId,
                         Name = p.Category.Name
                     },
-                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
+                    Pet = new PetTypeDTO { PetId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
                 .AsQueryable();
 
@@ -79,10 +80,10 @@ namespace server.Repositories.ProductRepo
             return filteredProducts;
         }
 
-        public async Task<Product> GetProductById(string id)
+        public async Task<ProductDTO> GetProductById(string id)
         {
             var product = await _context
-                .Products.Select(p => new Product
+                .Products.Select(p => new ProductDTO
                 {
                     ProductsId = p.ProductsId,
                     Name = p.Name,
@@ -91,12 +92,12 @@ namespace server.Repositories.ProductRepo
                     Image = p.Image,
                     Slug = p.Slug,
                     Description = p.Description,
-                    Category = new Category
+                    Category = new CategoryProductDTO
                     {
                         CategoryId = p.Category.CategoryId,
                         Name = p.Category.Name
                     },
-                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
+                    Pet = new PetTypeDTO { PetId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
                 .FirstOrDefaultAsync(p => p.ProductsId == Guid.Parse(id));
 
@@ -128,7 +129,7 @@ namespace server.Repositories.ProductRepo
                         CategoryId = p.Category.CategoryId,
                         Name = p.Category.Name
                     },
-                    Pet = new PetType { PetTypeId = p.Pet.PetTypeId, Name = p.Pet.Name }
+                    Pet = new PetTypeDTO { PetId = p.Pet.PetTypeId, Name = p.Pet.Name }
                 })
                 .FirstOrDefaultAsync(p => p.Slug == slug);
 

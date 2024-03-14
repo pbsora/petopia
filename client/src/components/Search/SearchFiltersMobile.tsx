@@ -76,7 +76,7 @@ const SearchFiltersMobile = () => {
       <div className="border">
         <span
           onClick={openSidebar}
-          className="flex items-center justify-center gap-2 py-3 text-lg font-semibold text-center bg-zinc-200 text-zinc-600"
+          className="flex items-center justify-center gap-2 py-3 text-lg font-semibold text-center bg-zinc-200 text-zinc-600 dark:bg-slate-800 dark:text-zinc-200"
         >
           <IoFilterOutline />
           Click here to filter products
@@ -86,6 +86,7 @@ const SearchFiltersMobile = () => {
         className={`${
           isOpen ? "fixed" : "hidden"
         }  top-0 z-10 w-screen h-screen pointer-events-none bg-zinc-900/60`}
+        onClick={closeSidebar}
       ></div>
       <aside
         className={`fixed z-50 top-0   w-[75vw] h-screen pb-1 dark:bg-background bg-white border rounded-r-3xl border-zinc-400 dark:border-zinc-900 ease-in-out duration-200  overflow-hidden ${

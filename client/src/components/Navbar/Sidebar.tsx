@@ -27,7 +27,14 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           <IoMdClose onClick={() => setIsOpen(false)} />
         </div>
       </div>
-      <button className="flex items-center gap-3 py-3 pl-3 text-xl">
+      <button
+        className="flex items-center gap-3 py-3 pl-3 text-xl"
+        onClick={
+          currTheme === "dark"
+            ? () => setTheme("light")
+            : () => setTheme("dark")
+        }
+      >
         {currTheme === "dark" ? (
           <FaSun onClick={() => setTheme("light")} />
         ) : (
@@ -35,9 +42,9 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
         )}
         {currTheme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode"}
       </button>
-      <div className="max-h-[90%] overflow-y-scroll">
+      <div className="max-h-[90%] overflow-y-scroll ">
         <section className="flex flex-col gap-1">
-          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi">
+          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <LuDog /> Dogs
           </h1>
           <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
@@ -57,7 +64,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           </Link>
         </section>
         <section className="flex flex-col gap-1">
-          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi">
+          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <FaCat /> Cats
           </h1>
           <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
@@ -83,7 +90,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           </Link>
         </section>
         <section className="flex flex-col gap-1">
-          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi">
+          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <LuFish />
             Fish
           </h1>
@@ -104,7 +111,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           </Link>
         </section>
         <section className="flex flex-col gap-1">
-          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi">
+          <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <LuBird />
             Birds
           </h1>

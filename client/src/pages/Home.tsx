@@ -1,11 +1,15 @@
-import HomeCategories from "@/components/Home/HomeCategories";
+import HomeBenefitsDesktop from "@/components/Home/HomeBenefitsDesktop";
+import HomeCategories from "@/components/Home/HomeCategoriesMobile";
+import HomeRecommended from "@/components/Home/HomeRecommended";
 import ImageCarousel from "@/components/Home/ImageCarousel";
 
 const Home = () => {
   return (
-    <div>
+    <div className="overflow-hidden">
       <HomeCategories />
       <ImageCarousel />
+      <HomeBenefitsDesktop />
+      <HomeRecommended />
     </div>
   );
 };

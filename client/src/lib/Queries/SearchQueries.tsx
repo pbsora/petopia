@@ -1,5 +1,5 @@
 import API from "@/utils/api";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { ProductResponse } from "@/utils/Types & Interfaces";
 
 export const useSearchProducts = (searchParams: string) => {
@@ -22,6 +22,17 @@ export const useSearchProducts = (searchParams: string) => {
         data,
         pagination: JSON.parse(headers["x-pagination"]),
       } as ProductResponse;
+    },
+  });
+};
+
+export const useGetHomeProducts = () => {
+  return useQuery({
+    queryKey: ["homeProducts"],
+    queryFn: async () => {
+      const { data } = await API.get("products?PageSize=15");
+
+      return data;
     },
   });
 };

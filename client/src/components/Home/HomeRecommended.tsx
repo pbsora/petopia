@@ -13,8 +13,6 @@ import ProductItem from "../Search/ProductItem";
 const HomeRecommended = () => {
   const products = useGetHomeProducts();
 
-  console.log(products.data);
-
   if (products.isLoading)
     return (
       <div className="h-[30vh] col-span-6 flex justify-center items-center">
@@ -37,7 +35,10 @@ const HomeRecommended = () => {
         <CarouselNext className="hidden md:flex" />
         <CarouselContent>
           {products.data?.map((product: Product) => (
-            <CarouselItem className="basis-5/12 md:basis-4/12 lg:basis-3/12 xl:basis-2/12">
+            <CarouselItem
+              className="basis-5/12 md:basis-4/12 lg:basis-3/12 xl:basis-2/12"
+              key={product.productsId}
+            >
               <ProductItem product={product} />
             </CarouselItem>
           ))}

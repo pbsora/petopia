@@ -9,6 +9,7 @@ import PageNotFound from "@/pages/PageNotFound";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Auth from "@/pages/Auth";
+import Profile from "@/pages/Profile";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -27,6 +28,7 @@ const Router = () => {
         { path: "/auth", element: <Auth /> },
         { path: "/login", element: <Login /> },
         { path: "/register", element: <Register /> },
+        { path: "/profile", element: <Profile /> },
       ],
     },
   ]);

@@ -54,7 +54,11 @@ const NavbarDesktop = () => {
             )}
           </div>
           <Link
-            to={"/auth"}
+            to={
+              location.pathname === "/"
+                ? "/login"
+                : `/login?next=${location.pathname.slice(1)}`
+            }
             className="duration-200 cursor-pointer hover:scale-125"
           >
             <FaRegUser />

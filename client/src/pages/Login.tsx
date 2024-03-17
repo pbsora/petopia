@@ -1,11 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (searchParams.get("next")) {
+      navigate(`/${searchParams.get("next")}`);
+    } else {
+      navigate("/profile");
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">
-      <form className="container flex flex-col gap-6 py-12 mt-6 font-inter lg:w-2/4 lg:border lg:h-3/4 lg:rounded-xl lg:shadow-lg border-zinc-300">
+      <form
+        onSubmit={handleSubmit}
+        className="container flex flex-col gap-6 py-12 mt-6 font-inter lg:w-2/4 lg:border lg:h-3/4 lg:rounded-xl lg:shadow-lg border-zinc-300"
+      >
         <h1 className="text-lg font-semibold text-center lg:text-left text-zinc-600 dark:text-zinc-200">
           To continue, please login
         </h1>

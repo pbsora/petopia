@@ -7,7 +7,6 @@ import { Capitalize } from "@/utils/Capitalize";
 const ProductDetails = () => {
   const product = useLoaderData() as Product;
   const [quantity, setQuantity] = useState(1);
-  console.log(product);
 
   useEffect(() => {
     window.scrollTo(0, 0);

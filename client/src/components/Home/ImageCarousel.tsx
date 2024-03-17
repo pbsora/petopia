@@ -20,7 +20,7 @@ const ImageCarousel = () => {
         ]}
       >
         <CarouselContent>
-          <CarouselItem className="basis-[85%] md:basis-[95%] lg:basis-[85%]">
+          <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
               src="https://images.petz.com.br/fotos/Home_Desk_1900x390_Assinatura_2023.png"
               alt=""
@@ -32,7 +32,7 @@ const ImageCarousel = () => {
               className="block rounded-xl md:hidden"
             />
           </CarouselItem>
-          <CarouselItem className="basis-[85%] md:basis-[95%] lg:basis-[85%]">
+          <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
               src="https://images.petz.com.br/fotos/Home_Desk_1900x390_MesdoConsumidor_CatMyPet.jpg"
               alt=""
@@ -44,7 +44,7 @@ const ImageCarousel = () => {
               className="block rounded-xl md:hidden"
             />
           </CarouselItem>
-          <CarouselItem className="basis-[85%] md:basis-[95%] lg:basis-[85%]">
+          <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
               src="https://images.petz.com.br/fotos/Banner_desk_mes-do-consumidor_1900x390_1.jpg"
               alt=""

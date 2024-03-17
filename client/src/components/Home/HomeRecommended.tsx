@@ -33,11 +33,11 @@ const HomeRecommended = () => {
           dragFree: true,
         }}
       >
-        <CarouselPrevious className="hidden md:block" />
-        <CarouselNext className="hidden md:block" />
+        <CarouselPrevious className="hidden md:flex" />
+        <CarouselNext className="hidden md:flex" />
         <CarouselContent>
           {products.data?.map((product: Product) => (
-            <CarouselItem className="basis-5/12 md:basis-1/6">
+            <CarouselItem className="basis-5/12 md:basis-4/12 lg:basis-3/12 xl:basis-2/12">
               <ProductItem product={product} />
             </CarouselItem>
           ))}

@@ -15,8 +15,11 @@ namespace server.Repositories.CategoryRepo
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            var categories = await _context.Categories.ToListAsync();
-            return categories;
+            using (var context = _context)
+            {
+                var categories = await context.Categories.ToListAsync();
+                return categories;
+            }
         }
 
         public async Task<Category> GetCategoryById(int id)

@@ -14,7 +14,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
   const currTheme = localStorage.getItem("ui-theme");
   return (
     <div
-      className={`absolute z-50 top-0 w-3/4 h-screen bg-background border rounded-r-3xl border-zinc-400 ease-in-out duration-200 overflow-hidden ${
+      className={`absolute z-50 top-0 w-3/4 h-screen bg-background border rounded-r-3xl border-zinc-400 dark:border-zinc-700 ease-in-out duration-200 overflow-hidden ${
         isOpen ? "-translate-x-[0rem]" : "-translate-x-[50rem]"
       }`}
     >

@@ -8,10 +8,10 @@ const Navbar = () => {
 
   return (
     <nav className="border-b shadow-md max-w-screen border-zinc-200 dark:border-zinc-500">
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <NavbarDesktop />
       </div>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <NavbarMobile setIsOpen={setIsOpen} />
         <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>

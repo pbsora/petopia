@@ -2,7 +2,7 @@ import { Cat, Fish, Bird, Dog, Rabbit, TreeDeciduous } from "lucide-react";
 
 const HomeCategoriesMobile = () => {
   return (
-    <section className="w-[95%]  grid grid-cols-3 m-auto my-6 gap-x-2 gap-y-3 dark:text-zinc-300 md:hidden">
+    <section className="w-[95%]  grid grid-cols-3 m-auto my-6 gap-x-2 gap-y-3 dark:text-zinc-300 lg:hidden">
       <div className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700">
         <span className="text-xl font-madimi text-zinc-900 dark:text-zinc-300">
           Dogs

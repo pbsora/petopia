@@ -6,12 +6,14 @@ import Search from "@/pages/Search";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { productLoader } from "@/lib/Loaders/ProductPageLoader";
+import PageNotFound from "@/pages/PageNotFound";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
     {
       path: "/",
       element: <App />,
+      errorElement: <PageNotFound />,
       children: [
         { path: "/", element: <Home /> },
         { path: "/search", element: <Search /> },

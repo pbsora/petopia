@@ -10,6 +10,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Auth from "@/pages/Auth";
 import Profile from "@/pages/Profile";
+import AddProduct from "@/pages/AddProduct";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -29,6 +30,7 @@ const Router = () => {
         { path: "/login", element: <Login /> },
         { path: "/register", element: <Register /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/add-product", element: <AddProduct /> },
       ],
     },
   ]);

@@ -25,6 +25,8 @@ const SearchBody = () => {
 
   const products = getProductsQuery.data?.pages as ProductResponse[];
 
+  console.log(products && products[0].pagination.TotalItemCount);
+
   if (getProductsQuery.isError)
     return (
       <div className="h-[60vh] col-span-6  justify-center items-center flex flex-col gap-5 font-inter select-none">
@@ -56,7 +58,11 @@ const SearchBody = () => {
               <ProductItem product={product} />
             </Fragment>
           ))}
-        <div className="col-span-2 mt-4 text-center md:col-span-4">
+        <div
+          className={`col-span-2 mt-4 text-center md:col-span-4 ${
+            !getProductsQuery.hasNextPage && "hidden"
+          }`}
+        >
           <FetchMore fetchMore={fetchMore} />
         </div>
       </div>

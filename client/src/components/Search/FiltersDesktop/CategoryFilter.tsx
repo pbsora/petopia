@@ -5,7 +5,7 @@ type Props = {
 
 const CategoryFilter = ({ category, handleCategory }: Props) => {
   return (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2">
       <p className="font-medium">Categories</p>
       <hr className="border-zinc-300" />
       <div className="flex items-center space-x-2">

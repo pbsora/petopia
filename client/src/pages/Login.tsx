@@ -1,9 +1,22 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  const [login, setLogin] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLogin({
+      ...login,
+      [e.target.id]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,22 +37,22 @@ const Login = () => {
         <h1 className="text-lg font-semibold text-center lg:text-left text-zinc-600 dark:text-zinc-200">
           To continue, please login
         </h1>
-        <div>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            className="w-full px-3 py-2 border-2 rounded-md shadow-inner border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            className="w-full px-3 py-2 border-2 rounded-lg border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
-          />
-        </div>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          className="w-full px-3 py-2 border-2 rounded-md shadow-inner border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
+          onChange={handleChange}
+          value={login.username}
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Password"
+          className="w-full px-3 py-2 border-2 rounded-lg border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
+          onChange={handleChange}
+          value={login.password}
+        />
         <button
           type="submit"
           className="w-full py-3 text-lg font-bold duration-200 bg-blue-600 hover:bg-blue-400 lg:mt-8 rounded-xl text-zinc-200"

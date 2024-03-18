@@ -36,3 +36,25 @@ export const useGetHomeProducts = () => {
     },
   });
 };
+
+export const useGetCategories = () => {
+  return useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const { data } = await API.get("categories");
+
+      return data;
+    },
+  });
+};
+
+export const useGetPets = () => {
+  return useQuery({
+    queryKey: ["pets"],
+    queryFn: async () => {
+      const { data } = await API.get("pettype");
+
+      return data;
+    },
+  });
+};

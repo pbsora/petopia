@@ -14,26 +14,30 @@ const BirdsDropdown = () => {
         Birds
       </Link>
       <div className="absolute flex flex-col gap-3 px-3 py-3 text-lg duration-200 origin-top scale-0 -translate-x-6 translate-y-5 border dark:border-zinc-300 bg-background group-hover:scale-100 rounded-xl">
-        <section className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100">
-          <Link to={"/dogs"} className="">
-            Food
-          </Link>
-        </section>
-        <section className="w-32 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100">
-          <Link to={"/dogs"} className="">
-            Litter & Nesting
-          </Link>
-        </section>
-        <section className="w-32 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100">
-          <Link to={"/dogs"} className="">
-            Grooming
-          </Link>
-        </section>
-        <section className="w-32 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100">
-          <Link to={"/dogs"} className="">
-            Cages
-          </Link>
-        </section>
+        <Link
+          to={"/search?category=food&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Food
+        </Link>
+        <Link
+          to={"/search?category=litter&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Litter & Nesting
+        </Link>
+        <Link
+          to={"/search?category=grooming&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Grooming
+        </Link>
+        <Link
+          to={"/search?name=cage&category=accessories&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Cages
+        </Link>
       </div>
     </div>
   );

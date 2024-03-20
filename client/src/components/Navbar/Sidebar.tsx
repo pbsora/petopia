@@ -3,6 +3,10 @@ import { FaRegUser, FaCat, FaSun, FaRegMoon } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuDog, LuFish, LuBird } from "react-icons/lu";
 import { useTheme } from "@/components/theme-provider";
+import { useContext } from "react";
+import { UserContext } from "@/hooks/Context/UserContext";
+import { AuthContext } from "@/utils/Types & Interfaces";
+import { Capitalize } from "@/utils/Capitalize";
 
 type Props = {
   isOpen: boolean;
@@ -10,6 +14,7 @@ type Props = {
 };
 
 const Sidebar = ({ isOpen, setIsOpen }: Props) => {
+  const { user } = useContext(UserContext) as AuthContext;
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
   return (
@@ -21,7 +26,9 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
       <div className="flex justify-between px-6 py-6 text-2xl ">
         <h2 className="flex items-center gap-2 font-madimi">
           <FaRegUser />
-          Hello, Sora
+          {user.username
+            ? `Hello, ${Capitalize(user.username)}`
+            : "Hello, Guest"}
         </h2>
         <div className="flex items-center">
           <IoMdClose onClick={() => setIsOpen(false)} />

@@ -11,6 +11,7 @@ import Register from "@/pages/Register";
 import Auth from "@/pages/Auth";
 import Profile from "@/pages/Profile";
 import AddProduct from "@/pages/AddProduct";
+import { authLoader } from "./Loaders/AuthLoader";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -18,6 +19,7 @@ const Router = () => {
       path: "/",
       element: <App />,
       errorElement: <PageNotFound />,
+      loader: authLoader,
       children: [
         { path: "/", element: <Home /> },
         { path: "/search", element: <Search /> },

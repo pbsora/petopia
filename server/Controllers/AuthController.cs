@@ -49,6 +49,17 @@ namespace server.Controllers
 
             if (!res.Succeeded)
                 return Unauthorized("Invalid username or password");
+            /*
+                        Response.Cookies.Append(
+                            "X-Access-Token",
+                            _tokenService.CreateToken(user),
+                            new CookieOptions
+                            {
+                                HttpOnly = true,
+                                SameSite = SameSiteMode.None,
+                                Secure = true
+                            }
+                        ); */
 
             return Ok(
                 new NewUserDTO

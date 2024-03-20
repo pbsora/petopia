@@ -1,16 +1,58 @@
-import { Product } from "@/utils/Types & Interfaces";
+import { OrderItem, Product } from "@/utils/Types & Interfaces";
 import { Link, useLoaderData } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const ProductDetails = () => {
   const product = useLoaderData() as Product;
-  const [quantity, setQuantity] = useState(1);
+  const [orderItem, setOrderItem] = useState<OrderItem>({
+    productId: product.productsId,
+    quantity: 1,
+    name: product.name,
+    price: product.price,
+    image: product.image,
+  });
+  const [cart, setCart] = useLocalStorage("cart", []);
+
+  const addToCart = () => {
+    if (
+      cart.some((item: OrderItem) => item.productId === orderItem.productId)
+    ) {
+      setCart((prev: OrderItem[]) =>
+        prev.map((item: OrderItem) => {
+          if (item.productId === orderItem.productId) {
+            return {
+              ...item,
+              quantity: orderItem.quantity,
+            };
+          }
+          return item;
+        })
+      );
+    } else {
+      setCart([...cart, orderItem]);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleCart = (operation: string) => {
+    setOrderItem((prevOrderItem) => ({
+      ...prevOrderItem,
+      quantity:
+        operation === "p"
+          ? prevOrderItem.quantity >= 10
+            ? 10
+            : prevOrderItem.quantity + 1
+          : prevOrderItem.quantity <= 1
+          ? prevOrderItem.quantity
+          : prevOrderItem.quantity - 1,
+    }));
+  };
 
   return (
     <div className="w-screen md:w-[70vw] lg:grid grid-cols-2 m-auto gap-5 flex flex-col font-inter mt-5 lg:mt-10 mb-40">
@@ -69,29 +111,24 @@ const ProductDetails = () => {
           <div className="flex border w-fit">
             <button
               className="flex items-center p-2 border"
-              onClick={() =>
-                setQuantity(quantity <= 1 ? quantity : quantity - 1)
-              }
+              onClick={() => handleCart("m")}
             >
               <Minus size={25} />
             </button>
             <span className="w-12 px-4 py-2 text-lg text-center border">
-              {quantity}
+              {orderItem.quantity}
             </span>
             <button
               className="flex items-center p-2 border"
-              onClick={() =>
-                setQuantity(
-                  quantity >= product.stock || quantity >= 10
-                    ? quantity
-                    : quantity + 1
-                )
-              }
+              onClick={() => handleCart("p")}
             >
               <Plus size={25} />
             </button>
           </div>
-          <button className="flex-1 text-lg text-white rounded-lg bg-sky-600">
+          <button
+            className="flex-1 text-lg text-white rounded-lg bg-sky-600"
+            onClick={addToCart}
+          >
             Add to cart
           </button>
         </div>

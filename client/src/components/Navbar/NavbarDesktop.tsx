@@ -3,15 +3,20 @@ import { CiHeart, CiSearch } from "react-icons/ci";
 import { IoBagOutline } from "react-icons/io5";
 import CategoryDropdown from "./CategoryDropdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const NavbarDesktop = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
+
+  const [cart] = useLocalStorage("cart", []);
+  const [cartCount, setCartCount] = useState([...cart].length);
 
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
@@ -24,6 +29,14 @@ const NavbarDesktop = () => {
       setSearchParams({ name: search || "" });
     }
   };
+
+  useEffect(() => {
+    //Set cart count
+    setCartCount(() => {
+      const cartLenght = localStorage.getItem("cart");
+      return cartLenght ? [...JSON.parse(cartLenght)].length : 0;
+    });
+  }, [location, cart]);
 
   return (
     <>
@@ -66,9 +79,16 @@ const NavbarDesktop = () => {
           <span className="duration-200 cursor-pointer hover:scale-125">
             <CiHeart />
           </span>
-          <span className="duration-200 cursor-pointer hover:scale-125">
+          <div className="relative duration-200 cursor-pointer hover:scale-125">
             <IoBagOutline />
-          </span>
+            <span
+              className={`${
+                cart.length == 0 ? "hidden" : "flex"
+              }  absolute items-center justify-center w-1 h-1 p-3 text-base translate-x-3 -translate-y-3 rounded-full h- bg-sky-600`}
+            >
+              {cartCount}
+            </span>
+          </div>
         </div>
       </div>
       <div className="pl-32 m-auto lg:pl-40 ">

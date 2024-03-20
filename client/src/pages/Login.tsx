@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { UserContext } from "@/hooks/Context/UserContext";
+import { useLogin } from "@/lib/Queries/UserQueries";
+import { AuthContext, AuthData } from "@/utils/Types & Interfaces";
+import { AxiosError } from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
@@ -6,10 +10,16 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const { user, setUserData } = useContext(UserContext) as AuthContext;
+
   const [login, setLogin] = useState({
     username: "",
     password: "",
   });
+
+  const [error, setError] = useState("");
+
+  const loginMutation = useLogin(login);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({
@@ -18,20 +28,46 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (searchParams.get("next")) {
-      navigate(`/${searchParams.get("next")}`);
-    } else {
-      navigate("/profile");
-    }
+    loginMutation.mutate();
   };
+
+  useEffect(() => {
+    if (loginMutation.isError) {
+      const res = (loginMutation.failureReason as AxiosError).response
+        ?.data as { error: string };
+      setError(res.error);
+      loginMutation.reset();
+    }
+
+    if (loginMutation.isSuccess) {
+      localStorage.setItem("token", loginMutation.data.token);
+      console.log(loginMutation.data);
+      setUserData({
+        username: loginMutation.data.userName,
+        email: loginMutation.data.email,
+      } as AuthData);
+
+      if (searchParams.get("next")) {
+        navigate(`/${searchParams.get("next")}`);
+      } else {
+        navigate("/profile");
+      }
+    }
+  }, [loginMutation.isError, loginMutation.isSuccess, navigate, searchParams]);
+
+  useEffect(() => {
+    if (user.username) {
+      return navigate("/profile");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
         className="container flex flex-col gap-6 py-12 mt-6 font-inter lg:w-2/4 lg:border lg:h-3/4 lg:rounded-xl lg:shadow-lg border-zinc-300"
       >
         <h1 className="text-lg font-semibold text-center lg:text-left text-zinc-600 dark:text-zinc-200">
@@ -53,6 +89,13 @@ const Login = () => {
           onChange={handleChange}
           value={login.password}
         />
+        <span
+          className={`${
+            error !== "" ? "block" : "hidden"
+          } text-red-500 text-lg font-semibold text-center`}
+        >
+          {error}
+        </span>
         <button
           type="submit"
           className="w-full py-3 text-lg font-bold duration-200 bg-blue-600 hover:bg-blue-400 lg:mt-8 rounded-xl text-zinc-200"
@@ -74,6 +117,7 @@ const Login = () => {
           products on your favorites so you can check them out later and much
           more!
         </p>
+
         <button
           onClick={() => navigate("/register")}
           className="w-full py-3 text-lg font-bold duration-200 bg-transparent border-2 shadow-inner dark:text-zinc-200 dark:border-zinc-300 hover:bg-slate-100 dark:hover:bg-slate-700 border-zinc-800 rounded-xl text-zinc-700"

@@ -25,8 +25,6 @@ const SearchBody = () => {
 
   const products = getProductsQuery.data?.pages as ProductResponse[];
 
-  console.log(products && products[0].pagination.TotalItemCount);
-
   if (getProductsQuery.isError)
     return (
       <div className="h-[60vh] col-span-6  justify-center items-center flex flex-col gap-5 font-inter select-none">
@@ -40,7 +38,7 @@ const SearchBody = () => {
 
   if (!getProductsQuery.data)
     return (
-      <div className="h-[60vh] col-span-6 flex justify-center items-center">
+      <div className="h-[30vh] col-span-6 flex justify-center items-center">
         <PropagateLoader color="#15bde1" />
       </div>
     );
@@ -51,6 +49,11 @@ const SearchBody = () => {
         className="grid grid-cols-2 col-span-6 px-1 mb-16 gap-x-2 gap-y-3 md:grid-cols-4 md:gap-4"
         ref={animate}
       >
+        <h1 className="col-span-2 mb-6 text-2xl font-semibold text-zinc-500 dark:text-zinc-300 lg:col-span-4">
+          {products[0].pagination.TotalItemCount === 1
+            ? `1 product found for this search`
+            : `${products[0].pagination.TotalItemCount} products found for this search`}
+        </h1>
         {products
           ?.flatMap((data) => data.data)
           .map((product) => (

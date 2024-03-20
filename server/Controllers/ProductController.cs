@@ -30,6 +30,8 @@ namespace server.Controllers
             [FromQuery] ProductsParams productsParams
         )
         {
+            Request.Headers.TryGetValue("X-Access-Token", out var paginationHeader);
+            System.Console.WriteLine(paginationHeader);
             var products = await _repository.GetProducts(productsParams);
             if (products.Count() == 0)
                 return NotFound("No products found");

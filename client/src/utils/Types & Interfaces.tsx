@@ -34,3 +34,33 @@ export interface ProductResponse {
     TotalItemCount: number;
   };
 }
+
+export interface UserRegister {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface UserLogin {
+  username: string;
+  password: string;
+}
+
+export interface AuthData {
+  username: string;
+  email: string;
+}
+
+export interface AuthContext {
+  user: AuthData | { username: null; email: null };
+  setUserData: (user: AuthData) => void;
+}
+
+export interface OrderItem {
+  productId: string;
+  quantity: number;
+  price: string | number;
+  name: string;
+  image: string;
+}

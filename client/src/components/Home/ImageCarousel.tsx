@@ -15,7 +15,7 @@ const ImageCarousel = () => {
         }}
         plugins={[
           Autoplay({
-            delay: 500000, //
+            delay: 50000000, //
           }),
         ]}
       >

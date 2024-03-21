@@ -12,6 +12,7 @@ import Auth from "@/pages/Auth";
 import Profile from "@/pages/Profile";
 import AddProduct from "@/pages/AddProduct";
 import { authLoader } from "./Loaders/AuthLoader";
+import Cart from "@/pages/Cart";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -33,6 +34,7 @@ const Router = () => {
         { path: "/register", element: <Register /> },
         { path: "/profile", element: <Profile /> },
         { path: "/add-product", element: <AddProduct /> },
+        { path: "/cart", element: <Cart /> },
       ],
     },
   ]);

@@ -63,4 +63,5 @@ export interface OrderItem {
   price: string | number;
   name: string;
   image: string;
+  slug: string;
 }

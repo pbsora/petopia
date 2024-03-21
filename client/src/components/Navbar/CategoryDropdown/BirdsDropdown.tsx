@@ -4,15 +4,12 @@ import { LuBird } from "react-icons/lu";
 const BirdsDropdown = () => {
   return (
     <div className="relative z-10 px-6 py-5 w-fit group">
-      <Link
-        to={"/dogs"}
-        className="flex gap-2 text-lg font-semibold cursor-pointer select-none"
-      >
+      <span className="flex gap-2 text-lg font-semibold cursor-pointer select-none">
         <span className="text-2xl duration-200 scale-0 group-hover:scale-100">
           <LuBird />
         </span>
         Birds
-      </Link>
+      </span>
       <div className="absolute flex flex-col gap-3 px-3 py-3 text-lg duration-200 origin-top scale-0 -translate-x-6 translate-y-5 border dark:border-zinc-300 bg-background group-hover:scale-100 rounded-xl">
         <Link
           to={"/search?category=food&pet=birds"}

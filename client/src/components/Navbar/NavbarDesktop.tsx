@@ -3,10 +3,12 @@ import { CiHeart, CiSearch } from "react-icons/ci";
 import { IoBagOutline } from "react-icons/io5";
 import CategoryDropdown from "./CategoryDropdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { UserContext } from "@/hooks/Context/UserContext";
+import { AuthContext } from "@/utils/Types & Interfaces";
 
 const NavbarDesktop = () => {
   const location = useLocation();
@@ -20,6 +22,8 @@ const NavbarDesktop = () => {
 
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
+
+  const { user } = useContext(UserContext) as AuthContext;
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,19 +80,25 @@ const NavbarDesktop = () => {
           >
             <FaRegUser />
           </Link>
-          <span className="duration-200 cursor-pointer hover:scale-125">
+          <Link
+            to={user.username ? "/favorites" : "/login"}
+            className="duration-200 cursor-pointer hover:scale-125"
+          >
             <CiHeart />
-          </span>
-          <div className="relative duration-200 cursor-pointer hover:scale-125">
+          </Link>
+          <Link
+            to={"/cart"}
+            className="relative duration-200 cursor-pointer hover:scale-125"
+          >
             <IoBagOutline />
             <span
               className={`${
                 cart.length == 0 ? "hidden" : "flex"
-              }  absolute items-center justify-center w-1 h-1 p-3 text-base translate-x-3 -translate-y-3 rounded-full h- bg-sky-600`}
+              }  absolute items-center justify-center w-1 h-1 p-3 text-base translate-x-3 -translate-y-3 rounded-full h- bg-sky-600 text-zinc-200`}
             >
               {cartCount}
             </span>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="pl-32 m-auto lg:pl-40 ">

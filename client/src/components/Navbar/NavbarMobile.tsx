@@ -42,7 +42,9 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
         <Link to={"/"}>PETZ</Link>
         <div className="flex items-center gap-3">
           <CiHeart />
-          <IoBagOutline />
+          <Link to={"/cart"}>
+            <IoBagOutline />
+          </Link>
         </div>
       </div>
       <div className=" w-[85%] m-auto">

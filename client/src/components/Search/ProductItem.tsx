@@ -13,7 +13,7 @@ const ProductItem = ({ product }: Props) => {
       <img
         src={product.image}
         alt="product thumbnail"
-        className="w-3/4 2xl:w-[60%] m-auto"
+        className="w-3/4 2xl:w-[60%] m-auto dark:rounded-xl "
       />
       <div className="h-12">
         <p className="text-sm line-clamp-2 dark:text-zinc-100 text-zinc-600">

@@ -4,8 +4,10 @@ import { Heart, Plus, Minus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProductDetails = () => {
+  const { toast } = useToast();
   const product = useLoaderData() as Product;
   const [orderItem, setOrderItem] = useState<OrderItem>({
     productId: product.productsId,
@@ -13,6 +15,7 @@ const ProductDetails = () => {
     name: product.name,
     price: product.price,
     image: product.image,
+    slug: product.slug,
   });
   const [cart, setCart] = useLocalStorage("cart", []);
 
@@ -31,8 +34,16 @@ const ProductDetails = () => {
           return item;
         })
       );
+      toast({
+        title: "Cart updated",
+        description: "Item quantity updated",
+      });
     } else {
       setCart([...cart, orderItem]);
+      toast({
+        title: "Added to cart",
+        description: "Item added to cart",
+      });
     }
   };
 
@@ -72,7 +83,7 @@ const ProductDetails = () => {
         <img
           src={product.image}
           alt="product image"
-          className="w-[80%] m-auto lg:m-0"
+          className="w-[80%] m-auto lg:m-0 dark:rounded-xl"
         />
       </div>
       <div className="flex flex-col gap-8 px-3 mt-2 lg:col-span-1 lg:mt-10">
@@ -101,7 +112,7 @@ const ProductDetails = () => {
         <hr className="border-b border-b-zinc-100" />
         <div className="flex items-center justify-between px-3">
           <span className="text-2xl font-semibold texdt-zinc-800 dark:text-zinc-200">
-            ${product.price}
+            $ {" " + product.price}
           </span>
           <button className="p-2 border rounded-full shadow-xl border-zinc-200 dark:border-zinc-700 dark:bg-slate-900 text-sky-500 ">
             <Heart size={30} />
@@ -134,8 +145,8 @@ const ProductDetails = () => {
         </div>
       </div>
       <hr className="col-span-2 mt-10 border-b border-zinc-200" />
-      <div className="col-span-2" id="description">
-        <h2 className="text-xl font-semibold">Description</h2>
+      <div className="container col-span-2" id="description">
+        <h2 className="text-xl font-semibold ">Description</h2>
         <p className="mt-6 text-lg">{product.description}</p>
       </div>
     </div>

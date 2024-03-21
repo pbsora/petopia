@@ -54,19 +54,34 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <LuDog /> Dogs
           </h1>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=food&pet=dogs"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Dry & Wet Food
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=bowls&pet=dogs"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Bowls & Feeders
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=toys&pet=dogs"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Toys
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=beds&pet=dogs"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Beds
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=accessories&pet=dogs"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Accessories
           </Link>
         </section>
@@ -74,25 +89,46 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
             <FaCat /> Cats
           </h1>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=food&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Dry & Wet Food
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=bowls&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Bowls & Feeders
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=toys&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Toys
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=beds&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Beds
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=accessories&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Accessories
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?&category=litter&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Litter box
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?name=catnip&category=food&pet=cats"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Catnip & Grass
           </Link>
         </section>
@@ -101,19 +137,34 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             <LuFish />
             Fish
           </h1>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=food&pet=fish"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Food
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=feeder&pet=fish"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Feeders
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=tanks&pet=fish"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Tanks & Aquariums
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=filters&pet=fish"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Filters & Pumps
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=accessories&pet=fish"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Other
           </Link>
         </section>
@@ -122,16 +173,28 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             <LuBird />
             Birds
           </h1>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=food&pet=birds"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Food
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=litter&pet=birds"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Litter & Nesting
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?category=grooming&pet=birds"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Grooming
           </Link>
-          <Link to={"/dogs"} className="px-2 py-2 text-xl hover:text-sky-300">
+          <Link
+            to={"/search?name=cage&category=accessories&pet=birds"}
+            className="px-2 py-2 text-xl hover:text-sky-300"
+          >
             Cages
           </Link>
         </section>

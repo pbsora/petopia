@@ -48,12 +48,13 @@ export interface UserLogin {
 }
 
 export interface AuthData {
+  userId: string;
   username: string;
   email: string;
 }
 
 export interface AuthContext {
-  user: AuthData | { username: null; email: null };
+  user: AuthData | { userId: null; username: null; email: null };
   setUserData: (user: AuthData) => void;
 }
 
@@ -64,4 +65,9 @@ export interface OrderItem {
   name: string;
   image: string;
   slug: string;
+}
+
+export interface CheckoutItem {
+  quantity: number;
+  productId: string;
 }

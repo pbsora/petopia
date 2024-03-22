@@ -46,6 +46,7 @@ const Login = () => {
       localStorage.setItem("token", loginMutation.data.token);
       console.log(loginMutation.data);
       setUserData({
+        userId: loginMutation.data.id,
         username: loginMutation.data.userName,
         email: loginMutation.data.email,
       } as AuthData);

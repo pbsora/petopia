@@ -1,17 +1,60 @@
 import CartItem from "@/components/Cart/CartItem";
+import { UserContext } from "@/hooks/Context/UserContext";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { OrderItem } from "@/utils/Types & Interfaces";
+import { useCheckout } from "@/lib/Queries/CartQueries";
+import {
+  AuthContext,
+  CheckoutItem,
+  OrderItem,
+} from "@/utils/Types & Interfaces";
 import { Clock, Truck } from "lucide-react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
+import { useToast } from "@/components/ui/use-toast";
+import { MoonLoader } from "react-spinners";
 
 const Cart = () => {
-  const [cart] = useLocalStorage("cart", []);
-  const cartItems = [...cart] as OrderItem[];
+  const [cartLs, setCartLs] = useLocalStorage("cart", []);
+  const cartItems = [...cartLs] as OrderItem[];
+
+  const { user } = useContext(UserContext) as AuthContext;
+  const { toast } = useToast();
+
+  const cart: CheckoutItem[] = cartItems.map((item) => ({
+    quantity: item.quantity,
+    productId: item.productId,
+  }));
+  const checkoutMutation = useCheckout(cart, user.userId || "");
 
   const navigate = useNavigate();
 
-  console.log(cartItems);
+  console.log(user);
+
+  const handleCheckout = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    checkoutMutation.mutate();
+  };
+
+  useEffect(() => {
+    if (checkoutMutation.isSuccess) {
+      setCartLs([]);
+      navigate("/orders");
+    }
+    if (checkoutMutation.isError) {
+      toast({
+        title: "Error",
+        description: "An error occurred",
+      });
+    }
+  }, [
+    checkoutMutation.isError,
+    checkoutMutation.isSuccess,
+    navigate,
+    setCartLs,
+    toast,
+  ]);
 
   return (
     <>
@@ -30,7 +73,10 @@ const Cart = () => {
           Check rules
         </Link>
       </div>
-      <div className="flex flex-col  xl:w-[80%] grid-cols-3 m-auto font-inter lg:grid lg:mt-10 mb-12">
+      <form
+        className="flex flex-col  xl:w-[80%] grid-cols-3 m-auto font-inter lg:grid lg:mt-10 mb-12"
+        onSubmit={handleCheckout}
+      >
         <h1 className="hidden col-span-3 mb-4 ml-3 text-2xl font-semibold text-zinc-700 xl:block dark:text-zinc-200">
           Shopping bag
         </h1>
@@ -143,7 +189,11 @@ const Cart = () => {
           </div>
           <div>
             <button className="w-full py-3 text-sm font-semibold text-white bg-blue-500 rounded-lg">
-              Checkout
+              {checkoutMutation.isPending ? (
+                <MoonLoader size={30} />
+              ) : (
+                "Checkout"
+              )}
             </button>
             <button
               className="w-full py-3 mt-4 text-sm font-semibold border rounded-lg border-zinc-500"
@@ -177,7 +227,7 @@ const Cart = () => {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   );
 };

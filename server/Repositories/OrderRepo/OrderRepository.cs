@@ -1,7 +1,9 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
 using server.Data;
 using server.DTOs.Order;
+using server.DTOs.Products;
 using server.Model;
 using server.Repositories.OrderRepository;
 
@@ -18,14 +20,53 @@ namespace server.Repositories.OrderRepo
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<Order>> GetOrders(string userId)
+        public async Task<IEnumerable<GetOrderDTO>> GetOrders(string userId)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(userId))
+                throw new ArgumentNullException(nameof(userId));
+
+            var ordersWithoutItems = await _context
+                .Orders.Where(o => o.UserId == userId)
+                .Select(o => new GetOrderDTO
+                {
+                    Id = o.Id,
+                    OrderDate = o.OrderDate,
+                    TotalValue = o.TotalValue,
+                    OrderItems = new List<OrderItemDTO>()
+                })
+                .ToListAsync();
+
+            // Then, retrieve order items for each order separately
+            foreach (var order in ordersWithoutItems)
+            {
+                order.OrderItems = await _context
+                    .OrderItems.Where(oi => oi.OrderId == order.Id)
+                    .Select(oi => new OrderItemDTO
+                    {
+                        Quantity = oi.Quantity,
+                        Product = new OrderProductDTO
+                        {
+                            Name = oi.Product.Name,
+                            Image = oi.Product.Image,
+                            Price = oi.Product.Price,
+                            Slug = oi.Product.Slug
+                        }
+                    })
+                    .ToListAsync();
+            }
+            var orders = ordersWithoutItems;
+
+            return _mapper.Map<IEnumerable<GetOrderDTO>>(orders);
         }
 
-        public Task<Order> GetOrderById(string id)
+        public async Task<Order> GetOrderById(string id)
         {
-            throw new NotImplementedException();
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == Guid.Parse(id));
+
+            if (order == null)
+                throw new ArgumentNullException(nameof(order));
+
+            return order;
         }
 
         public async Task<Order> CreateOrder(List<OrderItemDTO> orderItems, string userId)
@@ -45,6 +86,13 @@ namespace server.Repositories.OrderRepo
             }
 
             await _context.OrderItems.AddRangeAsync(itemsToAdd);
+
+            foreach (var item in itemsToAdd)
+            {
+                item.Product = await _context.Products.FirstOrDefaultAsync(p =>
+                    p.ProductsId == item.ProductId
+                );
+            }
 
             var order = new Order
             {

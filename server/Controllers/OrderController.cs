@@ -23,15 +23,33 @@ namespace server.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("{userId}")]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetAsync(string id)
+        {
+            var orders = await _orderRepository.GetOrders(id);
+
+            if (orders == null || orders.Count() == 0)
+                return NotFound();
+
+            return Ok(orders);
+        }
+
+        [HttpPost("{id}")]
         public async Task<ActionResult<Order>> PostAsync(
             [FromBody] List<OrderItemDTO> orderItems,
-            string userId
+            [FromRoute] string id
         )
         {
-            var newOrder = await _orderRepository.CreateOrder(orderItems, userId);
+            try
+            {
+                var newOrder = await _orderRepository.CreateOrder(orderItems, id);
 
-            return Ok(newOrder);
+                return Ok(newOrder);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using server.DTOs.User;
 using server.Model;
 using server.Services.Token;
@@ -64,6 +65,7 @@ namespace server.Controllers
             return Ok(
                 new NewUserDTO
                 {
+                    Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
                     Token = _tokenService.CreateToken(user)
@@ -76,6 +78,7 @@ namespace server.Controllers
         {
             var userInfo = new
             {
+                userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
                 Username = User.FindFirst(ClaimTypes.GivenName)?.Value,
                 Email = User.FindFirst(ClaimTypes.Email)?.Value
             };

@@ -15,7 +15,7 @@ const App = () => {
   }; */
 
   const context: AuthContext = {
-    user: user || { username: null, email: null },
+    user: user || { id: null, username: null, email: null },
     setUserData: (user: AuthData) => {
       setUser(user);
     },

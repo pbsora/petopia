@@ -8,6 +8,7 @@ namespace server.DTOs.Order
         {
             CreateMap<Model.OrderItem, OrderItemDTO>().ReverseMap();
             CreateMap<Model.OrderItem, GetOrderDTO>().ReverseMap();
+            CreateMap<Model.OrderItem, NewOrderItemDTO>().ReverseMap();
         }
     }
 }

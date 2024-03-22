@@ -71,3 +71,22 @@ export interface CheckoutItem {
   quantity: number;
   productId: string;
 }
+
+interface OrderProduct {
+  name: string;
+  image: string;
+  price: string | number;
+  slug: string;
+}
+
+interface OrderItems {
+  quantity: number;
+  products: OrderProduct[];
+}
+
+export interface Order {
+  id: string;
+  orderDate: Date | string;
+  totalValue: number | string;
+  orderItems: OrderItems[];
+}

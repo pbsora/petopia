@@ -36,7 +36,7 @@ namespace server.Controllers
 
         [HttpPost("{id}")]
         public async Task<ActionResult<Order>> PostAsync(
-            [FromBody] List<OrderItemDTO> orderItems,
+            [FromBody] List<NewOrderItemDTO> orderItems,
             [FromRoute] string id
         )
         {

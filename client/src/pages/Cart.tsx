@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import { useToast } from "@/components/ui/use-toast";
 import { MoonLoader } from "react-spinners";
+import { AxiosError } from "axios";
 
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
@@ -29,8 +30,6 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  console.log(user);
-
   const handleCheckout = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -39,18 +38,20 @@ const Cart = () => {
 
   useEffect(() => {
     if (checkoutMutation.isSuccess) {
-      setCartLs([]);
+      localStorage.removeItem("cart");
       navigate("/orders");
     }
     if (checkoutMutation.isError) {
+      console.log((checkoutMutation.failureReason as AxiosError).response);
       toast({
         title: "Error",
-        description: "An error occurred",
+        description: `Something went wrong! Please try again.`,
       });
     }
   }, [
     checkoutMutation.isError,
     checkoutMutation.isSuccess,
+    checkoutMutation.failureReason,
     navigate,
     setCartLs,
     toast,

@@ -7,7 +7,7 @@ namespace server.Repositories.OrderRepository
     {
         public Task<IEnumerable<GetOrderDTO>> GetOrders(string userId);
         public Task<Order> GetOrderById(string id);
-        public Task<Order> CreateOrder(List<OrderItemDTO> orderItems, string userId);
+        public Task<Order> CreateOrder(List<NewOrderItemDTO> orderItems, string userId);
         public Order DeleteOrder(string id);
     }
 }

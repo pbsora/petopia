@@ -69,7 +69,7 @@ namespace server.Repositories.OrderRepo
             return order;
         }
 
-        public async Task<Order> CreateOrder(List<OrderItemDTO> orderItems, string userId)
+        public async Task<Order> CreateOrder(List<NewOrderItemDTO> orderItems, string userId)
         {
             var items = _mapper.Map<List<OrderItem>>(orderItems);
             var itemsToAdd = new List<OrderItem>();

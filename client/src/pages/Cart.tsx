@@ -14,6 +14,10 @@ import { Fragment } from "react/jsx-runtime";
 import { useToast } from "@/components/ui/use-toast";
 import { MoonLoader } from "react-spinners";
 import { AxiosError } from "axios";
+import mastercard from "@/assets/cards/mastercard.svg";
+import visa from "@/assets/cards/visa.svg";
+import amex from "@/assets/cards/amex.svg";
+import elo from "@/assets/cards/elo.svg";
 
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
@@ -68,7 +72,7 @@ const Cart = () => {
           Free shipping worldwide -{" "}
         </p>
         <Link
-          to={"/"}
+          to={"/disclaimer"}
           className="underline underline-offset-1 text-zinc-500 dark:text-zinc-300"
         >
           Check rules
@@ -105,7 +109,7 @@ const Cart = () => {
               Total
             </h1>
           </div>
-          <div className="flex flex-col gap-6  h-[85vh] lg:h-[70vh] overflow-y-scroll pr-3 scrollbar-thin ">
+          <div className="flex flex-col gap-6  max-h-[85vh] lg:h-[70vh] overflow-y-auto pr-3 scrollbar-thin ">
             {cartItems.length !== 0 ? (
               cartItems.map((item: OrderItem) => (
                 <Fragment key={item.productId}>
@@ -116,7 +120,7 @@ const Cart = () => {
               <p className="text-center text-zinc-500">No items in cart</p>
             )}
           </div>
-          <p className="mt-3 text-zinc-500 lg:hidden">
+          <p className="mt-3 text-zinc-500 lg:hidden dark:text-zinc-300">
             *If you have more than 3 items in your cart, please scroll on the
             items
           </p>
@@ -209,22 +213,10 @@ const Cart = () => {
               Payment methods
             </h2>
             <div className="flex gap-3">
-              <img
-                src="https://www.petz.com.br/checkout/img/mastercard.5092dc30.svg"
-                alt=""
-              />
-              <img
-                src="https://www.petz.com.br/checkout/img/mastercard.5092dc30.svg"
-                alt=""
-              />
-              <img
-                src="https://www.petz.com.br/checkout/img/mastercard.5092dc30.svg"
-                alt=""
-              />
-              <img
-                src="https://www.petz.com.br/checkout/img/mastercard.5092dc30.svg"
-                alt=""
-              />
+              <img src={mastercard} alt="mastercard icon" />
+              <img src={visa} alt="visa icon" />
+              <img src={amex} alt="american express icon" />
+              <img src={elo} alt="elo icon" />
             </div>
           </div>
         </div>

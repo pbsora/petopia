@@ -44,10 +44,10 @@ namespace server.Data
 
             List<PetType> petTypes = new List<PetType>
             {
-                new PetType { PetTypeId = 1, Name = "Dog" },
-                new PetType { PetTypeId = 2, Name = "Cat" },
+                new PetType { PetTypeId = 1, Name = "Dogs" },
+                new PetType { PetTypeId = 2, Name = "Cats" },
                 new PetType { PetTypeId = 3, Name = "Fish" },
-                new PetType { PetTypeId = 4, Name = "Bird" },
+                new PetType { PetTypeId = 4, Name = "Birds" },
             };
             builder.Entity<PetType>().HasData(petTypes);
         }

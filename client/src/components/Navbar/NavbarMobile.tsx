@@ -11,7 +11,7 @@ import {
 import { FormEvent, useState } from "react";
 
 type Props = {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: () => void;
 };
 
 const NavbarMobile = ({ setIsOpen }: Props) => {
@@ -33,7 +33,7 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
       <div className="flex justify-between px-4 py-4 text-3xl text-zinc-600 dark:text-zinc-200">
         <div className="flex items-center gap-5">
           <span>
-            <IoMdMenu onClick={() => setIsOpen(true)} />
+            <IoMdMenu onClick={setIsOpen} />
           </span>
           <span className="text-2xl">
             <FaRegUser />

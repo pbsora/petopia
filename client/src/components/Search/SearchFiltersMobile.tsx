@@ -58,7 +58,9 @@ const SearchFiltersMobile = () => {
       state.delete("pet");
       return state;
     });
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   const openSidebar = () => {
@@ -85,7 +87,8 @@ const SearchFiltersMobile = () => {
       <div
         className={`${
           isOpen ? "fixed" : "hidden"
-        }  top-0 z-10 w-screen h-screen pointer-events-none bg-zinc-900/60`}
+        }  top-0 z-50 w-screen h-screen pointer-events-none bg-zinc-900/60`}
+        style={{ pointerEvents: "auto" }} // Ensure overlay blocks clicks
         onClick={closeSidebar}
       ></div>
       <aside

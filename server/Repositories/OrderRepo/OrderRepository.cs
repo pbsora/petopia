@@ -101,7 +101,7 @@ namespace server.Repositories.OrderRepo
                 UserId = userId,
                 OrderItems = itemsToAdd
             };
-            System.Console.WriteLine(order);
+
             await _context.Orders.AddAsync(order);
 
             foreach (var item in items)

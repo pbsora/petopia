@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321182103_addOrder")]
+    partial class addOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0318ad55-8764-4cb0-9050-54f1cfffb913",
+                            Id = "a690480d-3613-4ab8-b818-3726568c8efc",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0de4923b-11ab-46d0-bcaf-1870eb1d6097",
+                            Id = "365f85de-2c5b-4f40-bed4-05aa8bb31b6a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -314,6 +317,7 @@ namespace server.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -485,7 +489,9 @@ namespace server.Migrations
                 {
                     b.HasOne("server.Model.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

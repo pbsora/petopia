@@ -6,12 +6,15 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Data;
 using server.DTOs.Categories;
+using server.DTOs.Order;
 using server.DTOs.PetTypes;
 using server.DTOs.Products;
 using server.DTOs.User;
 using server.ErrorHandler;
 using server.Model;
 using server.Repositories.CategoryRepo;
+using server.Repositories.OrderRepo;
+using server.Repositories.OrderRepository;
 using server.Repositories.PetTypeRepo;
 using server.Repositories.ProductRepo;
 using server.Services.Token;
@@ -145,13 +148,16 @@ builder.Services.AddAutoMapper(typeof(UserDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(ProductDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(CategoryDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(PetDTOMappingProfile));
+builder.Services.AddAutoMapper(typeof(OrderItemDTOMappingProfile));
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPetTypeRepository, PetTypeRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

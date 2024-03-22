@@ -11,6 +11,8 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
+  console.log(cartItems);
+
   return (
     <>
       <div className="items-center justify-center hidden w-full gap-3 py-2 bg-orange-100/30 dark:bg-zinc-700 lg:flex">

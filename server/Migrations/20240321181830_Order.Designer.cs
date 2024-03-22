@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using server.Data;
@@ -11,9 +12,11 @@ using server.Data;
 namespace server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321181830_Order")]
+    partial class Order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0318ad55-8764-4cb0-9050-54f1cfffb913",
+                            Id = "d687e51d-97aa-4cc2-91ff-18bb4175a52d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0de4923b-11ab-46d0-bcaf-1870eb1d6097",
+                            Id = "b9fc6669-1474-4478-a909-a3ccb0d3bffb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -301,52 +304,6 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("server.Model.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("TotalValue")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("server.Model.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems");
-                });
-
             modelBuilder.Entity("server.Model.PetType", b =>
                 {
                     b.Property<int>("PetTypeId")
@@ -481,32 +438,6 @@ namespace server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("server.Model.Order", b =>
-                {
-                    b.HasOne("server.Model.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("server.Model.OrderItem", b =>
-                {
-                    b.HasOne("server.Model.Order", "Order")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
-
-                    b.HasOne("server.Model.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("server.Model.Product", b =>
                 {
                     b.HasOne("server.Model.Category", "Category")
@@ -524,11 +455,6 @@ namespace server.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Pet");
-                });
-
-            modelBuilder.Entity("server.Model.Order", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

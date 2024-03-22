@@ -12,6 +12,13 @@ namespace server.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            /* builder
+                .Entity<Order>()
+                .HasOne(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade); */
+
             base.OnModelCreating(builder);
             List<IdentityRole> roles = new List<IdentityRole>
             {
@@ -48,5 +55,7 @@ namespace server.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PetType> PetTypes { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
     }
 }

@@ -22,6 +22,7 @@ import elo from "@/assets/cards/elo.svg";
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
   const cartItems = [...cartLs] as OrderItem[];
+  // const [cartItems, setCartItems] = useState<OrderItem[]>([...cartLs]);
 
   const { user } = useContext(UserContext) as AuthContext;
   const { toast } = useToast();
@@ -79,7 +80,7 @@ const Cart = () => {
         </Link>
       </div>
       <form
-        className="flex flex-col  xl:w-[80%] grid-cols-3 m-auto font-inter lg:grid lg:mt-10 mb-12"
+        className="flex flex-col  xl:w-[80%] grid-cols-3 m-auto font-inter lg:grid lg:mt-10 mb-12 lg:mb-0"
         onSubmit={handleCheckout}
       >
         <h1 className="hidden col-span-3 mb-4 ml-3 text-2xl font-semibold text-zinc-700 xl:block dark:text-zinc-200">
@@ -109,11 +110,11 @@ const Cart = () => {
               Total
             </h1>
           </div>
-          <div className="flex flex-col gap-6  max-h-[85vh] lg:h-[70vh] overflow-y-auto pr-3 scrollbar-thin ">
+          <div className="flex flex-col gap-6  max-h-[85vh] lg:h-[60vh] overflow-y-auto pr-3 scrollbar-thin ">
             {cartItems.length !== 0 ? (
               cartItems.map((item: OrderItem) => (
                 <Fragment key={item.productId}>
-                  <CartItem product={item} />
+                  <CartItem product={item} setCartItems={setCartLs} />
                 </Fragment>
               ))
             ) : (
@@ -126,7 +127,7 @@ const Cart = () => {
           </p>
         </div>
         <hr className="w-[90%] m-auto border border-zinc-300 my-6 lg:hidden " />
-        <div className="flex flex-col justify-center gap-10 px-5 pt-6 ">
+        <div className="flex flex-col gap-10 px-5 pt-6 ">
           <div className="flex items-center justify-between lg:hidden">
             <p className="text-lg text-zinc-700 dark:text-zinc-200">
               Total

@@ -62,7 +62,7 @@ const SearchFiltersDesktop = () => {
   };
 
   return (
-    <div className="w-3/4 h-48 mb-4 font-inter text-zinc-900 dark:text-zinc-200">
+    <div className="w-3/4 h-48 mb-4 font-roboto text-zinc-900 dark:text-zinc-200">
       <aside className="flex flex-col gap-10 select-none">
         <div className="flex flex-col gap-2 ">
           <p className="font-medium">Filter Products</p>

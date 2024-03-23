@@ -1,11 +1,44 @@
 import { OrderItem } from "@/utils/Types & Interfaces";
+import { set } from "lodash";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
   product: OrderItem;
+  setCartItems: React.Dispatch<React.SetStateAction<OrderItem[]>>;
 };
-const CartItem = ({ product }: Props) => {
+const CartItem = ({ product, setCartItems }: Props) => {
+  const [quantity, setQuantity] = useState(product.quantity);
+
+  const handleQuantity = (operation: string) => {
+    setCartItems((prevItems) => {
+      return prevItems.map((item) => {
+        if (item.productId === product.productId) {
+          return {
+            ...item,
+            quantity:
+              operation === "p"
+                ? item.quantity >= 10
+                  ? 10
+                  : item.quantity + 1
+                : item.quantity <= 1
+                ? 1
+                : item.quantity - 1,
+          };
+        }
+        return item;
+      });
+    });
+    setQuantity((prevQuantity) => {
+      if (operation === "p") {
+        return prevQuantity >= 10 ? 10 : prevQuantity + 1;
+      } else {
+        return prevQuantity <= 1 ? 1 : prevQuantity - 1;
+      }
+    });
+  };
+
   return (
     <div className="flex flex-col gap-6 py-8 border xl:shadow-sm lg:flex-row lg:justify-between lg:py-2 border-zinc-300 rounded-xl ">
       <div className="flex justify-between flex-1 gap-2 px-4 lg:justify-start lg:pt-3 lg:items-center">
@@ -29,13 +62,21 @@ const CartItem = ({ product }: Props) => {
           $ {product.price}
         </span>
         <div className="flex border rounded-lg w-fit border-zinc-300">
-          <button className="flex items-center p-1 text-blue-600 border">
+          <button
+            type="button"
+            className="flex items-center p-1 text-blue-600 border"
+            onClick={() => handleQuantity("m")}
+          >
             <Minus size={25} />
           </button>
           <span className="w-12 px-4 py-1 text-base text-center border">
-            {product.quantity}
+            {quantity}
           </span>
-          <button className="flex items-center p-1 text-blue-600 border">
+          <button
+            type="button"
+            className="flex items-center p-1 text-blue-600 border"
+            onClick={() => handleQuantity("p")}
+          >
             <Plus size={25} />
           </button>
         </div>

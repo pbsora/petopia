@@ -74,7 +74,7 @@ const SearchFiltersMobile = () => {
   };
 
   return (
-    <div className="w-full mb-4 font-inter text-zinc-900 dark:text-zinc-200">
+    <div className="w-full mb-4 font-roboto text-zinc-900 dark:text-zinc-200">
       <div className="border">
         <span
           onClick={openSidebar}

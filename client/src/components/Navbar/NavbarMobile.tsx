@@ -8,7 +8,9 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { AuthContext } from "@/utils/Types & Interfaces";
+import { UserContext } from "@/hooks/Context/UserContext";
 
 type Props = {
   setIsOpen: () => void;
@@ -19,6 +21,8 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
+
+  const { user } = useContext(UserContext) as AuthContext;
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,9 +39,18 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
           <span>
             <IoMdMenu onClick={setIsOpen} />
           </span>
-          <span className="text-2xl">
+          <Link
+            to={
+              user.username
+                ? "/orders"
+                : location.pathname === "/"
+                ? "/login"
+                : `/login?next=${location.pathname.slice(1)}`
+            }
+            className="text-2xl"
+          >
             <FaRegUser />
-          </span>
+          </Link>
         </div>
         <Link to={"/"}>PETZ</Link>
         <div className="flex items-center gap-3">

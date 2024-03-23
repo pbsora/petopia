@@ -72,7 +72,9 @@ const NavbarDesktop = () => {
           </div>
           <Link
             to={
-              location.pathname === "/"
+              user.username
+                ? "/orders"
+                : location.pathname === "/"
                 ? "/login"
                 : `/login?next=${location.pathname.slice(1)}`
             }

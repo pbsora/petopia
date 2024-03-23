@@ -81,7 +81,7 @@ interface OrderProduct {
 
 interface OrderItems {
   quantity: number;
-  products: OrderProduct[];
+  product: OrderProduct;
 }
 
 export interface Order {

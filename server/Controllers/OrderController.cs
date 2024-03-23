@@ -34,6 +34,16 @@ namespace server.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("single/{id}")]
+        public async Task<ActionResult<GetOrderDTO>> GetOrderAsync(string id)
+        {
+            var order = await _orderRepository.GetOrderById(id);
+            if (order == null)
+                return NotFound();
+
+            return Ok(order);
+        }
+
         [HttpPost("{id}")]
         public async Task<ActionResult<Order>> PostAsync(
             [FromBody] List<NewOrderItemDTO> orderItems,

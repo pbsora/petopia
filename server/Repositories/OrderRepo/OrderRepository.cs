@@ -27,6 +27,7 @@ namespace server.Repositories.OrderRepo
 
             var ordersWithoutItems = await _context
                 .Orders.Where(o => o.UserId == userId)
+                .Take(2)
                 .Select(o => new GetOrderDTO
                 {
                     Id = o.Id,
@@ -59,12 +60,36 @@ namespace server.Repositories.OrderRepo
             return _mapper.Map<IEnumerable<GetOrderDTO>>(orders);
         }
 
-        public async Task<Order> GetOrderById(string id)
+        public async Task<GetOrderDTO> GetOrderById(string id)
         {
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == Guid.Parse(id));
+            var order = await _context
+                .Orders.Where(o => o.Id == Guid.Parse(id))
+                .Select(o => new GetOrderDTO
+                {
+                    Id = o.Id,
+                    OrderDate = o.OrderDate,
+                    TotalValue = o.TotalValue,
+                    OrderItems = new List<OrderItemDTO>()
+                })
+                .FirstOrDefaultAsync();
 
             if (order == null)
                 throw new ArgumentNullException(nameof(order));
+
+            order.OrderItems = await _context
+                .OrderItems.Where(oi => oi.OrderId == order.Id)
+                .Select(oi => new OrderItemDTO
+                {
+                    Quantity = oi.Quantity,
+                    Product = new OrderProductDTO
+                    {
+                        Name = oi.Product.Name,
+                        Image = oi.Product.Image,
+                        Price = oi.Product.Price,
+                        Slug = oi.Product.Slug
+                    }
+                })
+                .ToListAsync();
 
             return order;
         }

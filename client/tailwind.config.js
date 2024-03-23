@@ -20,6 +20,7 @@ module.exports = {
       fontFamily: {
         madimi: ["Madimi One", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

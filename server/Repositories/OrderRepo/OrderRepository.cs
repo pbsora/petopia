@@ -25,7 +25,7 @@ namespace server.Repositories.OrderRepo
             if (string.IsNullOrEmpty(userId))
                 throw new ArgumentNullException(nameof(userId));
 
-            var ordersWithoutItems = await _context
+            var orders = await _context
                 .Orders.Where(o => o.UserId == userId)
                 .Take(2)
                 .Select(o => new GetOrderDTO
@@ -33,31 +33,23 @@ namespace server.Repositories.OrderRepo
                     Id = o.Id,
                     OrderDate = o.OrderDate,
                     TotalValue = o.TotalValue,
-                    OrderItems = new List<OrderItemDTO>()
+                    OrderItems = o
+                        .OrderItems.Select(oi => new OrderItemDTO
+                        {
+                            Quantity = oi.Quantity,
+                            Product = new OrderProductDTO
+                            {
+                                Name = oi.Product.Name,
+                                Image = oi.Product.Image,
+                                Price = oi.Product.Price,
+                                Slug = oi.Product.Slug
+                            }
+                        })
+                        .ToList()
                 })
                 .ToListAsync();
 
-            // Then, retrieve order items for each order separately
-            foreach (var order in ordersWithoutItems)
-            {
-                order.OrderItems = await _context
-                    .OrderItems.Where(oi => oi.OrderId == order.Id)
-                    .Select(oi => new OrderItemDTO
-                    {
-                        Quantity = oi.Quantity,
-                        Product = new OrderProductDTO
-                        {
-                            Name = oi.Product.Name,
-                            Image = oi.Product.Image,
-                            Price = oi.Product.Price,
-                            Slug = oi.Product.Slug
-                        }
-                    })
-                    .ToListAsync();
-            }
-            var orders = ordersWithoutItems;
-
-            return _mapper.Map<IEnumerable<GetOrderDTO>>(orders);
+            return orders;
         }
 
         public async Task<GetOrderDTO> GetOrderById(string id)

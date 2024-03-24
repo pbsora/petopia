@@ -6,7 +6,8 @@ namespace server.Repositories.FavoriteRepo
     public interface IFavoriteRepository
     {
         public Task<IEnumerable<GetFavoriteDTO>> GetFavoritesAsync(string userId);
+        public Task<Favorite> GetFavoriteById(string favoriteId);
         public Task<Boolean> CreateFavoriteAsync(NewFavoriteDTO favorite);
-        public Task<Favorite> DeleteFavoriteAsync(string userId, string productId);
+        public Task<Boolean> DeleteFavoriteAsync(Favorite favorite);
     }
 }

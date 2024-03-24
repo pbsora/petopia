@@ -53,6 +53,18 @@ namespace server.Repositories.FavoriteRepo
             return _mapper.Map<IEnumerable<GetFavoriteDTO>>(order);
         }
 
+        public async Task<Favorite> GetFavoriteById(string favoriteId)
+        {
+            var favorite = await _context.Favorites.FirstOrDefaultAsync(f =>
+                f.FavoriteId == Guid.Parse(favoriteId)
+            );
+
+            if (favorite == null)
+                throw new Exception("Favorite not found!");
+
+            return favorite;
+        }
+
         public async Task<Boolean> CreateFavoriteAsync(NewFavoriteDTO favorite)
         {
             var favoriteExists = _context.Favorites.Any(f =>
@@ -70,9 +82,12 @@ namespace server.Repositories.FavoriteRepo
             return true;
         }
 
-        public Task<Favorite> DeleteFavoriteAsync(string userId, string productId)
+        public async Task<Boolean> DeleteFavoriteAsync(Favorite favorite)
         {
-            throw new NotImplementedException();
+            _context.Favorites.Remove(favorite);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

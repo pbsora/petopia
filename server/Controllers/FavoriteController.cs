@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOs.Favorites;
 using server.Model;
@@ -16,21 +17,26 @@ namespace server.Controllers
             _repository = repository;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<GetFavoriteDTO>>> GetAsync(string id)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<GetFavoriteDTO>>> GetAsync()
         {
             try
             {
-                var favorites = await _repository.GetFavoritesAsync(id);
+                var user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(user_id))
+                    return StatusCode(401, "Not logged in!");
+
+                var favorites = await _repository.GetFavoritesAsync(user_id);
 
                 if (favorites.Count() == 0)
                     return NotFound("No favorites found");
 
                 return Ok(favorites);
             }
-            catch (System.Exception)
+            catch (Exception e)
             {
-                throw;
+                return BadRequest(e.Message);
             }
         }
 
@@ -47,6 +53,34 @@ namespace server.Controllers
                 }
 
                 return Ok("Favorite added");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{favorite_id}")]
+        public async Task<IActionResult> DeleteAsync(string favorite_id)
+        {
+            try
+            {
+                var user_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+                if (string.IsNullOrEmpty(user_id))
+                    return StatusCode(401, "Not logged in!");
+
+                var favorite = await _repository.GetFavoriteById(favorite_id);
+
+                if (favorite == null)
+                    return BadRequest("Favorite not found!");
+
+                var res = await _repository.DeleteFavoriteAsync(favorite);
+
+                if (!res)
+                    return StatusCode(500, "Something went wrong!");
+
+                return Ok("Favorite deleted");
             }
             catch (Exception e)
             {

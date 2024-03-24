@@ -1,5 +1,6 @@
 import { Order } from "@/utils/Types & Interfaces";
 import { IoMdCloseCircle } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 type Props = {
   closeModal: () => void;
@@ -30,9 +31,12 @@ const OrderModal = ({ closeModal, order }: Props) => {
                 className="object-cover w-16 h-16 rounded-lg"
               />
               <div className="flex flex-col">
-                <h2 className="text-lg font-semibold text-zinc-700 dark:text-zinc-200">
+                <Link
+                  to={`/product/${item.product.slug}`}
+                  className="text-lg font-semibold text-zinc-700 dark:text-zinc-200 hover:underline underline-offset-3"
+                >
                   {item.product.name}
-                </h2>
+                </Link>
                 <p className="text-base font-semibold text-zinc-600 dark:text-zinc-300">
                   Quantity: {item.quantity}
                 </p>

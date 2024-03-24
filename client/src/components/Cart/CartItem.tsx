@@ -1,5 +1,4 @@
 import { OrderItem } from "@/utils/Types & Interfaces";
-import { set } from "lodash";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,11 +6,13 @@ import { Link } from "react-router-dom";
 type Props = {
   product: OrderItem;
   setCartItems: React.Dispatch<React.SetStateAction<OrderItem[]>>;
+  deleteItem: (id: string) => void;
 };
-const CartItem = ({ product, setCartItems }: Props) => {
+const CartItem = ({ product, setCartItems, deleteItem }: Props) => {
   const [quantity, setQuantity] = useState(product.quantity);
 
   const handleQuantity = (operation: string) => {
+    //Set cart on LocalStorage
     setCartItems((prevItems) => {
       return prevItems.map((item) => {
         if (item.productId === product.productId) {
@@ -30,6 +31,7 @@ const CartItem = ({ product, setCartItems }: Props) => {
         return item;
       });
     });
+    //Set local quantity state
     setQuantity((prevQuantity) => {
       if (operation === "p") {
         return prevQuantity >= 10 ? 10 : prevQuantity + 1;
@@ -53,9 +55,13 @@ const CartItem = ({ product, setCartItems }: Props) => {
         >
           {product.name}
         </Link>
-        <div className="text-zinc-700 dark:text-zinc-200 lg:hidden">
+        <button
+          type="button"
+          className="text-zinc-700 dark:text-zinc-200 lg:hidden"
+          onClick={() => deleteItem(product.productId)}
+        >
           <Trash2 size={25} />
-        </div>
+        </button>
       </div>
       <div className="flex items-center px-3 lg:gap-4">
         <span className="flex-1 mr-4 text-sm font-semibold text-right lg:m-0">
@@ -85,7 +91,11 @@ const CartItem = ({ product, setCartItems }: Props) => {
             $ {+product.price * product.quantity}
           </span>
         </div>
-        <button className="hidden mr-2 text-sm text-zinc-700 dark:text-zinc-200 lg:block">
+        <button
+          type="button"
+          className="hidden mr-2 text-sm text-zinc-700 dark:text-zinc-200 lg:block"
+          onClick={() => deleteItem(product.productId)}
+        >
           <Trash2 size={20} />
         </button>
       </div>

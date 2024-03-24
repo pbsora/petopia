@@ -23,7 +23,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
         className={`${
           isOpen ? "fixed" : "hidden"
         }  top-0 z-50 w-screen h-screen pointer-events-none bg-zinc-900/60`}
-        style={{ pointerEvents: "auto" }} // Ensure overlay blocks clicks
+        style={{ pointerEvents: "auto" }}
         onClick={() => setIsOpen(false)}
       ></div>
       <div

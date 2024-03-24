@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { user, setUserData } = useContext(UserContext) as AuthContext;
+  const { setUserData } = useContext(UserContext) as AuthContext;
 
   const [login, setLogin] = useState({
     username: "",
@@ -52,18 +52,12 @@ const Login = () => {
       } as AuthData);
 
       if (searchParams.get("next")) {
-        navigate(`/${searchParams.get("next")}`);
+        return navigate(`/${searchParams.get("next")}`);
       } else {
         navigate("/profile");
       }
     }
   }, [loginMutation.isError, loginMutation.isSuccess, navigate, searchParams]);
-
-  useEffect(() => {
-    if (user.username) {
-      return navigate("/profile");
-    }
-  }, [user, navigate]);
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">
@@ -106,7 +100,7 @@ const Login = () => {
       </form>
       <hr className="w-3/4 mx-auto mb-4 border-b lg:hidden border-zinc-400" />
       <div className="container flex flex-col gap-8 lg:w-2/4 lg:pt-12">
-        <h1 className="text-xl font-semibold text-center text-zinc-600 lg:hidden">
+        <h1 className="text-xl font-semibold text-center text-zinc-600 lg:hidden dark:text-zinc-200">
           Don't have an account?
         </h1>
         <h1 className="hidden mb-2 text-3xl font-semibold text-blue-700 dark:text-blue-400 lg:block">

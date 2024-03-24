@@ -13,7 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import { useToast } from "@/components/ui/use-toast";
 import { MoonLoader } from "react-spinners";
-import { AxiosError } from "axios";
 import mastercard from "@/assets/cards/mastercard.svg";
 import visa from "@/assets/cards/visa.svg";
 import amex from "@/assets/cards/amex.svg";
@@ -22,7 +21,6 @@ import elo from "@/assets/cards/elo.svg";
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
   const cartItems = [...cartLs] as OrderItem[];
-  // const [cartItems, setCartItems] = useState<OrderItem[]>([...cartLs]);
 
   const { user } = useContext(UserContext) as AuthContext;
   const { toast } = useToast();
@@ -38,7 +36,19 @@ const Cart = () => {
   const handleCheckout = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!user.username) {
+      return navigate("/login?next=cart");
+    }
     checkoutMutation.mutate();
+  };
+
+  const deleteItem = (id: string) => {
+    const newCart = cartItems.filter((item) => item.productId !== id);
+    setCartLs(newCart);
+    toast({
+      title: "Item deleted",
+      description: `The item was deleted`,
+    });
   };
 
   useEffect(() => {
@@ -47,20 +57,12 @@ const Cart = () => {
       navigate("/orders");
     }
     if (checkoutMutation.isError) {
-      console.log((checkoutMutation.failureReason as AxiosError).response);
       toast({
         title: "Error",
         description: `Something went wrong! Please try again.`,
       });
     }
-  }, [
-    checkoutMutation.isError,
-    checkoutMutation.isSuccess,
-    checkoutMutation.failureReason,
-    navigate,
-    setCartLs,
-    toast,
-  ]);
+  }, [checkoutMutation.isError, checkoutMutation.isSuccess, navigate, toast]);
 
   return (
     <>
@@ -114,7 +116,11 @@ const Cart = () => {
             {cartItems.length !== 0 ? (
               cartItems.map((item: OrderItem) => (
                 <Fragment key={item.productId}>
-                  <CartItem product={item} setCartItems={setCartLs} />
+                  <CartItem
+                    product={item}
+                    setCartItems={setCartLs}
+                    deleteItem={deleteItem}
+                  />
                 </Fragment>
               ))
             ) : (

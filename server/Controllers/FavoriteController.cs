@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOs.Favorites;
 using server.Model;
@@ -17,6 +18,7 @@ namespace server.Controllers
             _repository = repository;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetFavoriteDTO>>> GetAsync()
         {
@@ -40,6 +42,7 @@ namespace server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> PostAsync(NewFavoriteDTO favorite)
         {
@@ -60,6 +63,7 @@ namespace server.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{favorite_id}")]
         public async Task<IActionResult> DeleteAsync(string favorite_id)
         {
@@ -73,7 +77,7 @@ namespace server.Controllers
                 var favorite = await _repository.GetFavoriteById(favorite_id);
 
                 if (favorite == null)
-                    return BadRequest("Favorite not found!");
+                    return NotFound("Favorite not found!");
 
                 var res = await _repository.DeleteFavoriteAsync(favorite);
 

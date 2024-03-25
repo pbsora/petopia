@@ -42,7 +42,7 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
           <Link
             to={
               user.username
-                ? "/orders"
+                ? "/profile/orders"
                 : location.pathname === "/"
                 ? "/login"
                 : `/login?next=${location.pathname.slice(1)}`
@@ -54,7 +54,9 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
         </div>
         <Link to={"/"}>PETZ</Link>
         <div className="flex items-center gap-3">
-          <CiHeart />
+          <Link to={"/profile/favorites"}>
+            <CiHeart />
+          </Link>
           <Link to={"/cart"}>
             <IoBagOutline />
           </Link>

@@ -63,17 +63,17 @@ const NavbarDesktop = () => {
           </form>
         </div>
         <div className="flex items-center gap-5">
-          <div>
+          <button>
             {currTheme === "dark" ? (
               <FaSun onClick={() => setTheme("light")} />
             ) : (
               <FaRegMoon onClick={() => setTheme("dark")} />
             )}
-          </div>
+          </button>
           <Link
             to={
               user.username
-                ? "/orders"
+                ? "/profile/orders"
                 : location.pathname === "/"
                 ? "/login"
                 : `/login?next=${location.pathname.slice(1)}`
@@ -83,7 +83,7 @@ const NavbarDesktop = () => {
             <FaRegUser />
           </Link>
           <Link
-            to={user.username ? "/favorites" : "/login"}
+            to={user.username ? "/profile/favorites" : "/login"}
             className="duration-200 cursor-pointer hover:scale-125"
           >
             <CiHeart />

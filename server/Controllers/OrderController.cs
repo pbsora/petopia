@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.DTOs.Order;
 using server.Model;
@@ -23,6 +24,7 @@ namespace server.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Order>>> GetAsync(string id)
         {
@@ -44,6 +46,7 @@ namespace server.Controllers
             return Ok(order);
         }
 
+        [Authorize]
         [HttpPost("{id}")]
         public async Task<ActionResult<Order>> PostAsync(
             [FromBody] List<NewOrderItemDTO> orderItems,

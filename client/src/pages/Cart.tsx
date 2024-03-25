@@ -54,7 +54,7 @@ const Cart = () => {
   useEffect(() => {
     if (checkoutMutation.isSuccess) {
       localStorage.removeItem("cart");
-      navigate("/orders");
+      navigate("/profile/orders");
     }
     if (checkoutMutation.isError) {
       toast({
@@ -124,7 +124,9 @@ const Cart = () => {
                 </Fragment>
               ))
             ) : (
-              <p className="text-center text-zinc-500">No items in cart</p>
+              <p className="text-center text-zinc-500 dark:text-zinc-300">
+                No items in cart
+              </p>
             )}
           </div>
           <p className="mt-3 text-zinc-500 lg:hidden dark:text-zinc-300">

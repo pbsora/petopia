@@ -44,7 +44,6 @@ const Login = () => {
 
     if (loginMutation.isSuccess) {
       localStorage.setItem("token", loginMutation.data.token);
-      console.log(loginMutation.data);
       setUserData({
         userId: loginMutation.data.id,
         username: loginMutation.data.userName,

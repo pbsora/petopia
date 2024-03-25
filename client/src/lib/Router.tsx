@@ -14,6 +14,8 @@ import AddProduct from "@/pages/AddProduct";
 import { authLoader } from "./Loaders/AuthLoader";
 import Cart from "@/pages/Cart";
 import Orders from "@/pages/Orders";
+import Favorites from "@/pages/Favorites";
+import PrivateRoutes from "@/pages/PrivateRoutes";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -33,10 +35,24 @@ const Router = () => {
         { path: "/auth", element: <Auth /> },
         { path: "/login", element: <Login /> },
         { path: "/register", element: <Register /> },
-        { path: "/profile", element: <Profile /> },
+        {
+          element: <PrivateRoutes />,
+          children: [
+            {
+              path: "/profile",
+              element: <Profile />,
+              children: [
+                { path: "orders", element: <Orders /> },
+                { path: "favorites", element: <Favorites /> },
+              ],
+            },
+          ],
+        },
+
         { path: "/add-product", element: <AddProduct /> },
         { path: "/cart", element: <Cart /> },
-        { path: "/orders", element: <Orders /> },
+        /*   { path: "/orders", element: <Orders /> },
+        { path: "/favorites", element: <Favorites /> }, */
       ],
     },
   ]);

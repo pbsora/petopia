@@ -7,7 +7,6 @@ using server.DTOs.Products;
 using server.Model;
 using server.Pagination.QueryParams;
 using server.Repositories.ProductRepo;
-using Slugify;
 using X.PagedList;
 
 namespace server.Controllers

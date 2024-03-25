@@ -1,10 +1,12 @@
-import { OrderItem, Product } from "@/utils/Types & Interfaces";
+import { AuthContext, OrderItem, Product } from "@/utils/Types & Interfaces";
 import { Link, useLoaderData } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useToast } from "@/components/ui/use-toast";
+import { useNewFavorite } from "@/lib/Queries/FavoriteQueries";
+import { UserContext } from "@/hooks/Context/UserContext";
 
 const ProductDetails = () => {
   const { toast } = useToast();
@@ -18,6 +20,12 @@ const ProductDetails = () => {
     slug: product.slug,
   });
   const [cart, setCart] = useLocalStorage("cart", []);
+
+  const { user } = useContext(UserContext) as AuthContext;
+  const favoriteMutation = useNewFavorite(
+    product.productsId,
+    user.userId || ""
+  );
 
   const addToCart = () => {
     if (
@@ -64,6 +72,27 @@ const ProductDetails = () => {
           : prevOrderItem.quantity - 1,
     }));
   };
+
+  const handleFavorite = () => {
+    favoriteMutation.mutate();
+    toast({
+      title: "Added to favorites",
+      description: "Item added to favorites",
+    });
+  };
+
+  useEffect(() => {
+    if (favoriteMutation.isSuccess) {
+      favoriteMutation.reset();
+    }
+
+    if (favoriteMutation.isError) {
+      toast({
+        title: "Error",
+        description: "Item already favorited",
+      });
+    }
+  }, [favoriteMutation.isSuccess, favoriteMutation.isError, toast]);
 
   return (
     <div className="w-screen md:w-[70vw] lg:grid grid-cols-2 m-auto gap-5 flex flex-col font-inter mt-5 lg:mt-10 mb-40">
@@ -114,7 +143,10 @@ const ProductDetails = () => {
           <span className="text-2xl font-semibold texdt-zinc-800 dark:text-zinc-200">
             $ {" " + product.price}
           </span>
-          <button className="p-2 border rounded-full shadow-xl border-zinc-200 dark:border-zinc-700 dark:bg-slate-900 text-sky-500 ">
+          <button
+            className="p-2 duration-200 border rounded-full shadow-xl border-zinc-200 dark:border-zinc-700 dark:bg-slate-900 text-sky-500 hover:scale-110"
+            onClick={handleFavorite}
+          >
             <Heart size={30} />
           </button>
         </div>

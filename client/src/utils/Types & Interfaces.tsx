@@ -90,3 +90,16 @@ export interface Order {
   totalValue: number | string;
   orderItems: OrderItems[];
 }
+
+export interface FavoriteItem {
+  productsId: string;
+  name: string;
+  image: string;
+  slug: string;
+  price: string | number;
+}
+
+export interface FavoriteResponse {
+  favoriteId: string;
+  product: FavoriteItem;
+}

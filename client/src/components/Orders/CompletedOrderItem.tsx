@@ -23,7 +23,7 @@ const CompletedOrderItem = ({ order }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-3 py-6 border shadow-lg border-zinc-300 rounded-xl font-roboto">
+      <div className="flex flex-col gap-4 px-3 py-6 border shadow-lg border-zinc-300 rounded-xl font-roboto dark:border-zinc-700">
         <h2 className="text-lg font-bold text-zinc-600 dark:text-zinc-200">
           Order {order.id.slice(0, 7)}
         </h2>
@@ -60,7 +60,7 @@ const CompletedOrderItem = ({ order }: Props) => {
         <span className="text-lg font-bold lg:self-end text-zinc-600 dark:text-zinc-200">
           Total value: $ {order.totalValue}
         </span>
-        <hr className="border border-zinc-200" />
+        <hr className="border border-zinc-200 dark:border-zinc-600" />
         <button
           className="self-end w-full py-3 m-auto text-white duration-200 lg:m-0 lg:w-1/4 bg-sky-500 rounded-xl hover:bg-sky-400"
           onClick={openModal}

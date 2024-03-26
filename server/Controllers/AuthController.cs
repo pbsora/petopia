@@ -86,6 +86,12 @@ namespace server.Controllers
             return Ok(userInfo);
         }
 
+        [HttpGet("isAuthenticated")]
+        public ActionResult isAuthenticated()
+        {
+            return Ok(User.Identity!.IsAuthenticated);
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
         {

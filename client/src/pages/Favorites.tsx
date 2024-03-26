@@ -28,7 +28,7 @@ const Favorites = () => {
     );
 
   return (
-    <div className="w-[95%] lg:w-full grid grid-cols-2 lg:flex flex-col">
+    <div className="w-[95%] m-auto lg:w-full grid grid-cols-2 lg:flex flex-col">
       <h1 className="col-span-2 mb-3 ml-3 text-2xl font-bold lg:col-span-4 text-zinc-600 dark:text-zinc-200">
         Your favorites
       </h1>

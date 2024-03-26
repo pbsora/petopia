@@ -3,7 +3,7 @@ import { useRegister } from "@/lib/Queries/UserQueries";
 import { AuthContext } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
 
 const Register = () => {
@@ -59,11 +59,7 @@ const Register = () => {
     registerMutation.reset,
   ]);
 
-  useEffect(() => {
-    if (user.username) {
-      return navigate("/profile");
-    }
-  }, [navigate, user]);
+  if (user.username) return <Navigate to="/" />;
 
   return (
     <div className="flex font-inter w min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-[85%] m-auto">

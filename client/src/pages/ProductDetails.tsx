@@ -1,5 +1,5 @@
 import { AuthContext, OrderItem, Product } from "@/utils/Types & Interfaces";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
@@ -98,16 +98,11 @@ const ProductDetails = () => {
     <div className="w-screen md:w-[70vw] lg:grid grid-cols-2 m-auto gap-5 flex flex-col font-inter mt-5 lg:mt-10 mb-40">
       <div className="flex flex-col w-full gap-2 lg:col-span-1">
         <div className="flex gap-3 mb-2 ml-2 lg:ml-0">
-          <Link to={"/dogs"} className="font-[500] hover:underline">
-            {Capitalize(product.pet.name)}
-          </Link>
+          <span className="font-[500] ">{Capitalize(product.pet.name)}</span>
           <span>{" > "} </span>
-          <Link
-            to={`/dogs?category=${product.category.name}`}
-            className="font-[500] hover:underline"
-          >
+          <span className="font-[500] ">
             {Capitalize(product.category.name)}
-          </Link>
+          </span>
         </div>
         <img
           src={product.image}

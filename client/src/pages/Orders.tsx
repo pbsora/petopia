@@ -26,7 +26,7 @@ const Orders = () => {
 
   return (
     <div className="mb-10 ">
-      <h1 className="my-2 ml-6 text-2xl font-bold font-roboto text-zinc-700 dark:text-zinc-200">
+      <h1 className="my-2 mb-6 ml-6 text-2xl font-bold font-roboto text-zinc-700 dark:text-zinc-200">
         My orders
       </h1>
       <div className="w-[95%] m-auto  flex flex-col gap-8">

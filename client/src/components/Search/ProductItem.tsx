@@ -28,7 +28,9 @@ const ProductItem = ({ product }: Props) => {
           {product.name}
         </p>
         <Badge
-          className={Color[product.pet.name as keyof typeof Color]}
+          className={`${
+            Color[product.pet.name as keyof typeof Color]
+          } text-zinc-200`}
         >{`${product.pet.name}`}</Badge>
       </div>
       <span className="font-semibold text-zinc-700 dark:text-zinc-300">

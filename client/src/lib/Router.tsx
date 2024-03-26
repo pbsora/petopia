@@ -16,6 +16,7 @@ import Cart from "@/pages/Cart";
 import Orders from "@/pages/Orders";
 import Favorites from "@/pages/Favorites";
 import PrivateRoutes from "@/pages/PrivateRoutes";
+import Disclaimer from "@/pages/Disclaimer";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -42,8 +43,8 @@ const Router = () => {
               path: "/profile",
               element: <Profile />,
               children: [
-                { path: "orders", element: <Orders /> },
-                { path: "favorites", element: <Favorites /> },
+                { path: "/profile/orders", element: <Orders /> },
+                { path: "/profile/favorites", element: <Favorites /> },
               ],
             },
           ],
@@ -51,8 +52,8 @@ const Router = () => {
 
         { path: "/add-product", element: <AddProduct /> },
         { path: "/cart", element: <Cart /> },
-        /*   { path: "/orders", element: <Orders /> },
-        { path: "/favorites", element: <Favorites /> }, */
+        { path: "/disclaimer", element: <Disclaimer /> },
+        { path: "*", element: <PageNotFound /> },
       ],
     },
   ]);

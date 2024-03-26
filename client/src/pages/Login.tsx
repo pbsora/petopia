@@ -3,13 +3,14 @@ import { useLogin } from "@/lib/Queries/UserQueries";
 import { AuthContext, AuthData } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
+  const { user } = useContext(UserContext) as AuthContext;
   const { setUserData } = useContext(UserContext) as AuthContext;
 
   const [login, setLogin] = useState({
@@ -30,7 +31,6 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     loginMutation.mutate();
   };
 
@@ -57,6 +57,8 @@ const Login = () => {
       }
     }
   }, [loginMutation.isError, loginMutation.isSuccess, navigate, searchParams]);
+
+  if (user.username) return <Navigate to="/" />;
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">

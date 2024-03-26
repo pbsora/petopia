@@ -1,6 +1,6 @@
 import { UserLogin, UserRegister } from "@/utils/Types & Interfaces";
 import API from "@/utils/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useRegister = (user: UserRegister) => {
   return useMutation({
@@ -24,6 +24,16 @@ export const useLogin = (user: UserLogin) => {
         username: user.username,
         password: user.password,
       });
+      return data;
+    },
+  });
+};
+
+export const useAuthenticated = () => {
+  return useQuery({
+    queryKey: ["authenticated"],
+    queryFn: async () => {
+      const { data } = await API.get("/auth/isauthenticated");
       return data;
     },
   });

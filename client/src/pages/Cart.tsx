@@ -47,7 +47,7 @@ const Cart = () => {
     setCartLs(newCart);
     toast({
       title: "Item deleted",
-      description: `The item was deleted`,
+      description: `The item was removed from your cart!`,
     });
   };
 
@@ -92,10 +92,7 @@ const Cart = () => {
           <div className="flex items-center">
             <Clock size={25} />
           </div>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aut,
-            blanditiis, accusamus libero molestiae voluptates
-          </p>
+          <p>Sign-up right now and get 10% OFF on your first purchase! </p>
         </div>
         <div className="container flex flex-col col-span-2 px-4 py-6 dark:text-zinc-200 text-zinc-900">
           <div className="flex pr-14 gap-14">
@@ -124,15 +121,17 @@ const Cart = () => {
                 </Fragment>
               ))
             ) : (
-              <p className="text-center text-zinc-500 dark:text-zinc-300">
+              <p className="py-10 text-center text-zinc-500 lg:py-0 dark:text-zinc-300">
                 No items in cart
               </p>
             )}
           </div>
-          <p className="mt-3 text-zinc-500 lg:hidden dark:text-zinc-300">
-            *If you have more than 3 items in your cart, please scroll on the
-            items
-          </p>
+          {cartItems.length >= 3 && (
+            <p className="mt-3 text-zinc-500 lg:hidden dark:text-zinc-300">
+              *If you have more than 3 items in your cart, please scroll on the
+              items
+            </p>
+          )}
         </div>
         <hr className="w-[90%] m-auto border border-zinc-300 my-6 lg:hidden " />
         <div className="flex flex-col gap-10 px-5 pt-6 ">
@@ -202,15 +201,15 @@ const Cart = () => {
             </div>
           </div>
           <div>
-            <button className="w-full py-3 text-sm font-semibold text-white bg-blue-500 rounded-lg">
+            <button className="w-full py-3 text-sm font-semibold text-white duration-200 bg-blue-500 rounded-lg hover:bg-blue-400">
               {checkoutMutation.isPending ? (
-                <MoonLoader size={30} />
+                <MoonLoader size={25} />
               ) : (
                 "Checkout"
               )}
             </button>
             <button
-              className="w-full py-3 mt-4 text-sm font-semibold border rounded-lg border-zinc-500"
+              className="w-full py-3 mt-4 text-sm font-semibold duration-200 border rounded-lg border-zinc-500 hover:bg-zinc-200"
               onClick={() => navigate("/")}
             >
               Continue shopping

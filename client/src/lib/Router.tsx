@@ -17,6 +17,7 @@ import Orders from "@/pages/Orders";
 import Favorites from "@/pages/Favorites";
 import PrivateRoutes from "@/pages/PrivateRoutes";
 import Disclaimer from "@/pages/Disclaimer";
+import AdminRoutes from "@/pages/AdminRoutes";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
@@ -49,8 +50,10 @@ const Router = () => {
             },
           ],
         },
-
-        { path: "/add-product", element: <AddProduct /> },
+        {
+          element: <AdminRoutes />,
+          children: [{ path: "/add-product", element: <AddProduct /> }],
+        },
         { path: "/cart", element: <Cart /> },
         { path: "/disclaimer", element: <Disclaimer /> },
         { path: "*", element: <PageNotFound /> },

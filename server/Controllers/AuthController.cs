@@ -17,16 +17,19 @@ namespace server.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AuthController(
             UserManager<ApplicationUser> userManager,
             ITokenService tokenService,
-            SignInManager<ApplicationUser> signInManager
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager
         )
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpPost("login")]
@@ -50,17 +53,8 @@ namespace server.Controllers
 
             if (!res.Succeeded)
                 return Unauthorized("Invalid username or password");
-            /*
-                        Response.Cookies.Append(
-                            "X-Access-Token",
-                            _tokenService.CreateToken(user),
-                            new CookieOptions
-                            {
-                                HttpOnly = true,
-                                SameSite = SameSiteMode.None,
-                                Secure = true
-                            }
-                        ); */
+
+            var userRoles = await _userManager.GetRolesAsync(user);
 
             return Ok(
                 new NewUserDTO
@@ -68,7 +62,7 @@ namespace server.Controllers
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    Token = _tokenService.CreateToken(user, userRoles.ToList())
                 }
             );
         }
@@ -90,6 +84,35 @@ namespace server.Controllers
         public ActionResult isAuthenticated()
         {
             return Ok(User.Identity!.IsAuthenticated);
+        }
+
+        [HttpGet("isAdmin")]
+        public ActionResult<Boolean> IsAdmin()
+        {
+            return Ok(User.IsInRole("Admin"));
+        }
+
+        [HttpPost("getAdmin")]
+        public async Task<ActionResult> GetAdmin()
+        {
+            var user = await _userManager.FindByIdAsync(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
+
+            if (user == null)
+                return NotFound();
+
+            var isInRole = await _userManager.IsInRoleAsync(user, "Admin");
+
+            if (isInRole)
+                return Ok(new { message = "User is an admin" });
+
+            var roleResult = await _userManager.AddToRoleAsync(user!, "Admin");
+
+            if (!roleResult.Succeeded)
+                return BadRequest(new { message = "Role change failed" });
+
+            return Ok();
         }
 
         [HttpPost("register")]

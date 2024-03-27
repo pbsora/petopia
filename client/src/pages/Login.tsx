@@ -10,8 +10,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { user } = useContext(UserContext) as AuthContext;
-  const { setUserData } = useContext(UserContext) as AuthContext;
+  const { user, setUserData } = useContext(UserContext) as AuthContext;
+  const loginMutation = useLogin();
 
   const [login, setLogin] = useState({
     username: "",
@@ -19,8 +19,6 @@ const Login = () => {
   });
 
   const [error, setError] = useState("");
-
-  const loginMutation = useLogin(login);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin({
@@ -31,14 +29,19 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginMutation.mutate();
+
+    if (login.username.trim() === "" || login.password.trim() === "") {
+      setError("Please fill in all fields");
+    }
+
+    loginMutation.mutate(login);
   };
 
   useEffect(() => {
     if (loginMutation.isError) {
       const res = (loginMutation.failureReason as AxiosError).response
-        ?.data as { error: string };
-      setError(res.error);
+        ?.data as string;
+      setError(res);
       loginMutation.reset();
     }
 
@@ -88,7 +91,7 @@ const Login = () => {
         <span
           className={`${
             error !== "" ? "block" : "hidden"
-          } text-red-500 text-lg font-semibold text-center`}
+          } text-red-500 text-base font-semibold text-center `}
         >
           {error}
         </span>
@@ -116,6 +119,7 @@ const Login = () => {
 
         <button
           onClick={() => navigate("/register")}
+          disabled={loginMutation.isPending}
           className="w-full py-3 text-lg font-bold duration-200 bg-transparent border-2 shadow-inner dark:text-zinc-200 dark:border-zinc-300 hover:bg-slate-100 dark:hover:bg-slate-700 border-zinc-800 rounded-xl text-zinc-700"
         >
           Click here to register

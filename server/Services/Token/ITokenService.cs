@@ -4,6 +4,6 @@ namespace server.Services.Token
 {
     public interface ITokenService
     {
-        string CreateToken(ApplicationUser user);
+        string CreateToken(ApplicationUser user, List<string> roles);
     }
 }

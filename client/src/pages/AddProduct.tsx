@@ -21,7 +21,7 @@ const AddProduct = () => {
     petId: 1,
   });
 
-  const newProductMutation = useAddProduct(product);
+  const newProductMutation = useAddProduct();
 
   const handleSelectChange = (
     event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
@@ -35,7 +35,7 @@ const AddProduct = () => {
   const handleNewProduct = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    newProductMutation.mutate();
+    newProductMutation.mutate(product);
   };
 
   return (
@@ -106,7 +106,6 @@ const AddProduct = () => {
           className="w-full px-4 py-2 border rounded-lg border-zinc-500"
           onChange={handleSelectChange}
           value={product.description}
-          defaultValue={1}
         />
       </div>
       <div>
@@ -119,7 +118,6 @@ const AddProduct = () => {
           className="w-full px-3 py-3 text-lg border rounded-md border-zinc-500"
           onChange={handleSelectChange}
           value={product.categoryId}
-          defaultValue={1}
         >
           {categories?.map((category) => (
             <option

@@ -19,14 +19,19 @@ namespace server.Services.Token
             );
         }
 
-        public string CreateToken(ApplicationUser user)
+        public string CreateToken(ApplicationUser user, List<string> roles)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, user.Email!),
                 new Claim(JwtRegisteredClaimNames.GivenName, user.UserName!),
-                new Claim(JwtRegisteredClaimNames.NameId, user.Id!)
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id!),
             };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var encryption = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature);
             var tokenDescription = new SecurityTokenDescriptor

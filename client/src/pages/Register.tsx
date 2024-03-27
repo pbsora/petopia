@@ -15,7 +15,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const registerMutation = useRegister(register);
+  const registerMutation = useRegister();
 
   const [error, setError] = useState("");
 
@@ -29,20 +29,28 @@ const Register = () => {
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (
+      Object.keys(register).some(
+        (key) => register[key as keyof typeof register].trim() === ""
+      )
+    ) {
+      setError("Please fill in all fields");
+      return;
+    }
+
     if (register.password !== register.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    registerMutation.mutate();
+    registerMutation.mutate(register);
   };
 
   useEffect(() => {
     if (registerMutation.error) {
-      const res = (registerMutation.error as AxiosError)?.response?.data as {
-        error: string;
-      };
-      setError(res.error);
+      const res = (registerMutation.error as AxiosError)?.response
+        ?.data as string;
+      setError(res);
       registerMutation.reset();
     }
 
@@ -128,12 +136,15 @@ const Register = () => {
         <span
           className={`${
             error !== "" ? "block" : "hidden"
-          } text-red-500 text-lg font-semibold text-center`}
+          } text-red-500 text-base font-semibold text-center`}
         >
           {error}
         </span>
-        <button className="flex items-center justify-center w-full py-3 mt-8 text-xl text-white bg-sky-600 rounded-xl">
-          {registerMutation.isPending ? <MoonLoader size={30} /> : "Register"}
+        <button
+          className="flex items-center justify-center w-full py-3 mt-8 text-xl text-white bg-sky-600 rounded-xl"
+          disabled={registerMutation.isPending}
+        >
+          {registerMutation.isPending ? <MoonLoader size={25} /> : "Register"}
         </button>
       </form>
       <div className="container flex-col hidden gap-8 lg:w-2/4 lg:pt-12 lg:flex">

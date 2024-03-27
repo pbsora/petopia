@@ -2,10 +2,10 @@ import { UserLogin, UserRegister } from "@/utils/Types & Interfaces";
 import API from "@/utils/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-export const useRegister = (user: UserRegister) => {
+export const useRegister = () => {
   return useMutation({
     mutationKey: ["register"],
-    mutationFn: async () => {
+    mutationFn: async (user: UserRegister) => {
       const { data } = await API.post("/auth/register", {
         username: user.username,
         email: user.email,
@@ -16,10 +16,10 @@ export const useRegister = (user: UserRegister) => {
   });
 };
 
-export const useLogin = (user: UserLogin) => {
+export const useLogin = () => {
   return useMutation({
     mutationKey: ["login"],
-    mutationFn: async () => {
+    mutationFn: async (user: UserLogin) => {
       const { data } = await API.post("/auth/login", {
         username: user.username,
         password: user.password,
@@ -34,6 +34,17 @@ export const useAuthenticated = () => {
     queryKey: ["authenticated"],
     queryFn: async () => {
       const { data } = await API.get("/auth/isauthenticated");
+      return data;
+    },
+    retry: false,
+  });
+};
+
+export const useIsAdmin = () => {
+  return useQuery({
+    queryKey: ["isAdmin"],
+    queryFn: async () => {
+      const { data } = await API.get("/auth/isadmin");
       return data;
     },
   });

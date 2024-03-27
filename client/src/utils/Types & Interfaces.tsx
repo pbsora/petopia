@@ -103,3 +103,11 @@ export interface FavoriteResponse {
   favoriteId: string;
   product: FavoriteItem;
 }
+
+export type FormError = {
+  root?: {
+    message?: {
+      message?: string;
+    };
+  };
+};

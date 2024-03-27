@@ -13,5 +13,6 @@ namespace server.DTOs.User
 
         [Required]
         public string? Password { get; set; }
+        public string? ConfirmPassword { get; set; }
     }
 }

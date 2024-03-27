@@ -6,11 +6,7 @@ export const useRegister = () => {
   return useMutation({
     mutationKey: ["register"],
     mutationFn: async (user: UserRegister) => {
-      const { data } = await API.post("/auth/register", {
-        username: user.username,
-        email: user.email,
-        password: user.password,
-      });
+      const { data } = await API.post("/auth/register", user);
       return data;
     },
   });

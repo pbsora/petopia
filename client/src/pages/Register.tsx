@@ -1,56 +1,48 @@
 import { UserContext } from "@/hooks/Context/UserContext";
 import { useRegister } from "@/lib/Queries/UserQueries";
-import { AuthContext } from "@/utils/Types & Interfaces";
+import { AuthContext, FormError } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const RegisterSchema = z.object({
+  username: z.string().min(3, { message: "Username is too short" }),
+  email: z.string().email().min(5, { message: "Email is too short" }),
+  password: z.string().min(6),
+  confirmPassword: z.string().min(6),
+});
+
+type RegisterType = z.infer<typeof RegisterSchema>;
 
 const Register = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext) as AuthContext;
-  const [register, setRegister] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+
   const registerMutation = useRegister();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<RegisterType>({
+    resolver: zodResolver(RegisterSchema),
+  });
 
-  const [error, setError] = useState("");
+  const error = (errors as FormError).root?.message?.message;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRegister({
-      ...register,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (
-      Object.keys(register).some(
-        (key) => register[key as keyof typeof register].trim() === ""
-      )
-    ) {
-      setError("Please fill in all fields");
-      return;
-    }
-
-    if (register.password !== register.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    registerMutation.mutate(register);
+  const onSubmit: SubmitHandler<RegisterType> = (data) => {
+    registerMutation.mutate(data);
   };
 
   useEffect(() => {
     if (registerMutation.error) {
       const res = (registerMutation.error as AxiosError)?.response
         ?.data as string;
-      setError(res);
+      setError("root", { message: res });
       registerMutation.reset();
     }
 
@@ -67,13 +59,15 @@ const Register = () => {
     registerMutation.reset,
   ]);
 
+  console.log(errors);
+
   if (user.username) return <Navigate to="/" />;
 
   return (
     <div className="flex font-inter w min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-[85%] m-auto">
       <form
         className="h-[80vh] container py-10 flex flex-col gap-6 lg:w-2/4"
-        onSubmit={handleRegister}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="text-2xl font-madimi text-zinc-600 dark:text-zinc-200">
           Create an account
@@ -88,9 +82,15 @@ const Register = () => {
             id="username"
             className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-700"
             placeholder="Username"
-            onChange={handleChange}
-            value={register.username}
+            {...register("username")}
           />
+          <span
+            className={`${
+              errors.username ? "block" : "hidden"
+            } text-red-500  text-base font-semibold text-left`}
+          >
+            {errors.username?.message}
+          </span>
         </div>
         <div>
           <label htmlFor="email" className="block mb-2 text-lg">
@@ -101,9 +101,15 @@ const Register = () => {
             id="email"
             className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-700"
             placeholder="Email"
-            onChange={handleChange}
-            value={register.email}
+            {...register("email")}
           />
+          <span
+            className={`${
+              errors.email ? "block" : "hidden"
+            } text-red-500  text-base font-semibold text-left`}
+          >
+            {errors.email?.message}
+          </span>
         </div>
         <div className="flex flex-col gap-6 lg:flex-row">
           <div className="w-full lg:w-2/4">
@@ -115,8 +121,7 @@ const Register = () => {
               id="password"
               className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-700"
               placeholder="Password"
-              onChange={handleChange}
-              value={register.password}
+              {...register("password")}
             />
           </div>
           <div className="w-full lg:w-2/4">
@@ -128,23 +133,22 @@ const Register = () => {
               id="confirmPassword"
               className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-700"
               placeholder="Confirm Password"
-              onChange={handleChange}
-              value={register.confirmPassword}
+              {...register("confirmPassword")}
             />
           </div>
         </div>
         <span
           className={`${
-            error !== "" ? "block" : "hidden"
+            error ? "block" : "hidden"
           } text-red-500 text-base font-semibold text-center`}
         >
           {error}
         </span>
         <button
-          className="flex items-center justify-center w-full py-3 mt-8 text-xl text-white bg-sky-600 rounded-xl"
+          className="flex items-center justify-center w-full py-3 mt-4 text-xl text-white bg-sky-600 rounded-xl"
           disabled={registerMutation.isPending}
         >
-          {registerMutation.isPending ? <MoonLoader size={25} /> : "Register"}
+          {registerMutation.isPending ? <MoonLoader size={22} /> : "Register"}
         </button>
       </form>
       <div className="container flex-col hidden gap-8 lg:w-2/4 lg:pt-12 lg:flex">

@@ -1,10 +1,21 @@
 import { UserContext } from "@/hooks/Context/UserContext";
 import { useLogin } from "@/lib/Queries/UserQueries";
-import { AuthContext, AuthData } from "@/utils/Types & Interfaces";
+import { AuthContext, AuthData, FormError } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
+import { z } from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const LoginSchema = z.object({
+  username: z.string().min(3, { message: "Username is too short" }),
+  password: z.string().min(6),
+});
+
+type LoginType = z.infer<typeof LoginSchema>;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -13,35 +24,24 @@ const Login = () => {
   const { user, setUserData } = useContext(UserContext) as AuthContext;
   const loginMutation = useLogin();
 
-  const [login, setLogin] = useState({
-    username: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<LoginType>({ resolver: zodResolver(LoginSchema) });
 
-  const [error, setError] = useState("");
+  const error = (errors as FormError).root?.message?.message;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin({
-      ...login,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (login.username.trim() === "" || login.password.trim() === "") {
-      setError("Please fill in all fields");
-    }
-
-    loginMutation.mutate(login);
+  const handleLogin: SubmitHandler<LoginType> = (data) => {
+    loginMutation.mutate(data);
   };
 
   useEffect(() => {
     if (loginMutation.isError) {
       const res = (loginMutation.failureReason as AxiosError).response
         ?.data as string;
-      setError(res);
+      setError("root", { message: res });
       loginMutation.reset();
     }
 
@@ -66,7 +66,7 @@ const Login = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit(handleLogin)}
         className="container flex flex-col gap-6 py-12 mt-6 font-inter lg:w-2/4 lg:border lg:h-3/4 lg:rounded-xl lg:shadow-lg border-zinc-300"
       >
         <h1 className="text-lg font-semibold text-center lg:text-left text-zinc-600 dark:text-zinc-200">
@@ -77,20 +77,18 @@ const Login = () => {
           id="username"
           placeholder="Username"
           className="w-full px-3 py-2 border-2 rounded-md shadow-inner border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
-          onChange={handleChange}
-          value={login.username}
+          {...register("username")}
         />
         <input
           type="password"
           id="password"
           placeholder="Password"
           className="w-full px-3 py-2 border-2 rounded-lg border-zinc-400 dark:border-zinc-500 dark:bg-slate-700"
-          onChange={handleChange}
-          value={login.password}
+          {...register("password")}
         />
         <span
           className={`${
-            error !== "" ? "block" : "hidden"
+            error ? "block" : "hidden"
           } text-red-500 text-base font-semibold text-center `}
         >
           {error}
@@ -98,8 +96,9 @@ const Login = () => {
         <button
           type="submit"
           className="w-full py-3 text-lg font-bold duration-200 bg-blue-600 hover:bg-blue-400 lg:mt-8 rounded-xl text-zinc-200"
+          disabled={loginMutation.isPending}
         >
-          Login
+          {loginMutation.isPending ? <MoonLoader size={22} /> : "Login"}
         </button>
       </form>
       <hr className="w-3/4 mx-auto mb-4 border-b lg:hidden border-zinc-400" />

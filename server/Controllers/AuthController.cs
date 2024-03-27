@@ -36,14 +36,14 @@ namespace server.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Invalid login request");
+                return BadRequest(new { message = "Invalid login request" });
 
             var user = await _userManager.Users.FirstOrDefaultAsync(u =>
                 u.UserName == loginDTO.UserName!.ToLower()
             );
 
             if (user == null)
-                return Unauthorized("Invalid username");
+                return Unauthorized(new { message = "Invalid username or password" });
 
             var res = await _signInManager.CheckPasswordSignInAsync(
                 user,
@@ -52,7 +52,7 @@ namespace server.Controllers
             );
 
             if (!res.Succeeded)
-                return Unauthorized("Invalid username or password");
+                return Unauthorized(new { message = "Invalid username or password" });
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
@@ -120,13 +120,11 @@ namespace server.Controllers
         {
             try
             {
-                var userExists = await _userManager.FindByNameAsync(registerDTO.UserName!);
-
-                if (userExists != null)
-                    return BadRequest(new { message = "User already exists" });
-
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
+
+                if (registerDTO.Password != registerDTO.ConfirmPassword)
+                    return BadRequest(new { message = "Passwords do not match" });
 
                 var user = new ApplicationUser
                 {
@@ -137,7 +135,7 @@ namespace server.Controllers
                 var result = await _userManager.CreateAsync(user, registerDTO.Password!);
 
                 if (!result.Succeeded)
-                    return BadRequest(new { message = result.Errors });
+                    return BadRequest(new { message = result.Errors.First().Description });
 
                 //Add user to role "User"
                 var roleResult = await _userManager.AddToRoleAsync(user, "User");
@@ -149,7 +147,7 @@ namespace server.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, e.Message);
             }
         }
     }

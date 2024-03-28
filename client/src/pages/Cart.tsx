@@ -95,7 +95,7 @@ const Cart = () => {
           <p>Sign-up right now and get 10% OFF on your first purchase! </p>
         </div>
         <div className="container flex flex-col col-span-2 px-4 py-6 dark:text-zinc-200 text-zinc-900">
-          <div className="flex pr-14 gap-14">
+          <div className="flex gap-16 pr-16">
             <h1 className="flex-1 mb-6 text-lg font-semibold lg:text-sm +text-zinc-600">
               Products
             </h1>

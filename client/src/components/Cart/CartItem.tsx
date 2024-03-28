@@ -43,7 +43,7 @@ const CartItem = ({ product, setCartItems, deleteItem }: Props) => {
 
   return (
     <div className="flex flex-col gap-6 py-8 border xl:shadow-sm lg:flex-row lg:justify-between lg:py-2 border-zinc-300 rounded-xl ">
-      <div className="flex justify-between flex-1 gap-2 px-4 lg:justify-start lg:pt-3 lg:items-center">
+      <div className="flex justify-between flex-1 gap-2 px-4 lg:justify-start lg:py-2 lg:items-center">
         <img
           src={product.image}
           alt={product.name}

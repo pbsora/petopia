@@ -22,7 +22,7 @@ const ProductItem = ({ product }: Props) => {
         <img
           src={product.image}
           alt="product thumbnail"
-          className="w-[65%] h-auto m-auto 2xl:w-auto rounded-xl "
+          className="w-[65%] max-h-full m-auto 2xl:w-auto rounded-xl object-scale-down "
         />
       </div>
       <div className="flex flex-col h-20">

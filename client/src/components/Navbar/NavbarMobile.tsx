@@ -8,23 +8,20 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "@/utils/Types & Interfaces";
 import { UserContext } from "@/hooks/Context/UserContext";
-import useLocalStorage from "@/hooks/useLocalStorage";
 
 type Props = {
   setIsOpen: () => void;
+  cartCount: number;
 };
 
-const NavbarMobile = ({ setIsOpen }: Props) => {
+const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
-
-  const [cart] = useLocalStorage("cart", []);
-  const [cartCount, setCartCount] = useState([...cart].length);
 
   const { user } = useContext(UserContext) as AuthContext;
 
@@ -36,14 +33,6 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
       setSearchParams({ name: search || "" });
     }
   };
-
-  useEffect(() => {
-    //Set cart count
-    setCartCount(() => {
-      const cartLenght = localStorage.getItem("cart");
-      return cartLenght ? [...JSON.parse(cartLenght)].length : 0;
-    });
-  }, [location, cart]);
 
   return (
     <>
@@ -74,7 +63,7 @@ const NavbarMobile = ({ setIsOpen }: Props) => {
             <IoBagOutline />
             <span
               className={`${
-                cart.length == 0 ? "hidden" : "flex"
+                cartCount == 0 ? "hidden" : "flex"
               }  absolute items-center justify-center w-1 h-1 p-3 text-base translate-x-3 -translate-y-3 rounded-full h- bg-sky-600 text-zinc-200`}
             >
               {cartCount}

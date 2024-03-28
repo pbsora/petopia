@@ -18,9 +18,12 @@ const SearchBody = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, getProductsQuery.refetch]);
 
-  const fetchMore = () => {
-    if (getProductsQuery.hasNextPage) getProductsQuery.fetchNextPage();
-    else console.log("No more pages");
+  const nextPage = {
+    fetchMore: () => {
+      if (getProductsQuery.hasNextPage) getProductsQuery.fetchNextPage();
+      else console.log("No more pages");
+    },
+    hasNextPage: getProductsQuery.hasNextPage,
   };
 
   const products = getProductsQuery.data?.pages as ProductResponse[];
@@ -66,7 +69,7 @@ const SearchBody = () => {
             !getProductsQuery.hasNextPage && "hidden"
           }`}
         >
-          <FetchMore fetchMore={fetchMore} />
+          <FetchMore nextPage={nextPage} />
         </div>
       </div>
     </>

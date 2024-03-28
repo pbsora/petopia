@@ -18,6 +18,18 @@ const BirdsDropdown = () => {
           Food
         </Link>
         <Link
+          to={"/search?category=feeders&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Feeder
+        </Link>
+        <Link
+          to={"/search?category=beds&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          House
+        </Link>
+        <Link
           to={"/search?category=litter&pet=birds"}
           className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
         >
@@ -34,6 +46,18 @@ const BirdsDropdown = () => {
           className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
         >
           Cages
+        </Link>
+        <Link
+          to={"/search?&category=toys&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Toys
+        </Link>
+        <Link
+          to={"/search?&category=accessories&pet=birds"}
+          className="w-40 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
+        >
+          Accessories
         </Link>
       </div>
     </div>

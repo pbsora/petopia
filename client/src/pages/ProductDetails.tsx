@@ -1,5 +1,5 @@
 import { AuthContext, OrderItem, Product } from "@/utils/Types & Interfaces";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
@@ -7,8 +7,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useToast } from "@/components/ui/use-toast";
 import { useNewFavorite } from "@/lib/Queries/FavoriteQueries";
 import { UserContext } from "@/hooks/Context/UserContext";
+import RecommendedProducts from "@/components/Product/RecommendedProducts";
 
 const ProductDetails = () => {
+  const location = useLocation();
   const { toast } = useToast();
   const product = useLoaderData() as Product;
   const [orderItem, setOrderItem] = useState<OrderItem>({
@@ -56,8 +58,11 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [location.pathname]);
 
   const handleCart = (operation: string) => {
     setOrderItem((prevOrderItem) => ({
@@ -126,6 +131,7 @@ const ProductDetails = () => {
             onClick={() =>
               window.scrollTo({
                 top: document.getElementById("description")!.offsetTop,
+
                 behavior: "smooth",
               })
             }
@@ -170,6 +176,10 @@ const ProductDetails = () => {
             Add to cart
           </button>
         </div>
+      </div>
+      <hr className="col-span-2 mt-10 border-b border-zinc-200" />
+      <div className="w-screen md:w-[70vw] ">
+        <RecommendedProducts pet={product.pet.name} />
       </div>
       <hr className="col-span-2 mt-10 border-b border-zinc-200" />
       <div className="container col-span-2" id="description">

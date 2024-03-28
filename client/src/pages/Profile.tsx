@@ -11,7 +11,7 @@ const Profile = () => {
 
   return (
     <div className="w-full lg:w-[80%] m-auto min-h-[70vh] mt-6 mb-10 flex gap-5 flex-col lg:flex-row ">
-      <div className="py-6 w-[25%]  border-zinc-200 dark:border-zinc-600 rounded-lg max-h-[30rem] hidden gap-5 font-roboto container bg-background lg:flex flex-col">
+      <div className="py-6 w-[25%]  border-zinc-200 dark:border-zinc-600 rounded-lg min-h-[50rem] h-auto hidden gap-5 font-roboto container bg-background lg:flex flex-col">
         <h1 className="mb-6 text-2xl font-bold text-zinc-700 dark:text-zinc-200">
           Hello, {Capitalize(user.username!)}
         </h1>

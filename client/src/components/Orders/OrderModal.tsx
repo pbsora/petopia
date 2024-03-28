@@ -54,7 +54,7 @@ const OrderModal = ({ closeModal, order }: Props) => {
               ({order.orderItems.reduce((acc, curr) => acc + curr.quantity, 0)}{" "}
               Items):
             </span>
-            <span>${order.totalValue}</span>
+            <span>${Number(order.totalValue).toFixed(2)}</span>
           </h1>
         </div>
       </div>

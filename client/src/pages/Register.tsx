@@ -1,9 +1,8 @@
-import { UserContext } from "@/hooks/Context/UserContext";
 import { useRegister } from "@/lib/Queries/UserQueries";
-import { AuthContext, FormError } from "@/utils/Types & Interfaces";
+import { FormError } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
-import { useContext, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -20,7 +19,6 @@ type RegisterType = z.infer<typeof RegisterSchema>;
 
 const Register = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext) as AuthContext;
 
   const registerMutation = useRegister();
   const {
@@ -58,10 +56,6 @@ const Register = () => {
     registerMutation.isSuccess,
     registerMutation.reset,
   ]);
-
-  console.log(errors);
-
-  if (user.username) return <Navigate to="/" />;
 
   return (
     <div className="flex font-inter w min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-[85%] m-auto">

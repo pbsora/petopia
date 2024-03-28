@@ -54,6 +54,7 @@ const SearchFiltersDesktop = () => {
       state.delete("price");
       state.delete("criteria");
       state.delete("pet");
+      state.delete("name");
       return state;
     });
     setTimeout(() => {

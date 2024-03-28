@@ -1,11 +1,11 @@
 import { UserContext } from "@/hooks/Context/UserContext";
-import { useLogin } from "@/lib/Queries/UserQueries";
+import { useAuthenticated, useLogin } from "@/lib/Queries/UserQueries";
 import { AuthContext, AuthData, FormError } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
 import { useContext, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import { MoonLoader } from "react-spinners";
+import { MoonLoader, PropagateLoader } from "react-spinners";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,8 +21,9 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { user, setUserData } = useContext(UserContext) as AuthContext;
+  const { setUserData } = useContext(UserContext) as AuthContext;
   const loginMutation = useLogin();
+  const isLogged = useAuthenticated();
 
   const {
     register,
@@ -54,14 +55,19 @@ const Login = () => {
       } as AuthData);
 
       if (searchParams.get("next")) {
-        return navigate(`/${searchParams.get("next")}`);
+        navigate(`/${searchParams.get("next")}`);
       } else {
         navigate("/profile");
       }
     }
   }, [loginMutation.isError, loginMutation.isSuccess, navigate, searchParams]);
 
-  if (user.username) return <Navigate to="/" />;
+  if (isLogged.isFetching)
+    return (
+      <div className="h-[80vh] w-[80%] m-auto flex justify-center items-center">
+        <PropagateLoader color="#15bde1" />
+      </div>
+    );
 
   return (
     <div className="flex flex-col lg:flex-row min-h-[70vh] sm:w-[80%] gap-6 md:w-[65%]  lg:w-3/4 m-auto lg:mt-12">
@@ -95,7 +101,7 @@ const Login = () => {
         </span>
         <button
           type="submit"
-          className="w-full py-3 text-lg font-bold duration-200 bg-blue-600 hover:bg-blue-400 lg:mt-8 rounded-xl text-zinc-200"
+          className="flex items-center justify-center w-full py-3 text-lg font-bold duration-200 bg-blue-600 hover:bg-blue-400 lg:mt-8 rounded-xl text-zinc-200"
           disabled={loginMutation.isPending}
         >
           {loginMutation.isPending ? <MoonLoader size={22} /> : "Login"}

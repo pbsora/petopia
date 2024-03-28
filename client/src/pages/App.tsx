@@ -10,12 +10,8 @@ const App = () => {
   const auth = useLoaderData() as AuthData | null;
   const [user, setUser] = useState<AuthData | null>(auth);
 
-  /*  const setUserData = (user: AuthData) => {
-    setUser(user);
-  }; */
-
   const context: AuthContext = {
-    user: user || { id: null, username: null, email: null },
+    user: user || { userId: "", username: "", email: "" },
     setUserData: (user: AuthData) => {
       setUser(user);
     },

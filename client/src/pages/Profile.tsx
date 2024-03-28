@@ -11,8 +11,8 @@ const Profile = () => {
 
   return (
     <div className="w-full lg:w-[80%] m-auto min-h-[70vh] mt-6 mb-10 flex gap-5 flex-col lg:flex-row ">
-      <div className="py-6 w-[25%] border border-zinc-200 dark:border-zinc-600 shadow-md rounded-lg max-h-[30rem] hidden gap-5 font-roboto container bg-background lg:flex flex-col">
-        <h1 className="mb-6 text-xl font-bold text-zinc-700 dark:text-zinc-200">
+      <div className="py-6 w-[25%]  border-zinc-200 dark:border-zinc-600 rounded-lg max-h-[30rem] hidden gap-5 font-roboto container bg-background lg:flex flex-col">
+        <h1 className="mb-6 text-2xl font-bold text-zinc-700 dark:text-zinc-200">
           Hello, {Capitalize(user.username!)}
         </h1>
         <Link
@@ -37,7 +37,7 @@ const Profile = () => {
           <span className="text-base font-semibold ">Favorites</span>
         </Link>
       </div>
-      <div className="lg:w-[75%] w-full">
+      <div className="lg:w-[75%] w-full  px-10 py-0">
         {location.pathname === "/profile" ? (
           <div>
             <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-200">

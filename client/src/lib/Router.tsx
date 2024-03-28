@@ -8,7 +8,7 @@ import { productLoader } from "@/lib/Loaders/ProductPageLoader";
 import PageNotFound from "@/pages/PageNotFound";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import Auth from "@/pages/Auth";
+
 import Profile from "@/pages/Profile";
 import AddProduct from "@/pages/AddProduct";
 import { authLoader } from "./Loaders/AuthLoader";
@@ -18,13 +18,15 @@ import Favorites from "@/pages/Favorites";
 import PrivateRoutes from "@/pages/PrivateRoutes";
 import Disclaimer from "@/pages/Disclaimer";
 import AdminRoutes from "@/pages/AdminRoutes";
+import ErrorPage from "@/pages/ErrorPage";
+import AuthRoutes from "@/pages/AuthRoutes";
 
 const Router = () => {
   const BrowserRouter = createBrowserRouter([
     {
       path: "/",
       element: <App />,
-      errorElement: <PageNotFound />,
+      errorElement: <ErrorPage />,
       loader: authLoader,
       children: [
         { path: "/", element: <Home /> },
@@ -34,9 +36,13 @@ const Router = () => {
           element: <ProductDetails />,
           loader: productLoader,
         },
-        { path: "/auth", element: <Auth /> },
-        { path: "/login", element: <Login /> },
-        { path: "/register", element: <Register /> },
+        {
+          element: <AuthRoutes />,
+          children: [
+            { path: "/register", element: <Register /> },
+            { path: "/login", element: <Login /> },
+          ],
+        },
         {
           element: <PrivateRoutes />,
           children: [

@@ -203,7 +203,7 @@ const Cart = () => {
           <div>
             <button className="w-full py-3 text-sm font-semibold text-white duration-200 bg-blue-500 rounded-lg hover:bg-blue-400">
               {checkoutMutation.isPending ? (
-                <MoonLoader size={25} />
+                <MoonLoader size={22} />
               ) : (
                 "Checkout"
               )}

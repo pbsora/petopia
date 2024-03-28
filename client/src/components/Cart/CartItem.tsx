@@ -88,7 +88,7 @@ const CartItem = ({ product, setCartItems, deleteItem }: Props) => {
         </div>
         <div>
           <span className="hidden text-sm font-semibold text-zinc-700 dark:text-zinc-200 lg:block">
-            $ {+product.price * product.quantity}
+            $ {(+product.price * product.quantity).toFixed(2)}
           </span>
         </div>
         <button

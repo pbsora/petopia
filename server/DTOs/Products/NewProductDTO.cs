@@ -11,7 +11,7 @@ namespace server.DTOs.Products
         public double Price { get; set; } = 0.0;
         public string Image { get; set; } = string.Empty;
 
-        [MaxLength(250)]
+        [MaxLength(1000)]
         public string Description { get; set; } = string.Empty;
 
         [Required]

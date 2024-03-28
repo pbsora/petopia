@@ -2,7 +2,8 @@ import { useAddProduct } from "@/lib/Queries/ProductQueries";
 import { useGetCategories, useGetPets } from "@/lib/Queries/SearchQueries";
 import { Capitalize } from "@/utils/Capitalize";
 import { NewProduct } from "@/utils/Types & Interfaces";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PropagateLoader } from "react-spinners";
 
 const AddProduct = () => {
   const categories = useGetCategories().data as {
@@ -21,6 +22,8 @@ const AddProduct = () => {
     petId: 1,
   });
 
+  console.log(product);
+
   const newProductMutation = useAddProduct();
 
   const handleSelectChange = (
@@ -38,6 +41,15 @@ const AddProduct = () => {
     newProductMutation.mutate(product);
   };
 
+  useEffect(() => {
+    if (newProductMutation.isSuccess) {
+      window.location.reload();
+    }
+    if (newProductMutation.isError) {
+      console.log(newProductMutation.failureReason);
+    }
+  }, [newProductMutation.isSuccess, newProductMutation.isError]);
+
   return (
     <form
       className="container flex flex-col w-[65%] gap-4 mt-6 mb-10 h-fit font-inter"
@@ -51,7 +63,7 @@ const AddProduct = () => {
           type="text"
           name="name"
           id="name"
-          className="w-full px-4 py-2 border rounded-lg border-zinc-500"
+          className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.name}
         />
@@ -64,7 +76,7 @@ const AddProduct = () => {
           type="number"
           name="stock"
           id="stock"
-          className="w-full px-4 py-2 border rounded-lg border-zinc-500"
+          className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.stock}
         />
@@ -77,7 +89,7 @@ const AddProduct = () => {
           type="number"
           name="price"
           id="price"
-          className="w-full px-4 py-2 border rounded-lg border-zinc-500"
+          className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.price}
         />
@@ -90,7 +102,7 @@ const AddProduct = () => {
           type="text"
           name="image"
           id="image"
-          className="w-full px-4 py-2 border rounded-lg border-zinc-500"
+          className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.image}
         />
@@ -103,7 +115,7 @@ const AddProduct = () => {
           type="text"
           name="description"
           id="image"
-          className="w-full px-4 py-2 border rounded-lg border-zinc-500"
+          className="w-full px-4 py-2 border rounded-lg border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.description}
         />
@@ -113,9 +125,9 @@ const AddProduct = () => {
           Category
         </label>
         <select
-          name="category"
+          name="categoryId"
           id="category"
-          className="w-full px-3 py-3 text-lg border rounded-md border-zinc-500"
+          className="w-full px-3 py-3 text-lg border rounded-md border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.categoryId}
         >
@@ -135,9 +147,9 @@ const AddProduct = () => {
           Pet
         </label>
         <select
-          name="pet"
+          name="petId"
           id="pet"
-          className="w-full px-3 py-3 text-lg border rounded-md border-zinc-500"
+          className="w-full px-3 py-3 text-lg border rounded-md border-zinc-500 dark:bg-slate-800"
           onChange={handleSelectChange}
           value={product.petId}
         >
@@ -149,7 +161,13 @@ const AddProduct = () => {
         </select>
       </div>
       <button className="w-full py-3 mt-8 text-xl text-white bg-sky-600 rounded-xl">
-        Add product
+        {newProductMutation.isPending ? (
+          <div className="flex items-center justify-center py-3">
+            <PropagateLoader color="#15bde1" size={25} />
+          </div>
+        ) : (
+          "Add product"
+        )}
       </button>
     </form>
   );

@@ -58,7 +58,7 @@ const CompletedOrderItem = ({ order }: Props) => {
           })}
         </div>
         <span className="text-lg font-bold lg:self-end text-zinc-600 dark:text-zinc-200">
-          Total value: $ {order.totalValue}
+          Total value: $ {Number(order.totalValue).toFixed(2)}
         </span>
         <hr className="border border-zinc-200 dark:border-zinc-600" />
         <button

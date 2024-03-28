@@ -10,13 +10,13 @@ namespace server.Model
 
         [Required]
         [MinLength(3)]
-        [MaxLength(80)]
+        [MaxLength(120)]
         public string Name { get; set; } = string.Empty;
         public int Stock { get; set; } = 0;
         public double Price { get; set; } = 0.0;
         public string Image { get; set; } = string.Empty;
 
-        [MaxLength(250)]
+        [MaxLength(1000)]
         public string Description { get; set; } = string.Empty;
         public string? Slug { get; set; }
 

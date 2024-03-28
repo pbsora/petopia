@@ -56,13 +56,24 @@ namespace server.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
 
+            HttpContext.Response.Cookies.Append(
+                "token",
+                _tokenService.CreateToken(user, userRoles.ToList()),
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+                    IsEssential = true
+                }
+            );
+
             return Ok(
                 new NewUserDTO
                 {
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(user, userRoles.ToList())
                 }
             );
         }

@@ -16,21 +16,23 @@ const ProductItem = ({ product }: Props) => {
   return (
     <Link
       to={`/product/${product.slug}`}
-      className="container flex flex-col gap-4 px-4 py-8 border shadow-md cursor-pointer select-none border-zinc-300 rounded-xl font-inter dark:border-zinc-700"
+      className="container flex flex-col gap-4 px-4 py-4 border shadow-md cursor-pointer select-none border-zinc-300 rounded-xl font-inter dark:border-zinc-700"
     >
-      <img
-        src={product.image}
-        alt="product thumbnail"
-        className="w-3/4 2xl:w-[60%] m-auto dark:rounded-xl "
-      />
-      <div className="h-12 ">
+      <div className="flex items-center h-36">
+        <img
+          src={product.image}
+          alt="product thumbnail"
+          className="w-[65%] h-auto m-auto 2xl:w-auto rounded-xl "
+        />
+      </div>
+      <div className="flex flex-col h-20">
         <p className="mb-2 text-sm line-clamp-2 dark:text-zinc-100 text-zinc-600">
           {product.name}
         </p>
         <Badge
           className={`${
             Color[product.pet.name as keyof typeof Color]
-          } text-zinc-200`}
+          } text-zinc-200 w-fit px-4`}
         >{`${product.pet.name}`}</Badge>
       </div>
       <span className="font-semibold text-zinc-700 dark:text-zinc-300">

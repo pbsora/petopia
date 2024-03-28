@@ -72,7 +72,7 @@ const NavbarDesktop = () => {
           </button>
           <Link
             to={
-              user.username
+              user && user.username
                 ? "/profile"
                 : location.pathname === "/"
                 ? "/login"
@@ -83,7 +83,7 @@ const NavbarDesktop = () => {
             <FaRegUser />
           </Link>
           <Link
-            to={user.username ? "/profile/favorites" : "/login"}
+            to={user && user.username ? "/profile/favorites" : "/login"}
             className="duration-200 cursor-pointer hover:scale-125"
           >
             <CiHeart />

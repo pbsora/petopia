@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+
 const Disclaimer = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="container lg:w-[60vw] py-10 mb-10 flex flex-col gap-6 font-roboto">
       <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-200">

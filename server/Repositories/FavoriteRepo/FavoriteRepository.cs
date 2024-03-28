@@ -22,6 +22,11 @@ namespace server.Repositories.FavoriteRepo
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Retrieves a list of favorite products for a given user.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <returns>An asynchronous task that represents the operation, containing a collection of <see cref="GetFavoriteDTO"/>.</returns>
         public async Task<IEnumerable<GetFavoriteDTO>> GetFavoritesAsync(string userId)
         {
             var order = await _context
@@ -55,12 +60,10 @@ namespace server.Repositories.FavoriteRepo
 
         public async Task<Favorite> GetFavoriteById(string favoriteId)
         {
-            var favorite = await _context.Favorites.FirstOrDefaultAsync(f =>
-                f.FavoriteId == Guid.Parse(favoriteId)
-            );
-
-            if (favorite == null)
-                throw new Exception("Favorite not found!");
+            var favorite =
+                await _context.Favorites.FirstOrDefaultAsync(f =>
+                    f.FavoriteId == Guid.Parse(favoriteId)
+                ) ?? throw new Exception("Favorite not found!");
 
             return favorite;
         }

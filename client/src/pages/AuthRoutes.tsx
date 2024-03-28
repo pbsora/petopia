@@ -2,7 +2,7 @@ import { useAuthenticated } from "@/lib/Queries/UserQueries";
 import { Navigate, Outlet } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 
-const PrivateRoutes = () => {
+const AuthRoutes = () => {
   const isAuthenticated = useAuthenticated();
 
   if (isAuthenticated.isLoading)
@@ -13,9 +13,9 @@ const PrivateRoutes = () => {
     );
 
   return isAuthenticated.isFetched && isAuthenticated.data ? (
-    <Outlet />
+    <Navigate to="/profile" />
   ) : (
-    <Navigate to="/login" />
+    <Outlet />
   );
 };
-export default PrivateRoutes;
+export default AuthRoutes;

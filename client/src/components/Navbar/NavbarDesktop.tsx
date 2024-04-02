@@ -24,7 +24,7 @@ const NavbarDesktop = ({ cartCount }: Props) => {
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
 
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = (useContext(UserContext) as AuthContext) || {};
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

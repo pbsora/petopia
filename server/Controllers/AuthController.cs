@@ -79,7 +79,7 @@ namespace server.Controllers
         }
 
         [HttpGet("current")]
-        public ActionResult<string> GetAsync()
+        public ActionResult<object> GetAsync()
         {
             var userInfo = new
             {

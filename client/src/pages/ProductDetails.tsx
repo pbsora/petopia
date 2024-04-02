@@ -12,16 +12,10 @@ import RecommendedProducts from "@/components/Product/RecommendedProducts";
 const ProductDetails = () => {
   const location = useLocation();
   const { toast } = useToast();
+
   const product = useLoaderData() as Product;
-  const [orderItem, setOrderItem] = useState<OrderItem>({
-    productId: product.productsId,
-    quantity: 1,
-    name: product.name,
-    price: product.price,
-    image: product.image,
-    slug: product.slug,
-  });
   const [cart, setCart] = useLocalStorage("cart", []);
+  const [quantity, setQuantity] = useState(1);
 
   const { user } = useContext(UserContext) as AuthContext;
   const favoriteMutation = useNewFavorite(
@@ -30,15 +24,13 @@ const ProductDetails = () => {
   );
 
   const addToCart = () => {
-    if (
-      cart.some((item: OrderItem) => item.productId === orderItem.productId)
-    ) {
+    if (cart.some((item: OrderItem) => item.productId === product.productsId)) {
       setCart((prev: OrderItem[]) =>
         prev.map((item: OrderItem) => {
-          if (item.productId === orderItem.productId) {
+          if (item.productId === product.productsId) {
             return {
               ...item,
-              quantity: orderItem.quantity,
+              quantity: quantity,
             };
           }
           return item;
@@ -49,7 +41,17 @@ const ProductDetails = () => {
         description: "Item quantity updated",
       });
     } else {
-      setCart([...cart, orderItem]);
+      setCart([
+        ...cart,
+        {
+          productId: product.productsId,
+          quantity,
+          name: product.name,
+          price: product.price,
+          image: product.image,
+          slug: product.slug,
+        } as OrderItem,
+      ]);
       toast({
         title: "Added to cart",
         description: "Item added to cart",
@@ -60,22 +62,20 @@ const ProductDetails = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
+    setQuantity(1);
   }, [location.pathname]);
 
   const handleCart = (operation: string) => {
-    setOrderItem((prevOrderItem) => ({
-      ...prevOrderItem,
-      quantity:
-        operation === "p"
-          ? prevOrderItem.quantity >= 10
-            ? 10
-            : prevOrderItem.quantity + 1
-          : prevOrderItem.quantity <= 1
-          ? prevOrderItem.quantity
-          : prevOrderItem.quantity - 1,
-    }));
+    setQuantity((prevQuantity) =>
+      operation === "p"
+        ? prevQuantity >= 10
+          ? prevQuantity
+          : prevQuantity + 1
+        : prevQuantity <= 1
+        ? prevQuantity
+        : prevQuantity - 1
+    );
   };
 
   const handleFavorite = () => {
@@ -100,7 +100,7 @@ const ProductDetails = () => {
   }, [favoriteMutation.isSuccess, favoriteMutation.isError, toast]);
 
   return (
-    <div className="w-screen md:w-[70vw] lg:grid grid-cols-2 m-auto gap-5 flex flex-col font-inter mt-5 lg:mt-10 mb-40">
+    <main className="w-screen md:w-[70vw] lg:grid grid-cols-2 m-auto gap-5 flex flex-col font-inter mt-5 lg:mt-10 mb-40">
       <div className="flex flex-col w-full gap-2 lg:col-span-1">
         <div className="flex gap-3 mb-2 ml-2 lg:ml-0">
           <span className="font-[500] ">{Capitalize(product.pet.name)}</span>
@@ -160,7 +160,7 @@ const ProductDetails = () => {
               <Minus size={25} />
             </button>
             <span className="w-12 px-4 py-2 text-lg text-center border">
-              {orderItem.quantity}
+              {quantity}
             </span>
             <button
               className="flex items-center p-2 border"
@@ -186,7 +186,7 @@ const ProductDetails = () => {
         <h2 className="text-xl font-semibold ">Description</h2>
         <p className="mt-6 text-lg">{product.description}</p>
       </div>
-    </div>
+    </main>
   );
 };
 export default ProductDetails;

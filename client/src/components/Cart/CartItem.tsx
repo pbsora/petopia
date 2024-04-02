@@ -47,7 +47,7 @@ const CartItem = ({ product, setCartItems, deleteItem }: Props) => {
         <img
           src={product.image}
           alt={product.name}
-          className="w-20 ml-3 dark:rounded-xl lg:w-28 rounded-xl"
+          className="w-20 ml-3 dark:rounded-xl lg:w-28 max-h-32 rounded-xl"
         />
         <Link
           to={`/product/${product.slug}`}

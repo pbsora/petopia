@@ -10,7 +10,7 @@ type Props = {
 const OrderModal = ({ closeModal, order }: Props) => {
   return (
     <>
-      <div className="z-50 flex flex-col w-[95vw] lg:w-[85vw] m-auto inset-0 h-3/4 fixed border-2 py-4 border-zinc-400 shadow-sm dark:border-zinc-300 bg-background dark: rounded-xl duration-200 container font-roboto">
+      <div className="z-50 flex flex-col gap-8 w-[95vw] lg:w-[85vw] m-auto inset-0 h-[85%] fixed border-2 py-4 border-zinc-400 shadow-sm dark:border-zinc-300 bg-background dark: rounded-xl duration-200 container font-roboto">
         <div className="flex justify-between">
           <h1 className="text-xl font-bold text-zinc-700 dark:text-zinc-200">
             Order Details
@@ -19,7 +19,7 @@ const OrderModal = ({ closeModal, order }: Props) => {
             <IoMdCloseCircle />
           </button>
         </div>
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto" id="content">
           {order?.orderItems.map((item) => (
             <div
               className="flex gap-4 p-4 border-b border-zinc-400 dark:border-zinc-300 "

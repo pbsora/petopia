@@ -27,7 +27,6 @@ namespace server.Repositories.OrderRepo
 
             var orders = await _context
                 .Orders.Where(o => o.UserId == userId)
-                .Take(2)
                 .Select(o => new GetOrderDTO
                 {
                     Id = o.Id,

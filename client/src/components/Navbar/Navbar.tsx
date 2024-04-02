@@ -3,19 +3,24 @@ import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
 import Sidebar from "./Sidebar";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cart] = useLocalStorage("cart", []);
   const [cartCount, setCartCount] = useState([...cart].length);
+  const location = useLocation();
 
   useEffect(() => {
-    //Set cart count
-    setCartCount(() => {
-      const cartLenght = localStorage.getItem("cart");
-      return cartLenght ? [...JSON.parse(cartLenght)].length : 0;
+    //Set cart count on location change
+    setCartCount((prevCount) => {
+      const cartLength = localStorage.getItem("cart");
+      if (cartLength && +cartLength !== prevCount) {
+        return cartLength ? [...JSON.parse(cartLength)].length : 0;
+      }
+      return prevCount;
     });
-  }, [cart]);
+  }, [cart, location.pathname]);
 
   const openSidebar = () => {
     setIsOpen(true);

@@ -12,6 +12,16 @@ export const useAddProduct = () => {
   });
 };
 
+export const useGetProduct = (slug: string) => {
+  return useQuery({
+    queryKey: ["product", slug],
+    queryFn: async () => {
+      const { data } = await API.get(`products/slug/${slug}`);
+      return data;
+    },
+  });
+};
+
 export const useRelatedProducts = (pet: string | number) => {
   return useQuery({
     queryKey: ["relatedProducts"],

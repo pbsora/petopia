@@ -20,7 +20,7 @@ import elo from "@/assets/cards/elo.svg";
 
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
-  const cartItems = [...cartLs] as OrderItem[];
+  const cartItems = [...cartLs];
 
   const { user } = useContext(UserContext) as AuthContext;
   const { toast } = useToast();
@@ -109,7 +109,10 @@ const Cart = () => {
               Total
             </h1>
           </div>
-          <div className="flex flex-col gap-6  max-h-[85vh] lg:h-[60vh] overflow-y-auto pr-3 scrollbar-thin ">
+          <div
+            className="flex flex-col gap-6  max-h-[85vh] lg:h-[80vh] overflow-y-auto pr-3 "
+            id="content"
+          >
             {cartItems.length !== 0 ? (
               cartItems.map((item: OrderItem) => (
                 <Fragment key={item.productId}>
@@ -121,7 +124,7 @@ const Cart = () => {
                 </Fragment>
               ))
             ) : (
-              <p className="py-10 text-center text-zinc-500 lg:py-0 dark:text-zinc-300">
+              <p className="py-10 mt-10 text-center text-zinc-500 lg:py-0 dark:text-zinc-300">
                 No items in cart
               </p>
             )}
@@ -201,9 +204,9 @@ const Cart = () => {
             </div>
           </div>
           <div>
-            <button className="w-full py-3 text-sm font-semibold text-white duration-200 bg-blue-500 rounded-lg hover:bg-blue-400">
+            <button className="flex items-center justify-center w-full py-3 text-sm font-semibold text-white duration-200 bg-blue-500 rounded-lg hover:bg-blue-400">
               {checkoutMutation.isPending ? (
-                <MoonLoader size={22} />
+                <MoonLoader size={20} />
               ) : (
                 "Checkout"
               )}

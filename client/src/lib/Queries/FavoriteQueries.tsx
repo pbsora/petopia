@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useNewFavorite = (productId: string, userId: string) => {
   return useMutation({
-    mutationKey: ["newFavorite", productId],
+    mutationKey: ["newFavorite"],
     mutationFn: async () => {
       const { data } = await API.post(`favorite`, { productId, userId });
       return data;
@@ -14,6 +14,7 @@ export const useNewFavorite = (productId: string, userId: string) => {
 export const useGetFavorites = () => {
   return useQuery({
     queryKey: ["favorites"],
+    retry: 1,
     queryFn: async () => {
       const { data } = await API.get(`favorite`);
       return data;

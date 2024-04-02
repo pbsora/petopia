@@ -15,6 +15,7 @@ export const useCheckout = (items: CheckoutItem[], userId: string) => {
 export const useGetOrders = (userId: string) => {
   return useQuery({
     queryKey: ["orders"],
+    retry: 1,
     queryFn: async () => {
       return await API.get(`/order/${userId}`);
     },

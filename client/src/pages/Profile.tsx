@@ -37,7 +37,7 @@ const Profile = () => {
           <span className="text-base font-semibold ">Favorites</span>
         </Link>
       </div>
-      <div className="lg:w-[75%] w-full  px-10 py-0">
+      <div className="lg:w-[75%] w-full  lg:px-10 py-0">
         {location.pathname === "/profile" ? (
           <div>
             <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-200">

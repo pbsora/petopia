@@ -11,7 +11,6 @@ import Register from "@/pages/Register";
 
 import Profile from "@/pages/Profile";
 import AddProduct from "@/pages/AddProduct";
-import { authLoader } from "./Loaders/AuthLoader";
 import Cart from "@/pages/Cart";
 import Orders from "@/pages/Orders";
 import Favorites from "@/pages/Favorites";
@@ -27,7 +26,6 @@ const Router = () => {
       path: "/",
       element: <App />,
       errorElement: <ErrorPage />,
-      loader: authLoader,
       children: [
         { path: "/", element: <Home /> },
         { path: "/search", element: <Search /> },

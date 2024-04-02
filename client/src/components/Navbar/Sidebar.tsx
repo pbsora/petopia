@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Sidebar = ({ isOpen, setIsOpen }: Props) => {
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = (useContext(UserContext) as AuthContext) || {};
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
   return (
@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
         <div className="flex justify-between px-6 py-6 text-2xl ">
           <h2 className="flex items-center gap-2 font-madimi">
             <FaRegUser />
-            {user.username
+            {user && user.username
               ? `Hello, ${Capitalize(user.username)}`
               : "Hello, Guest"}
           </h2>

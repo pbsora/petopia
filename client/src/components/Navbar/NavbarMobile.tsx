@@ -23,7 +23,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
 
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = (useContext(UserContext) as AuthContext) || {};
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
           </span>
           <Link
             to={
-              user.username
+              user && user.username
                 ? "/profile/orders"
                 : location.pathname === "/"
                 ? "/login"

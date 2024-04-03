@@ -5,8 +5,14 @@ import CategoryFilter from "./FiltersDesktop/CategoryFilter";
 import PriceFilter from "./FiltersDesktop/PriceFilter";
 import PetTypeFilter from "./FiltersDesktop/PetTypeFilter";
 import { useSearchParams } from "react-router-dom";
+import { Category, PetType } from "@/utils/Types & Interfaces";
 
-const SearchFiltersDesktop = () => {
+type Props = {
+  categories: Category[];
+  pets: PetType[];
+};
+
+const SearchFiltersDesktop = ({ categories, pets }: Props) => {
   const [searchParams] = useSearchParams();
   const categoryParams = searchParams.get("category");
   const priceParams = searchParams.get("price");
@@ -83,9 +89,17 @@ const SearchFiltersDesktop = () => {
             Apply Filters
           </Button>
         </div>
-        <CategoryFilter category={category} handleCategory={handleCategory} />
+        <CategoryFilter
+          category={category}
+          categories={categories}
+          handleCategory={handleCategory}
+        />
+        <PetTypeFilter
+          petType={petType}
+          pets={pets}
+          handlePetType={handlePetType}
+        />
         <PriceFilter price={price} handlePrice={handlePrice} />
-        <PetTypeFilter petType={petType} handlePetType={handlePetType} />
       </aside>
     </div>
   );

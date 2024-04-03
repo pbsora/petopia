@@ -8,9 +8,9 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "@/utils/Types & Interfaces";
-import { UserContext } from "@/hooks/Context/UserContext";
+import { FormEvent, useState } from "react";
+
+import useUserContext from "@/hooks/Context/useUserContext";
 
 type Props = {
   setIsOpen: () => void;
@@ -23,7 +23,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
 
-  const { user } = (useContext(UserContext) as AuthContext) || {};
+  const { user } = useUserContext();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

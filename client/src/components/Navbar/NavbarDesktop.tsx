@@ -3,12 +3,10 @@ import { CiHeart, CiSearch } from "react-icons/ci";
 import { IoBagOutline } from "react-icons/io5";
 import CategoryDropdown from "./CategoryDropdown";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
-
-import { UserContext } from "@/hooks/Context/UserContext";
-import { AuthContext } from "@/utils/Types & Interfaces";
+import useUserContext from "@/hooks/Context/useUserContext";
 
 type Props = {
   cartCount: number;
@@ -24,10 +22,12 @@ const NavbarDesktop = ({ cartCount }: Props) => {
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
 
-  const { user } = (useContext(UserContext) as AuthContext) || {};
+  const { user } = useUserContext();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (search.trim.length < 1) return alert("Please enter a search term");
+
     if (location.pathname !== "/search") {
       navigate(`/search?name=${search}`);
     } else {

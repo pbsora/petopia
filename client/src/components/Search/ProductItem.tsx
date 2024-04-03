@@ -7,10 +7,10 @@ type Props = {
 };
 
 enum Color {
-  Dogs = "bg-pink-500",
+  Dogs = "bg-pink-600",
   Cats = "bg-blue-500",
-  Birds = "bg-yellow-500",
-  Fish = "bg-green-500",
+  Birds = "bg-yellow-600",
+  Fish = "bg-green-600",
 }
 const ProductItem = ({ product }: Props) => {
   return (
@@ -22,7 +22,7 @@ const ProductItem = ({ product }: Props) => {
         <img
           src={product.image}
           alt="product thumbnail"
-          className="w-[65%] max-h-full m-auto 2xl:w-auto rounded-xl object-scale-down "
+          className="w-[80%] lg:w-[65%] max-h-full m-auto 2xl:w-auto rounded-xl object-scale-down "
         />
       </div>
       <div className="flex flex-col h-20">

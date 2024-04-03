@@ -112,7 +112,7 @@ const ProductDetails = () => {
         <img
           src={product.image}
           alt="product image"
-          className="w-[80%] m-auto lg:m-0 dark:rounded-xl"
+          className=" max-w-[70%] max-h-[35rem] m-auto lg:m-0 rounded-xl"
         />
       </div>
       <div className="flex flex-col gap-8 px-3 mt-2 lg:col-span-1 lg:mt-10">

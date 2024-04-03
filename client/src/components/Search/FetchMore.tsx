@@ -27,7 +27,7 @@ const FetchMore = ({ nextPage }: Props) => {
 
   return (
     <div className={`h-2`} ref={ref}>
-      {nextPage.hasNextPage && <div>Loading...</div>}
+      {nextPage.hasNextPage ? <div>Loading...</div> : <div>No more data</div>}
     </div>
   );
 };

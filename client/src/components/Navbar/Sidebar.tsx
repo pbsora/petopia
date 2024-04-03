@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "@/hooks/Context/UserContext";
 import { AuthContext } from "@/utils/Types & Interfaces";
 import { Capitalize } from "@/utils/Capitalize";
+import { User } from "lucide-react";
 
 type Props = {
   isOpen: boolean;
@@ -58,6 +59,32 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           {currTheme === "dark" ? "Toggle Light Mode" : "Toggle Dark Mode"}
         </button>
         <div className="max-h-[90%] overflow-y-scroll ">
+          <section className="flex flex-col gap-1">
+            <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
+              <User /> User
+            </h1>
+            <Link
+              to={"/profile"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Profile
+            </Link>
+            <Link
+              to={"/profile/orders"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Orders
+            </Link>
+            <Link
+              to={"/profile/favorites"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Favorites
+            </Link>
+          </section>
           <section className="flex flex-col gap-1">
             <h1 className="flex items-center w-full gap-2 p-2 text-2xl bg-zinc-200 text-zinc-800 font-madimi dark:text-zinc-200 dark:bg-slate-700">
               <LuDog /> Dogs

@@ -111,3 +111,13 @@ export type FormError = {
     };
   };
 };
+
+export interface Category {
+  categoryId: string;
+  name: string;
+}
+
+export interface PetType {
+  petTypeId: string;
+  name: string;
+}

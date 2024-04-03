@@ -53,7 +53,6 @@ export const useGetPets = () => {
     queryKey: ["pets"],
     queryFn: async () => {
       const { data } = await API.get("pettype");
-
       return data;
     },
   });

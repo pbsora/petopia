@@ -5,8 +5,14 @@ import { useSearchParams } from "react-router-dom";
 import CategoryFilterMobile from "./FiltersMobile/CategoryFilterMobile";
 import PriceFilterMobile from "./FiltersMobile/PriceFilterMobile";
 import PetTypeFilterMobile from "./FiltersMobile/PetTypeFilterMobile";
+import { Category, PetType } from "@/utils/Types & Interfaces";
 
-const SearchFiltersMobile = () => {
+type Props = {
+  categories: Category[];
+  pets: PetType[];
+};
+
+const SearchFiltersMobile = ({ categories, pets }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const categoryParams = searchParams.get("category");
@@ -22,10 +28,10 @@ const SearchFiltersMobile = () => {
     setPrice(e.target.value);
   };
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value.slice(0, -1));
   };
   const handlePetType = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPetType(e.target.value);
+    setPetType(e.target.value.slice(0, -1));
   };
 
   const handleSearchQuery = () => {
@@ -120,13 +126,15 @@ const SearchFiltersMobile = () => {
           </button>
           <CategoryFilterMobile
             category={category}
+            categories={categories}
             handleCategory={handleCategory}
           />
-          <PriceFilterMobile price={price} handlePrice={handlePrice} />
           <PetTypeFilterMobile
             petType={petType}
+            pets={pets}
             handlePetType={handlePetType}
           />
+          <PriceFilterMobile price={price} handlePrice={handlePrice} />
         </div>
       </aside>
     </div>

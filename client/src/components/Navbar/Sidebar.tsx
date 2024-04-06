@@ -3,11 +3,9 @@ import { FaRegUser, FaCat, FaSun, FaRegMoon } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { LuDog, LuFish, LuBird } from "react-icons/lu";
 import { useTheme } from "@/components/theme-provider";
-import { useContext } from "react";
-import { UserContext } from "@/hooks/Context/UserContext";
-import { AuthContext } from "@/utils/Types & Interfaces";
 import { Capitalize } from "@/utils/Capitalize";
 import { User } from "lucide-react";
+import useUserContext from "@/hooks/Context/useUserContext";
 
 type Props = {
   isOpen: boolean;
@@ -15,7 +13,7 @@ type Props = {
 };
 
 const Sidebar = ({ isOpen, setIsOpen }: Props) => {
-  const { user } = (useContext(UserContext) as AuthContext) || {};
+  const { user } = useUserContext();
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
   return (

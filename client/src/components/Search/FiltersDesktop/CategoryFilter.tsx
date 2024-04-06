@@ -4,7 +4,6 @@ import { Category } from "@/utils/Types & Interfaces";
 type Props = {
   category: string;
   handleCategory: (e: React.ChangeEvent<HTMLInputElement>) => void;
-
   categories: Category[];
 };
 

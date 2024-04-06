@@ -1,13 +1,14 @@
-import { AuthContext, OrderItem, Product } from "@/utils/Types & Interfaces";
+import { OrderItem, Product } from "@/utils/Types & Interfaces";
 import { useLoaderData, useLocation } from "react-router-dom";
 import { Heart, Plus, Minus } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Capitalize } from "@/utils/Capitalize";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useToast } from "@/components/ui/use-toast";
 import { useNewFavorite } from "@/lib/Queries/FavoriteQueries";
-import { UserContext } from "@/hooks/Context/UserContext";
+
 import RecommendedProducts from "@/components/Product/RecommendedProducts";
+import useUserContext from "@/hooks/Context/useUserContext";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -17,7 +18,7 @@ const ProductDetails = () => {
   const [cart, setCart] = useLocalStorage("cart", []);
   const [quantity, setQuantity] = useState(1);
 
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = useUserContext();
   const favoriteMutation = useNewFavorite(
     product.productsId,
     user.userId || ""
@@ -60,9 +61,6 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-    });
     setQuantity(1);
   }, [location.pathname]);
 

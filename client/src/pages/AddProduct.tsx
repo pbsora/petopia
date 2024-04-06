@@ -22,8 +22,6 @@ const AddProduct = () => {
     petId: 1,
   });
 
-  console.log(product);
-
   const newProductMutation = useAddProduct();
 
   const handleSelectChange = (

@@ -5,15 +5,13 @@ const SearchCategories = () => {
   const categories = useGetCategories();
   const pets = useGetPets();
 
-  console.log(categories.data);
-
   return (
     <>
       <div className="hidden w-full col-span-2 md:block">
         <SearchFiltersDesktop categories={categories.data} pets={pets.data} />
       </div>
       <div className="w-full md:hidden">
-        <SearchFiltersMobile />
+        <SearchFiltersMobile categories={categories.data} pets={pets.data} />
       </div>
     </>
   );

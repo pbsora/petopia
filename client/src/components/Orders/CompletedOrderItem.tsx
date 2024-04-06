@@ -47,10 +47,10 @@ const CompletedOrderItem = ({ order }: Props) => {
               <div className="relative" key={item.product.slug}>
                 <img
                   src={item.product.image}
-                  alt=""
-                  className="object-cover w-16 h-16 rounded-lg"
+                  alt="product image"
+                  className="object-cover w-16 h-16 border-2 rounded-lg shadow-md border-zinc-200"
                 />
-                <span className="absolute bottom-0 px-2 text-white rounded-full right-1 bg-sky-500">
+                <span className="absolute bottom-0 px-2 text-white rounded-full -right-3 bg-sky-500">
                   {item.quantity}
                 </span>
               </div>

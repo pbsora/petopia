@@ -1,14 +1,9 @@
 import CartItem from "@/components/Cart/CartItem";
-import { UserContext } from "@/hooks/Context/UserContext";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useCheckout } from "@/lib/Queries/CartQueries";
-import {
-  AuthContext,
-  CheckoutItem,
-  OrderItem,
-} from "@/utils/Types & Interfaces";
+import { CheckoutItem, OrderItem } from "@/utils/Types & Interfaces";
 import { Clock, Truck } from "lucide-react";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import { useToast } from "@/components/ui/use-toast";
@@ -17,12 +12,13 @@ import mastercard from "@/assets/cards/mastercard.svg";
 import visa from "@/assets/cards/visa.svg";
 import amex from "@/assets/cards/amex.svg";
 import elo from "@/assets/cards/elo.svg";
+import useUserContext from "@/hooks/Context/useUserContext";
 
 const Cart = () => {
   const [cartLs, setCartLs] = useLocalStorage("cart", []);
   const cartItems = [...cartLs];
 
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = useUserContext();
   const { toast } = useToast();
 
   const cart: CheckoutItem[] = cartItems.map((item) => ({

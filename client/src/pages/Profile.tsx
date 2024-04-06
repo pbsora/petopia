@@ -1,13 +1,31 @@
-import { UserContext } from "@/hooks/Context/UserContext";
+import useUserContext from "@/hooks/Context/useUserContext";
+import { useLogout } from "@/lib/Queries/UserQueries";
 import { Capitalize } from "@/utils/Capitalize";
-import { AuthContext } from "@/utils/Types & Interfaces";
 import { Heart, PackageOpen, CircleUserRound } from "lucide-react";
-import { useContext } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user, setUserData } = useUserContext();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const logoutMutation = useLogout();
+
+  const handleLogout = async () => {
+    logoutMutation.mutate();
+    setUserData({
+      userId: "",
+      username: "",
+      email: "",
+    });
+  };
+
+  useEffect(() => {
+    if (logoutMutation.isSuccess) {
+      navigate("/");
+    }
+  }, [logoutMutation.isSuccess, navigate]);
 
   return (
     <div className="w-full lg:w-[80%] m-auto min-h-[70vh] mt-6 mb-10 flex gap-5 flex-col lg:flex-row ">
@@ -61,6 +79,12 @@ const Profile = () => {
                   {user.email}
                 </p>
               </div>
+              <button
+                className="px-4 py-2 mt-6 bg-red-600 rounded-xl lg:w-[35%] text-white hover:bg-red-500 duration-200"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </div>
           </div>
         ) : (

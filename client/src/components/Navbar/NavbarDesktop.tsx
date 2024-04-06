@@ -26,7 +26,7 @@ const NavbarDesktop = ({ cartCount }: Props) => {
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search.trim.length < 1) return alert("Please enter a search term");
+    if (search.trim().length < 1) return alert("Please enter a search term");
 
     if (location.pathname !== "/search") {
       navigate(`/search?name=${search}`);

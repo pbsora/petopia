@@ -54,7 +54,7 @@ export interface AuthData {
 }
 
 export interface AuthContext {
-  user: AuthData | { userId: null; username: null; email: null };
+  user: AuthData | { userId: ""; username: ""; email: "" };
   setUserData: (user: AuthData) => void;
 }
 

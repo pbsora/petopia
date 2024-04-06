@@ -2,6 +2,7 @@ using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Newtonsoft.Json;
 using server.DTOs.Products;
 using server.Model;
@@ -13,6 +14,7 @@ namespace server.Controllers
 {
     [ApiController]
     [Route("api/products")]
+    [EnableRateLimiting("fixedWindow")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _repository;

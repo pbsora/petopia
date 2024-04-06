@@ -15,14 +15,14 @@ const ImageCarousel = () => {
         }}
         plugins={[
           Autoplay({
-            delay: 50000000, //
+            delay: 8000,
           }),
         ]}
       >
         <CarouselContent>
           <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
-              src="https://images.petz.com.br/fotos/Home_Desk_1900x390_Assinatura_2023.png"
+              src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1712367779/petshop/banners/eqgdl14yovcs0jidmkrn.jpg"
               alt=""
               className="hidden rounded-xl md:block"
             />
@@ -34,7 +34,7 @@ const ImageCarousel = () => {
           </CarouselItem>
           <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
-              src="https://images.petz.com.br/fotos/Home_Desk_1900x390_MesdoConsumidor_CatMyPet.jpg"
+              src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1712288579/petshop/banners/udwv3pm25fnmmy6x4ffj.jpg"
               alt=""
               className="hidden rounded-xl md:block"
             />
@@ -46,7 +46,7 @@ const ImageCarousel = () => {
           </CarouselItem>
           <CarouselItem className="basis-[80%] md:basis-[95%] lg:basis-[85%]">
             <img
-              src="https://images.petz.com.br/fotos/Banner_desk_mes-do-consumidor_1900x390_1.jpg"
+              src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1712367076/petshop/banners/k0g4drsukd065kexhdnf.jpg"
               alt=""
               className="hidden rounded-xl md:block"
             />

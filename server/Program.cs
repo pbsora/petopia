@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -150,6 +151,20 @@ builder
         };
     });
 
+builder.Services.AddRateLimiter(rateLimiterOptions =>
+{
+    rateLimiterOptions.AddFixedWindowLimiter(
+        policyName: "fixedWindow",
+        options =>
+        {
+            options.PermitLimit = 30;
+            options.Window = TimeSpan.FromMinutes(1);
+            options.QueueLimit = 0;
+        }
+    );
+    rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
 builder.Services.AddAutoMapper(typeof(UserDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(ProductDTOMappingProfile));
 builder.Services.AddAutoMapper(typeof(CategoryDTOMappingProfile));
@@ -175,6 +190,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseRateLimiter();
 
 app.UseCors("MyPolicy");
 

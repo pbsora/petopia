@@ -1,14 +1,14 @@
-import { UserContext } from "@/hooks/Context/UserContext";
 import { useAuthenticated, useLogin } from "@/lib/Queries/UserQueries";
-import { AuthContext, AuthData, FormError } from "@/utils/Types & Interfaces";
+import { AuthData, FormError } from "@/utils/Types & Interfaces";
 import { AxiosError } from "axios";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { MoonLoader, PropagateLoader } from "react-spinners";
 import { z } from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import useUserContext from "@/hooks/Context/useUserContext";
 
 const LoginSchema = z.object({
   username: z.string().min(3, { message: "Username is too short" }),
@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { setUserData } = useContext(UserContext) as AuthContext;
+  const { setUserData } = useUserContext();
   const loginMutation = useLogin();
   const isLogged = useAuthenticated();
 
@@ -59,7 +59,14 @@ const Login = () => {
         navigate("/profile");
       }
     }
-  }, [loginMutation.isError, loginMutation.isSuccess, navigate, searchParams]);
+  }, [
+    loginMutation.isError,
+    loginMutation.isSuccess,
+    navigate,
+    searchParams,
+    setError,
+    setUserData,
+  ]);
 
   if (isLogged.isFetching)
     return (

@@ -45,3 +45,13 @@ export const useIsAdmin = () => {
     },
   });
 };
+
+export const useLogout = () => {
+  return useMutation({
+    mutationKey: ["logout"],
+    mutationFn: async () => {
+      const { data } = await API.post("/auth/logout");
+      return data;
+    },
+  });
+};

@@ -1,12 +1,12 @@
 import CompletedOrderItem from "@/components/Orders/CompletedOrderItem";
-import { UserContext } from "@/hooks/Context/UserContext";
+import useUserContext from "@/hooks/Context/useUserContext";
 import { useGetOrders } from "@/lib/Queries/CartQueries";
-import { AuthContext, Order } from "@/utils/Types & Interfaces";
-import { Fragment, useContext } from "react";
+import { Order } from "@/utils/Types & Interfaces";
+import { Fragment } from "react";
 import { PropagateLoader } from "react-spinners";
 
 const Orders = () => {
-  const { user } = useContext(UserContext) as AuthContext;
+  const { user } = useUserContext();
   const orderQuery = useGetOrders(user.userId || "");
   const orders = orderQuery.data?.data as Order[];
 

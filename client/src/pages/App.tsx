@@ -1,21 +1,13 @@
 import Footer from "@/components/Global/Footer";
 import ToTopButton from "@/components/Global/ToTopButton";
 import Navbar from "@/components/Navbar/Navbar";
-import { UserContext } from "@/hooks/Context/UserContext";
-import { AuthContext, AuthData } from "@/utils/Types & Interfaces";
+import useUserContext from "@/hooks/Context/useUserContext";
 import API from "@/utils/api";
-import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 const App = () => {
-  const [user, setUser] = useState<AuthData | null>(null);
-
-  const context: AuthContext = {
-    user: user || { userId: "", username: "", email: "" },
-    setUserData: (user: AuthData) => {
-      setUser(user);
-    },
-  };
+  const { setUserData } = useUserContext();
 
   useEffect(() => {
     const getUser = async () => {
@@ -24,17 +16,18 @@ const App = () => {
     };
 
     getUser().then((data) => {
-      setUser(data);
+      setUserData(data);
     });
-  }, []);
+  }, [setUserData]);
 
   return (
-    <UserContext.Provider value={context}>
+    <>
       <Navbar />
       <Outlet />
       <ToTopButton />
       <Footer />
-    </UserContext.Provider>
+      <ScrollRestoration />
+    </>
   );
 };
 export default App;

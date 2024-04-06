@@ -98,9 +98,18 @@ namespace server.Controllers
         }
 
         [HttpGet("isAdmin")]
-        public ActionResult<Boolean> IsAdmin()
+        public async Task<ActionResult<Boolean>> IsAdmin()
         {
-            return Ok(User.IsInRole("Admin"));
+            var user = await _userManager.FindByIdAsync(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value
+            );
+
+            if (user == null)
+                return NotFound();
+
+            var isInRole = await _userManager.IsInRoleAsync(user, "Admin");
+
+            return Ok(isInRole);
         }
 
         [HttpPost("getAdmin")]
@@ -160,6 +169,13 @@ namespace server.Controllers
             {
                 return StatusCode(500, e.Message);
             }
+        }
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Delete("token");
+            return Ok();
         }
     }
 }

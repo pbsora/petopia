@@ -35,21 +35,21 @@ const Profile = () => {
         </h1>
         <Link
           to={"/profile"}
-          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:scale-x-105 hover:scale-y-110"
+          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:text-sky-400 dark:hover:text-sky-400"
         >
           <CircleUserRound size={25} />
           <span className="text-base font-semibold ">User info</span>
         </Link>
         <Link
           to={"/profile/orders"}
-          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:scale-x-105 hover:scale-y-110"
+          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:text-sky-400 dark:hover:text-sky-400"
         >
           <PackageOpen size={25} />
           <span className="text-base font-semibold ">Orders</span>
         </Link>
         <Link
           to={"/profile/favorites"}
-          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:scale-x-105 hover:scale-y-110"
+          className="flex gap-3 duration-200 text-zinc-600 dark:text-zinc-200 hover:text-sky-400 dark:hover:text-sky-400"
         >
           <Heart size={25} />
           <span className="text-base font-semibold ">Favorites</span>
@@ -59,9 +59,8 @@ const Profile = () => {
         {location.pathname === "/profile" ? (
           <div className="container">
             <h1 className="text-2xl font-bold text-zinc-700 dark:text-zinc-200">
-              My Profile
+              Personal data
             </h1>
-            <hr className="border border-zinc-200 dark:border-zinc-600" />
             <div className="flex flex-col gap-4 mt-6">
               <div>
                 <h1 className="text-lg font-semibold text-zinc-700 dark:text-zinc-200">

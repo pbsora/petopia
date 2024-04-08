@@ -11,6 +11,7 @@ const ErrorPage = () => {
         <h1 className="text-2xl text-center lg:text-4xl">
           Something went wrong.
         </h1>
+        <p>Please try again in a few moments</p>
       </div>
       <Footer />
     </>

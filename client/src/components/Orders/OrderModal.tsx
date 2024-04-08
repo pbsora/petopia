@@ -33,7 +33,7 @@ const OrderModal = ({ closeModal, order }: Props) => {
               <div className="flex flex-col">
                 <Link
                   to={`/product/${item.product.slug}`}
-                  className="text-lg font-semibold text-zinc-700 dark:text-zinc-200 hover:underline underline-offset-3"
+                  className="text-lg font-semibold text-zinc-600 dark:text-zinc-200 hover:underline underline-offset-3"
                 >
                   {item.product.name}
                 </Link>

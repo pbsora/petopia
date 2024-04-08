@@ -32,7 +32,9 @@ export const useAuthenticated = () => {
       const { data } = await API.get("/auth/isauthenticated");
       return data;
     },
-    retry: false,
+    retry: 1,
+    retryDelay: 5000,
+    retryOnMount: true,
   });
 };
 

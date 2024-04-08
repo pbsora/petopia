@@ -23,7 +23,7 @@ const CompletedOrderItem = ({ order }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 px-3 py-6 border shadow-lg border-zinc-300 rounded-xl font-roboto dark:border-zinc-700">
+      <div className="flex flex-col gap-4 px-3 py-6 border rounded-md shadow-lg border-zinc-300 font-roboto dark:border-zinc-700">
         <h2 className="text-lg font-bold text-zinc-600 dark:text-zinc-200">
           Order {order.id.slice(0, 7)}
         </h2>

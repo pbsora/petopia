@@ -15,6 +15,7 @@ export const useAddProduct = () => {
 export const useGetProduct = (slug: string) => {
   return useQuery({
     queryKey: ["product", slug],
+    retry: 1,
     queryFn: async () => {
       const { data } = await API.get(`products/slug/${slug}`);
       return data;

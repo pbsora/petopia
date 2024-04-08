@@ -8,8 +8,6 @@ const Orders = () => {
   const orderQuery = useGetOrders();
   const orders = orderQuery.data?.data as Order[];
 
-  console.log(orders);
-
   if (orderQuery.isLoading)
     return (
       <div className="h-[60vh] w-full col-span-6 flex justify-center items-center">

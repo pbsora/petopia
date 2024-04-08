@@ -7,6 +7,8 @@ import { FormEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
 import useUserContext from "@/hooks/Context/useUserContext";
+import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 
 type Props = {
   cartCount: number;
@@ -39,7 +41,11 @@ const NavbarDesktop = ({ cartCount }: Props) => {
     <>
       <div className="justify-between hidden px-24 py-4 text-2xl md:flex text-zinc-600 dark:text-white">
         <Link to={"/"} className="flex items-center">
-          PETZ
+          <img
+            src={currTheme === "light" ? logo : logoDark}
+            alt=""
+            className="w-[9rem]"
+          />
         </Link>
         <div className="flex items-center justify-center flex-1 gap-3">
           <form className="relative w-[70%] " onSubmit={handleSearch}>

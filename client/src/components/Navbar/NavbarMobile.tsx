@@ -9,6 +9,8 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { FormEvent, useState } from "react";
+import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 
 import useUserContext from "@/hooks/Context/useUserContext";
 
@@ -22,6 +24,8 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
+
+  const theme = localStorage.getItem("ui-theme");
 
   const { user } = useUserContext();
 
@@ -54,7 +58,14 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
             <FaRegUser />
           </Link>
         </div>
-        <Link to={"/"}>PETZ</Link>
+        <Link to={"/"} className="flex items-center">
+          {" "}
+          <img
+            src={theme === "light" ? logo : logoDark}
+            alt=""
+            className="w-[9rem]"
+          />
+        </Link>
         <div className="flex items-center gap-3">
           <Link to={"/profile/favorites"}>
             <CiHeart />

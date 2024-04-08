@@ -64,11 +64,7 @@ const SearchBody = () => {
               <ProductItem product={product} />
             </Fragment>
           ))}
-        <div
-          className={`col-span-2 mt-4 text-center md:col-span-4 ${
-            !getProductsQuery.hasNextPage && "hidden"
-          }`}
-        >
+        <div className={`col-span-2 mt-2 text-center md:col-span-4 `}>
           <FetchMore nextPage={nextPage} />
         </div>
       </div>

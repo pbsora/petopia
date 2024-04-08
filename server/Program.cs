@@ -1,9 +1,12 @@
 using System.Text;
 using System.Text.Json;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server.Data;
@@ -40,13 +43,16 @@ builder
             .Ignore;
     });
 
+var client =
+    builder.Configuration["JWT:Audience"] ?? throw new ArgumentException("Invalid client!!");
+
 builder.Services.AddCors(options =>
     options.AddPolicy(
         name: "MyPolicy",
         policy =>
         {
             policy
-                .WithOrigins("http://localhost:5173")
+                .WithOrigins(client)
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
@@ -89,11 +95,51 @@ builder.Services.AddSwaggerGen(c =>
         }
     );
 });
-
 var Configuration = builder.Configuration;
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
-);
+
+if (builder.Environment.IsDevelopment())
+{
+    var connectionString =
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new ArgumentException("Invalid connection string!!");
+
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+}
+
+if (builder.Environment.IsProduction())
+{
+    var keyVaultUrl =
+        builder.Configuration["KeyVault:KeyVaultUrl"]
+        ?? throw new ArgumentException("Invalid key vault url!!");
+    var keyVaultClientId =
+        builder.Configuration["KeyVault:ClientId"]
+        ?? throw new ArgumentException("Invalid client id!!");
+    var keyVaultClientSecret =
+        builder.Configuration["KeyVault:ClientSecret"]
+        ?? throw new ArgumentException("Invalid client secret!!");
+    var keyVaultDirectory =
+        builder.Configuration["KeyVault:DirectoryId"]
+        ?? throw new ArgumentException("Invalid directory id!!");
+
+    var credential = new ClientSecretCredential(
+        keyVaultDirectory,
+        keyVaultClientId,
+        keyVaultClientSecret
+    );
+
+    builder.Configuration.AddAzureKeyVault(
+        keyVaultUrl,
+        keyVaultClientId,
+        keyVaultClientSecret,
+        new DefaultKeyVaultSecretManager()
+    );
+
+    var vaultClient = new SecretClient(new Uri(keyVaultUrl), credential);
+
+    var connectionString = vaultClient.GetSecret("DBString").Value.Value;
+
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+}
 
 builder
     .Services.AddIdentity<ApplicationUser, IdentityRole>(options =>

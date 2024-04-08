@@ -6,7 +6,6 @@ export const useCheckout = (items: CheckoutItem[], userId: string) => {
   return useMutation({
     mutationKey: ["checkout", items],
     mutationFn: async () => {
-      console.log(userId);
       return await API.post(`/order/${userId}`, items);
     },
   });

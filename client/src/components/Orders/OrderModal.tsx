@@ -33,14 +33,14 @@ const OrderModal = ({ closeModal, order }: Props) => {
               <div className="flex flex-col">
                 <Link
                   to={`/product/${item.product.slug}`}
-                  className="text-lg font-semibold text-zinc-600 dark:text-zinc-200 hover:underline underline-offset-3"
+                  className="font-semibold text-zinc-600 dark:text-zinc-200 hover:underline underline-offset-3"
                 >
                   {item.product.name}
                 </Link>
-                <p className="text-base font-semibold text-zinc-600 dark:text-zinc-300">
+                <p className="font-semibold text-zinc-600 dark:text-zinc-300">
                   Quantity: {item.quantity}
                 </p>
-                <p className="text-base font-semibold text-zinc-600 dark:text-zinc-300">
+                <p className="font-semibold text-zinc-600 dark:text-zinc-300">
                   Price: ${item.product.price}
                 </p>
               </div>
@@ -48,7 +48,7 @@ const OrderModal = ({ closeModal, order }: Props) => {
           ))}
         </div>
         <div>
-          <h1 className="flex gap-2 text-xl font-bold text-zinc-700 dark:text-zinc-200">
+          <h1 className="flex gap-2 text-lg font-bold text-zinc-700 dark:text-zinc-200">
             Total
             <span className="flex-1">
               ({order.orderItems.reduce((acc, curr) => acc + curr.quantity, 0)}{" "}

@@ -30,9 +30,9 @@ const CompletedOrderItem = ({ order }: Props) => {
         <span className="flex gap-3 text-base font-bold text-sky-700 dark:text-sky-500">
           <Package /> Package delivered
         </span>
-        <p className="text-lg font-semibold lg:text-base text-zinc-700 dark:text-zinc-200">
+        <p className="text-base font-semibold text-zinc-700 dark:text-zinc-200">
           Order Date:{" "}
-          <span className="text-lg font-bold lg:text-base text-zinc-700 dark:text-zinc-300">
+          <span className="text-base font-bold text-zinc-700 dark:text-zinc-300">
             {DateTime.fromJSDate(
               typeof order.orderDate === "string"
                 ? new Date(order.orderDate)
@@ -45,10 +45,10 @@ const CompletedOrderItem = ({ order }: Props) => {
             if (index == 3)
               return (
                 <span
-                  className="font-semibold text-zinc-700 dark:text-zinc-200"
+                  className="text-sm font-semibold text-zinc-700 dark:text-zinc-200"
                   key={item.product.slug}
                 >
-                  and {order.orderItems.length - 3 + " more"}
+                  + {order.orderItems.length - 3 + " more"}
                 </span>
               );
             if (index >= 4) return;

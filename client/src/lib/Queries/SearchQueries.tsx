@@ -15,7 +15,7 @@ export const useSearchProducts = (searchParams: string) => {
     },
     queryFn: async ({ pageParam = 1 }) => {
       const { data, headers } = await API.get(
-        `products?${searchParams}&PageNumber=${pageParam}&PageSize=12`
+        `products?${searchParams}&PageNumber=${pageParam}&PageSize=20`
       );
 
       return {

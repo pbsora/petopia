@@ -36,7 +36,7 @@ const HomeRecommended = () => {
         <CarouselContent>
           {products.data?.map((product: Product) => (
             <CarouselItem
-              className="basis-[41%] sm:basis-3/12 md:basis-4/12 lg:basis-3/12 xl:basis-[16%] 2xl:basis-[13.5%]"
+              className="basis-[50%] sm:basis-3/12 md:basis-4/12 lg:basis-3/12 xl:basis-[16%] 2xl:basis-[13.5%]"
               key={product.productsId}
             >
               <ProductItem product={product} />

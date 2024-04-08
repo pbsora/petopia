@@ -21,7 +21,6 @@ const SearchBody = () => {
   const nextPage = {
     fetchMore: () => {
       if (getProductsQuery.hasNextPage) getProductsQuery.fetchNextPage();
-      else console.log("No more pages");
     },
     hasNextPage: getProductsQuery.hasNextPage,
   };
@@ -49,10 +48,10 @@ const SearchBody = () => {
   return (
     <>
       <div
-        className="grid grid-cols-2 col-span-6 px-1 gap-x-2 gap-y-3 md:grid-cols-4 md:gap-4"
+        className="grid grid-cols-2 col-span-6 px-3 gap-x-2 gap-y-3 md:grid-cols-4 md:gap-4"
         ref={animate}
       >
-        <h1 className="col-span-2 pl-2 mb-6 text-2xl font-semibold text-zinc-500 dark:text-zinc-300 lg:col-span-4">
+        <h1 className="col-span-2 pl-2 mb-6 text-xl font-semibold text-zinc-500 dark:text-zinc-300 lg:col-span-4">
           {products[0].pagination.TotalItemCount === 1
             ? `1 product found for this search`
             : `${products[0].pagination.TotalItemCount} products found for this search`}

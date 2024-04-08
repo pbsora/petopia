@@ -42,7 +42,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
           </div>
         </div>
         <button
-          className="flex items-center gap-3 py-3 pl-3 text-xl"
+          className="flex items-center gap-3 py-3 pl-3 text-lg"
           onClick={
             currTheme === "dark"
               ? () => setTheme("light")
@@ -63,21 +63,21 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             </h1>
             <Link
               to={"/profile"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Profile
             </Link>
             <Link
               to={"/profile/orders"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Orders
             </Link>
             <Link
               to={"/profile/favorites"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Favorites
@@ -89,35 +89,35 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             </h1>
             <Link
               to={"/search?&category=food&pet=dogs"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Dry & Wet Food
             </Link>
             <Link
               to={"/search?&category=bowls&pet=dogs"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Bowls & Feeders
             </Link>
             <Link
               to={"/search?&category=toys&pet=dogs"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Toys
             </Link>
             <Link
               to={"/search?&category=beds&pet=dogs"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Beds
             </Link>
             <Link
               to={"/search?&category=accessories&pet=dogs"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Accessories
@@ -129,49 +129,49 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             </h1>
             <Link
               to={"/search?category=food&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Dry & Wet Food
             </Link>
             <Link
               to={"/search?category=bowls&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Bowls & Feeders
             </Link>
             <Link
               to={"/search?category=toys&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Toys
             </Link>
             <Link
               to={"/search?category=beds&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Beds
             </Link>
             <Link
               to={"/search?category=accessories&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Accessories
             </Link>
             <Link
               to={"/search?&category=litter&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Litter box
             </Link>
             <Link
               to={"/search?name=catnip&pet=cats"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Catnip & Grass
@@ -184,35 +184,35 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             </h1>
             <Link
               to={"/search?category=food&pet=fish"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Food
             </Link>
             <Link
               to={"/search?category=feeder&pet=fish"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Feeders
             </Link>
             <Link
               to={"/search?category=tanks&pet=fish"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Tanks & Aquariums
             </Link>
             <Link
               to={"/search?category=filters&pet=fish"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Filters & Pumps
             </Link>
             <Link
               to={"/search?category=accessories&pet=fish"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Other
@@ -225,49 +225,49 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             </h1>
             <Link
               to={"/search?category=food&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Food
             </Link>
             <Link
               to={"/search?category=feeders&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Feeder
             </Link>
             <Link
               to={"/search?category=house&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               House
             </Link>
             <Link
               to={"/search?category=grooming&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Grooming
             </Link>
             <Link
               to={"/search?category=cage&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Cages
             </Link>
             <Link
               to={"/search?&category=toys&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Toys
             </Link>
             <Link
               to={"/search?&category=accessories&pet=birds"}
-              className="px-2 py-2 text-xl hover:text-sky-300"
+              className="px-2 py-2 text-lg hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
               Accessories

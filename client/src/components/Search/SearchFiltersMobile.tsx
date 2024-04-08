@@ -34,6 +34,16 @@ const SearchFiltersMobile = ({ categories, pets }: Props) => {
     setPetType(e.target.value.slice(0, -1));
   };
 
+  const openSidebar = () => {
+    setIsOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeSidebar = () => {
+    setIsOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
   const handleSearchQuery = () => {
     setSearchParams((state) => {
       if (category !== "") {
@@ -53,7 +63,7 @@ const SearchFiltersMobile = ({ categories, pets }: Props) => {
       }
       return state;
     });
-    setIsOpen(false);
+    closeSidebar();
   };
 
   const deleteSearchParams = () => {
@@ -67,16 +77,6 @@ const SearchFiltersMobile = ({ categories, pets }: Props) => {
     setTimeout(() => {
       window.location.reload();
     }, 100);
-  };
-
-  const openSidebar = () => {
-    setIsOpen(true);
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeSidebar = () => {
-    setIsOpen(false);
-    document.body.style.overflow = "auto";
   };
 
   useEffect(() => {

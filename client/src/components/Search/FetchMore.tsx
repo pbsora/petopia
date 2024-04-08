@@ -26,8 +26,6 @@ const FetchMore = ({ nextPage }: Props) => {
     };
   }, [isInView, nextPage]);
 
-  console.log(nextPage.hasNextPage);
-
   return (
     <div className={``} ref={ref}>
       {nextPage.hasNextPage ? (

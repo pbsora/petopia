@@ -43,9 +43,6 @@ const AddProduct = () => {
     if (newProductMutation.isSuccess) {
       window.location.reload();
     }
-    if (newProductMutation.isError) {
-      console.log(newProductMutation.failureReason);
-    }
   }, [newProductMutation.isSuccess, newProductMutation.isError]);
 
   return (

@@ -179,10 +179,10 @@ const ProductDetails = () => {
       <div className="w-screen md:w-[70vw] ">
         <RecommendedProducts pet={product.pet.name} />
       </div>
-      <hr className="col-span-2 mt-10 border-b border-zinc-200" />
+      <hr className="col-span-2 border-b lg:mt-10 border-zinc-200" />
       <div className="container col-span-2" id="description">
         <h2 className="text-xl font-semibold ">Description</h2>
-        <p className="mt-6 text-lg">{product.description}</p>
+        <p className="mt-2 text-lg">{product.description}</p>
       </div>
     </main>
   );

@@ -28,7 +28,7 @@ const HomeNewsSignup = () => {
         />
         <Select>
           <SelectTrigger className="w-full lg:w-[180px] border-zinc-400 dark:border-zinc-200">
-            <SelectValue placeholder="Theme" />
+            <SelectValue placeholder="Pet" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="dog">Dog</SelectItem>

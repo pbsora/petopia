@@ -27,6 +27,7 @@ namespace server.Repositories.OrderRepo
 
             var orders = await _context
                 .Orders.Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.OrderDate)
                 .Select(o => new GetOrderDTO
                 {
                     Id = o.Id,

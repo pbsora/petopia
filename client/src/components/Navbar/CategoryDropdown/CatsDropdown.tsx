@@ -48,7 +48,7 @@ const CatsDropdown = () => {
           Litter box
         </Link>
         <Link
-          to={"/search?name=catnip&category=food&pet=cats"}
+          to={"/search?name=catnip&pet=cats"}
           className="w-32 p-1 pl-2 duration-200 cursor-pointer rounded-xl hover:text-sky-500 hover:bg-sky-100"
         >
           Catnip & Grass

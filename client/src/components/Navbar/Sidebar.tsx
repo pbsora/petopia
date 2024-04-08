@@ -170,7 +170,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
               Litter box
             </Link>
             <Link
-              to={"/search?name=catnip&category=food&pet=cats"}
+              to={"/search?name=catnip&pet=cats"}
               className="px-2 py-2 text-xl hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
@@ -245,7 +245,7 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
               Grooming
             </Link>
             <Link
-              to={"/search?name=cage&category=accessories&pet=birds"}
+              to={"/search?category=cage&pet=birds"}
               className="px-2 py-2 text-xl hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >

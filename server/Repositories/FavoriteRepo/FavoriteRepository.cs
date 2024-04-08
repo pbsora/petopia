@@ -31,6 +31,7 @@ namespace server.Repositories.FavoriteRepo
         {
             var order = await _context
                 .Favorites.Where(f => f.UserId == userId)
+                .OrderByDescending(f => f.CreatedAt)
                 .Select(f => new GetFavoriteDTO
                 {
                     FavoriteId = f.FavoriteId,

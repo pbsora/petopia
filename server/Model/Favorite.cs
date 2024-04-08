@@ -7,5 +7,6 @@ namespace server.Model
         public Product Product { get; set; } = null!;
         public string? UserId { get; set; }
         public ApplicationUser User { get; set; } = null!;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

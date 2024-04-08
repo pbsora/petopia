@@ -231,11 +231,18 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
               Food
             </Link>
             <Link
-              to={"/search?category=litter&pet=birds"}
+              to={"/search?category=feeders&pet=birds"}
               className="px-2 py-2 text-xl hover:text-sky-300"
               onClick={() => setIsOpen(false)}
             >
-              Litter & Nesting
+              Feeder
+            </Link>
+            <Link
+              to={"/search?category=house&pet=birds"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              House
             </Link>
             <Link
               to={"/search?category=grooming&pet=birds"}
@@ -250,6 +257,20 @@ const Sidebar = ({ isOpen, setIsOpen }: Props) => {
               onClick={() => setIsOpen(false)}
             >
               Cages
+            </Link>
+            <Link
+              to={"/search?&category=toys&pet=birds"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Toys
+            </Link>
+            <Link
+              to={"/search?&category=accessories&pet=birds"}
+              className="px-2 py-2 text-xl hover:text-sky-300"
+              onClick={() => setIsOpen(false)}
+            >
+              Accessories
             </Link>
           </section>
         </div>

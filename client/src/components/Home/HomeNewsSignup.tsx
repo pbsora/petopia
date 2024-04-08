@@ -18,7 +18,7 @@ const HomeNewsSignup = () => {
 
   return (
     <div className="w-full bg-slate-50 dark:bg-slate-800">
-      <div className="container flex lg:w-[70%] gap-6 py-12 items-center flex-col lg:flex-row">
+      <div className="container flex md:w-[70%]  gap-6 py-12 items-center flex-col lg:flex-row">
         <p className="text-base font-semibold lg:text-sm text-zinc-700 dark:text-zinc-200">
           Sign-up and receive our promotions and news before everyone else
         </p>
@@ -40,6 +40,7 @@ const HomeNewsSignup = () => {
 
         <button
           onClick={handleClick}
+          type="button"
           className="w-full px-6 py-2 duration-200 bg-transparent border-2 border-black rounded-lg dark:border-zinc-200 lg:w-28 hover:bg-slate-100 dark:hover:bg-slate-600"
         >
           Send

@@ -48,7 +48,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
           <Link
             to={
               user && user.username
-                ? "/profile/orders"
+                ? "/profile"
                 : location.pathname === "/"
                 ? "/login"
                 : `/login?next=${location.pathname.slice(1)}`

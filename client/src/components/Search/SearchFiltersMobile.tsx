@@ -1,5 +1,5 @@
 import { IoFilterOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useSearchParams } from "react-router-dom";
 import CategoryFilterMobile from "./FiltersMobile/CategoryFilterMobile";
@@ -78,6 +78,12 @@ const SearchFiltersMobile = ({ categories, pets }: Props) => {
     setIsOpen(false);
     document.body.style.overflow = "auto";
   };
+
+  useEffect(() => {
+    setCategory(categoryParams || "");
+    setPrice(priceParams || "");
+    setPetType(petParams || "");
+  }, [categoryParams, priceParams, petParams]);
 
   return (
     <div className="w-full mb-4 font-roboto text-zinc-900 dark:text-zinc-200">

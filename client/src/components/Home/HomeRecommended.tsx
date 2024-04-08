@@ -21,7 +21,7 @@ const HomeRecommended = () => {
     );
 
   return (
-    <div className="pl-4 mt-6 mb-20 md:w-[80vw] m-auto">
+    <div className="pl-4 mt-6 mb-10 md:w-[80vw] m-auto">
       <h1 className="mb-4 text-xl font-bold font-inter text-zinc-800 dark:text-zinc-200">
         Latest Products
       </h1>

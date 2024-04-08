@@ -1,6 +1,6 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryFilter from "./FiltersDesktop/CategoryFilter";
 import PriceFilter from "./FiltersDesktop/PriceFilter";
 import PetTypeFilter from "./FiltersDesktop/PetTypeFilter";
@@ -67,6 +67,12 @@ const SearchFiltersDesktop = ({ categories, pets }: Props) => {
       window.location.reload();
     }, 100);
   };
+
+  useEffect(() => {
+    setCategory(categoryParams || "");
+    setPrice(priceParams || "");
+    setPetType(petParams || "");
+  }, [categoryParams, priceParams, petParams]);
 
   return (
     <div className="w-3/4 h-48 mb-4 font-roboto text-zinc-900 dark:text-zinc-200">

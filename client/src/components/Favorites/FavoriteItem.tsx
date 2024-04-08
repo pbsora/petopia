@@ -46,11 +46,13 @@ const FavoriteItem = ({ favorite, refetch }: Props) => {
       to={`/product/${favorite.product.slug}`}
       className="container flex flex-col gap-5 px-4 py-8 border shadow-md cursor-pointer select-none lg:gap-0 border-zinc-300 rounded-xl font-inter dark:border-zinc-700"
     >
-      <img
-        src={favorite.product.image}
-        alt="product thumbnail"
-        className="w-3/4 2xl:w-[60%] m-auto dark:rounded-xl "
-      />
+      <div className="flex items-center h-36">
+        <img
+          src={favorite.product.image}
+          alt="product thumbnail"
+          className="w-[80%] lg:w-[65%] max-h-full m-auto 2xl:w-[60%] rounded-xl object-scale-down "
+        />
+      </div>
       <div>
         <p className="mt-2 mb-2 text-sm line-clamp-2 dark:text-zinc-100 text-zinc-600">
           {favorite.product.name}

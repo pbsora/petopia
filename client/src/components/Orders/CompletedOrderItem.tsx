@@ -40,9 +40,18 @@ const CompletedOrderItem = ({ order }: Props) => {
             ).toFormat("MM/dd/yyyy")}
           </span>
         </p>
-        <div className="flex gap-3">
+        <div className="flex items-end gap-5">
           {order.orderItems.map((item, index) => {
-            if (index >= 3) return;
+            if (index == 3)
+              return (
+                <span
+                  className="font-semibold text-zinc-700 dark:text-zinc-200"
+                  key={item.product.slug}
+                >
+                  and {order.orderItems.length - 3 + " more"}
+                </span>
+              );
+            if (index >= 4) return;
             return (
               <div className="relative" key={item.product.slug}>
                 <img

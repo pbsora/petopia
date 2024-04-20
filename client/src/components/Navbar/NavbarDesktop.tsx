@@ -1,8 +1,16 @@
-import { FaRegUser, FaSun, FaRegMoon } from "react-icons/fa";
+import {
+  FaRegUser,
+  FaSun,
+  FaRegMoon,
+} from "react-icons/fa";
 import { CiHeart, CiSearch } from "react-icons/ci";
 import { IoBagOutline } from "react-icons/io5";
 import CategoryDropdown from "./CategoryDropdown";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { FormEvent, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
@@ -19,7 +27,9 @@ const NavbarDesktop = ({ cartCount }: Props) => {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [search, setSearch] = useState<string>(searchParams.get("name") || "");
+  const [search, setSearch] = useState<string>(
+    searchParams.get("name") || ""
+  );
 
   const { setTheme } = useTheme();
   const currTheme = localStorage.getItem("ui-theme");
@@ -28,7 +38,8 @@ const NavbarDesktop = ({ cartCount }: Props) => {
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search.trim().length < 1) return alert("Please enter a search term");
+    if (search.trim().length < 1)
+      return alert("Please enter a search term");
 
     if (location.pathname !== "/search") {
       navigate(`/search?name=${search}`);
@@ -48,7 +59,10 @@ const NavbarDesktop = ({ cartCount }: Props) => {
           />
         </Link>
         <div className="flex items-center justify-center flex-1 gap-3">
-          <form className="relative w-[70%] " onSubmit={handleSearch}>
+          <form
+            className="relative w-[70%] "
+            onSubmit={handleSearch}
+          >
             <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 text-2xl  pointer-events-none ">
               <CiSearch />
             </div>
@@ -75,14 +89,20 @@ const NavbarDesktop = ({ cartCount }: Props) => {
                 ? "/profile"
                 : location.pathname === "/"
                 ? "/login"
-                : `/login?next=${location.pathname.slice(1)}`
+                : `/login?next=${location.pathname.slice(
+                    1
+                  )}`
             }
             className="duration-200 cursor-pointer hover:scale-125"
           >
             <FaRegUser />
           </Link>
           <Link
-            to={user && user.username ? "/profile/favorites" : "/login"}
+            to={
+              user && user.username
+                ? "/profile/favorites"
+                : "/login"
+            }
             className="duration-200 cursor-pointer hover:scale-125"
           >
             <CiHeart />

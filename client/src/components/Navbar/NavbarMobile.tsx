@@ -8,7 +8,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
 import logoDark from "@/assets/logo-dark.png";
 
@@ -25,6 +25,8 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState<string>(searchParams.get("name") || "");
 
+  const searchBar = useRef<HTMLInputElement>(null);
+
   const theme = localStorage.getItem("ui-theme");
 
   const { user } = useUserContext();
@@ -36,6 +38,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
     } else {
       setSearchParams({ name: search || "" });
     }
+    searchBar.current?.blur();
   };
 
   return (
@@ -89,6 +92,7 @@ const NavbarMobile = ({ setIsOpen, cartCount }: Props) => {
         </div>
         <input
           type="text"
+          ref={searchBar}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="What does your pet need?"
           onChange={(e) => setSearch(e.target.value)}

@@ -3,14 +3,16 @@ import ProductItem from "./ProductItem";
 import { Fragment, useEffect } from "react";
 import { useSearchProducts } from "@/lib/Queries/SearchQueries";
 import { ProductResponse } from "@/utils/Types & Interfaces";
-import { PropagateLoader } from "react-spinners";
 import FetchMore from "./FetchMore";
-import pug from "@/assets/pug.png";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import ProductItemSkeleton from "../Global/ProductItemSkeleton";
+import pug from "@/assets/pug.png";
 
 const SearchBody = () => {
   const [searchParams] = useSearchParams();
-  const getProductsQuery = useSearchProducts(searchParams.toString());
+  const getProductsQuery = useSearchProducts(
+    searchParams.toString()
+  );
   const [animate] = useAutoAnimate();
 
   useEffect(() => {
@@ -20,12 +22,14 @@ const SearchBody = () => {
 
   const nextPage = {
     fetchMore: () => {
-      if (getProductsQuery.hasNextPage) getProductsQuery.fetchNextPage();
+      if (getProductsQuery.hasNextPage)
+        getProductsQuery.fetchNextPage();
     },
     hasNextPage: getProductsQuery.hasNextPage,
   };
 
-  const products = getProductsQuery.data?.pages as ProductResponse[];
+  const products = getProductsQuery.data
+    ?.pages as ProductResponse[];
 
   if (getProductsQuery.isError)
     return (
@@ -34,14 +38,20 @@ const SearchBody = () => {
         <h2 className="text-2xl font-semibold">
           No products match this search!
         </h2>
-        <h3 className="text-xl">Please try changing the product name.</h3>
+        <h3 className="text-xl">
+          Please try changing the product name.
+        </h3>
       </div>
     );
 
   if (!getProductsQuery.data)
     return (
-      <div className="h-[30vh] col-span-6 flex justify-center items-center">
-        <PropagateLoader color="#15bde1" />
+      <div className="grid grid-cols-2 col-span-6 px-3 gap-x-2 gap-y-3 md:grid-cols-4 md:gap-4">
+        {new Array(12).fill("").map((_, i) => (
+          <Fragment key={i}>
+            <ProductItemSkeleton />
+          </Fragment>
+        ))}
       </div>
     );
 
@@ -63,7 +73,9 @@ const SearchBody = () => {
               <ProductItem product={product} />
             </Fragment>
           ))}
-        <div className={`col-span-2 mt-2 text-center md:col-span-4 `}>
+        <div
+          className={`col-span-2 mt-2 text-center md:col-span-4 `}
+        >
           <FetchMore nextPage={nextPage} />
         </div>
       </div>

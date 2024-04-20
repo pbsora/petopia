@@ -8,56 +8,71 @@ const HomeCategoriesMobile = () => {
         to={"/search?pet=dogs"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Dogs
         </span>
-        <Dog className="absolute text-6xl -bottom-2 -right-2" size={45} />
+        <Dog
+          className="absolute text-6xl -bottom-2 text-zinc-600 -right-2"
+          size={45}
+        />
       </Link>
       <Link
         to={"/search?pet=cats"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Cats
         </span>
-        <Cat className="absolute text-6xl -bottom-2 -right-2" size={45} />
+        <Cat
+          className="absolute text-6xl -bottom-2 text-zinc-600 -right-2"
+          size={45}
+        />
       </Link>
       <Link
         to={"/search?pet=fish"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Fish
         </span>
-        <Fish className="absolute text-6xl -bottom-2 -right-2" size={45} />
+        <Fish
+          className="absolute text-6xl -bottom-2 text-zinc-600 -right-2"
+          size={45}
+        />
       </Link>
       <Link
         to={"/search?pet=birds"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Birds
         </span>
-        <Bird className="absolute text-6xl -bottom-2 -right-2" size={45} />
+        <Bird
+          className="absolute text-6xl -bottom-2 text-zinc-600 -right-2"
+          size={45}
+        />
       </Link>
       <Link
         to={"/search"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Other
         </span>
-        <Rabbit className="absolute text-6xl -bottom-2 -right-2" size={45} />
+        <Rabbit
+          className="absolute text-6xl -bottom-2 text-zinc-600 -right-2"
+          size={45}
+        />
       </Link>
       <Link
         to={"/search"}
         className="relative flex py-4 pl-5 overflow-hidden shadow-sm bg-slate-100 rounded-xl border-zinc-400 dark:bg-slate-700"
       >
-        <span className="text-lg font-madimi text-zinc-900 dark:text-zinc-300">
+        <span className="text-lg font-madimi text-zinc-600 dark:text-zinc-300">
           Garden
         </span>
         <TreeDeciduous
-          className="absolute text-6xl -bottom-0 -right-2"
+          className="absolute text-6xl -bottom-0 text-zinc-600 -right-2"
           size={45}
         />
       </Link>

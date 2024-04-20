@@ -16,7 +16,7 @@ const ImageCarousel = () => {
         className="hidden rounded-xl md:block"
       />,
       <img
-        src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1712288579/petshop/banners/udwv3pm25fnmmy6x4ffj.jpg"
+        src="https://res.cloudinary.com/dhkaqwnyz/image/upload/v1712368321/petshop/banners/c2abplxofigsehadmapq.jpg"
         alt="cat banner desktop"
         className="hidden rounded-xl md:block"
       />,

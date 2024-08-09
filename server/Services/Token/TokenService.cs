@@ -16,7 +16,11 @@ namespace server.Services.Token
         {
             _config = config;
             _key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_config["JWT:Key"] ?? string.Empty)
+                Encoding.UTF8.GetBytes(
+                    Environment.GetEnvironmentVariable("JWTSecret")
+                        ?? _config["JWT:Key"]
+                        ?? string.Empty
+                )
             );
         }
 
@@ -46,8 +50,8 @@ namespace server.Services.Token
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = encryption,
-                Issuer = _config["JWT:Issuer"],
-                Audience = _config["JWT:Audience"]
+                Issuer = Environment.GetEnvironmentVariable("Issuer") ?? _config["JWT:Issuer"],
+                Audience = Environment.GetEnvironmentVariable("Audience") ?? _config["JWT:Audience"]
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

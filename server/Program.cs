@@ -44,7 +44,9 @@ builder
     });
 
 var client =
-    builder.Configuration["JWT:Audience"] ?? throw new ArgumentException("Invalid client!!");
+    Environment.GetEnvironmentVariable("Audience")
+    ?? builder.Configuration["JWT:Audience"]
+    ?? throw new ArgumentException("Invalid client!!");
 
 builder.Services.AddCors(options =>
     options.AddPolicy(
@@ -56,7 +58,7 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
-                .WithExposedHeaders("X-pagination");
+                .WithExposedHeaders("X-pagination", "token");
         }
     )
 );
@@ -108,37 +110,11 @@ if (builder.Environment.IsDevelopment())
 
 if (builder.Environment.IsProduction())
 {
-    var keyVaultUrl =
-        builder.Configuration["KeyVault:KeyVaultUrl"]
-        ?? throw new ArgumentException("Invalid key vault url!!");
-    var keyVaultClientId =
-        builder.Configuration["KeyVault:ClientId"]
-        ?? throw new ArgumentException("Invalid client id!!");
-    var keyVaultClientSecret =
-        builder.Configuration["KeyVault:ClientSecret"]
-        ?? throw new ArgumentException("Invalid client secret!!");
-    var keyVaultDirectory =
-        builder.Configuration["KeyVault:DirectoryId"]
-        ?? throw new ArgumentException("Invalid directory id!!");
+    var dbUrl =
+        Environment.GetEnvironmentVariable("DBString")
+        ?? throw new ArgumentException("Database URL is missing");
 
-    var credential = new ClientSecretCredential(
-        keyVaultDirectory,
-        keyVaultClientId,
-        keyVaultClientSecret
-    );
-
-    builder.Configuration.AddAzureKeyVault(
-        keyVaultUrl,
-        keyVaultClientId,
-        keyVaultClientSecret,
-        new DefaultKeyVaultSecretManager()
-    );
-
-    var vaultClient = new SecretClient(new Uri(keyVaultUrl), credential);
-
-    var connectionString = vaultClient.GetSecret("DBString").Value.Value;
-
-    builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(dbUrl));
 }
 
 builder
@@ -157,7 +133,9 @@ builder
     .AddEntityFrameworkStores<AppDbContext>();
 
 var secretKey =
-    builder.Configuration["JWT:Key"] ?? throw new ArgumentException("Invalid secret key!!");
+    Environment.GetEnvironmentVariable("JWTKey")
+    ?? builder.Configuration["JWT:Key"]
+    ?? throw new ArgumentException("Invalid secret key!!");
 
 builder
     .Services.AddAuthentication(options =>
@@ -181,8 +159,10 @@ builder
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ClockSkew = TimeSpan.Zero,
-            ValidIssuer = Configuration["Jwt:Issuer"],
-            ValidAudience = Configuration["Jwt:Audience"],
+            ValidIssuer =
+                Environment.GetEnvironmentVariable("Issuer") ?? Configuration["Jwt:Issuer"],
+            ValidAudience =
+                Environment.GetEnvironmentVariable("Issuer") ?? Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
         options.Events = new JwtBearerEvents

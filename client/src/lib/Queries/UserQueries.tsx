@@ -1,12 +1,21 @@
-import { UserLogin, UserRegister } from "@/utils/Types & Interfaces";
+import {
+  UserLogin,
+  UserRegister,
+} from "@/utils/Types & Interfaces";
 import API from "@/utils/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+} from "@tanstack/react-query";
 
 export const useRegister = () => {
   return useMutation({
     mutationKey: ["register"],
     mutationFn: async (user: UserRegister) => {
-      const { data } = await API.post("/auth/register", user);
+      const { data } = await API.post(
+        "/auth/register",
+        user
+      );
       return data;
     },
   });
@@ -29,12 +38,13 @@ export const useAuthenticated = () => {
   return useQuery({
     queryKey: ["authenticated"],
     queryFn: async () => {
-      const { data } = await API.get("/auth/isauthenticated");
+      const { data } = await API.get(
+        "/auth/isauthenticated"
+      );
       return data;
     },
     retry: 1,
     retryDelay: 5000,
-    retryOnMount: true,
   });
 };
 

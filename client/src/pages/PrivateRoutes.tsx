@@ -3,16 +3,22 @@ import { Navigate, Outlet } from "react-router-dom";
 import { PropagateLoader } from "react-spinners";
 
 const PrivateRoutes = () => {
-  const isAuthenticated = useAuthenticated();
+  const {
+    data: isAuthenticated,
+    isLoading,
+    isFetched,
+  } = useAuthenticated();
 
-  if (isAuthenticated.isLoading)
+  console.log(isAuthenticated + ` PrivateRoutes.tsx`);
+
+  if (isLoading)
     return (
       <div className="h-[80vh] w-[80%] m-auto flex justify-center items-center">
         <PropagateLoader color="#15bde1" />
       </div>
     );
 
-  return isAuthenticated.isFetched && isAuthenticated.data ? (
+  return isFetched && isAuthenticated ? (
     <Outlet />
   ) : (
     <Navigate to="/login" />
